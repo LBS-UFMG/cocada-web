@@ -1,0 +1,4 @@
+molecular_weight: 53051.39809999998
+aromaticity: 0.09719222462203024
+instability: 31.70112311015119
+isoelectric_point: 5.939697456359863

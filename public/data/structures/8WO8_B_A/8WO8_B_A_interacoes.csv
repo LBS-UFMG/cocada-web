@@ -1,0 +1,9 @@
+Residue_Number1, Atom_Number1, Residue1, Atom1, Residue_Number2, Atom_Number2, Residue2, Atom2, Distance, Type
+A,1, OP1,3,ARG,10,NH2,93,2.697486666990718,hydrogen bond
+A,1, OP1,3,ARG,201,NH2,1624,2.4574168132068226,hydrogen bond
+A,1, OP2,4,ARG,201,NE,1621,3.002639666906581,hydrogen bond
+A,1, OP2,4,ARG,201,NH2,1624,3.3723157910954256,hydrogen bond
+A,1, OP2,4,THR,202,N,1625,2.8248354369747446,hydrogen bond
+A,1, OP2,4,THR,202,OG1,1630,3.3772546864431936,hydrogen bond
+U,2, OP1,25,ARG,173,N,1377,2.9002144130184653,hydrogen bond
+U,2, OP2,26,ARG,173,NH1,1386,3.02602700832202,hydrogen bond

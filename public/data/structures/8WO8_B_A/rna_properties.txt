@@ -1,0 +1,6 @@
+GC_content: 0.0
+Base Composition:
+A: 2
+C: 0
+G: 0
+U: 1
