@@ -130,7 +130,7 @@ class Project extends BaseController
 
 		$data = array();
 		$data['id'] = $id;
-		chmod("../../public/data/$id", 0644);
+		chmod("../../public/data/$id", 0755);
 
         return view('running', $data);
 
