@@ -5,13 +5,17 @@ Date: 12/08/2024
 License: MIT License
 """
 
-from math import dist
 from numpy import dot, arccos, degrees
 from numpy.linalg import norm
 
 from classes import Contact
 from distances import distances
 import conditions
+
+def dist(a1, a2):
+    x1, y1, z1 = a1
+    x2, y2, z2 = a2
+    return ((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)**(1/2)
 
 
 def contact_detection(protein):
