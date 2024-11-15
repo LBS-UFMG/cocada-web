@@ -122,7 +122,7 @@ class Project extends BaseController
 
 		# START cocada PIPELINE *******************************************
 		system("python $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
-		system("/usr/bin/python3 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id || echo 	'error'");
+		system("/usr/bin/python3 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id > $data_folder/$id.log");
 		
 		# renomeia o arquivo com a lista de contatos
 		system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
