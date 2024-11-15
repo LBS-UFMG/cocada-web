@@ -81,7 +81,7 @@ class Project extends BaseController
 		# Create project folder 
 		mkdir("../../public/data/$id");
 		mkdir("../../public/data/$id/tmp");
-		//chmod("../../public/data/$id", 0777);
+		chmod("../../public/data/$id", 0777);
 		//chmod("../../public/data/$id/tmp", 0777);
 
 
@@ -130,6 +130,7 @@ class Project extends BaseController
 
 		$data = array();
 		$data['id'] = $id;
+		chmod("../../public/data/$id", 0644);
 
         return view('running', $data);
 
