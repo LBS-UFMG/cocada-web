@@ -123,6 +123,9 @@ class Project extends BaseController
 		# START cocada PIPELINE *******************************************
 		// system("python $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
 		$saida = shell_exec("/usr/bin/python3.6 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
+
+		system("/usr/bin/python3.6 --version");
+
 		dd($saida);
 
 		
