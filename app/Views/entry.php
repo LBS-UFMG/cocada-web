@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
-<div style="background-color:#e4e4e4; height:180px; margin-bottom: 20px">
+<div style="background-color:#e4e4e4; height:180px; margin: -25px -10px 20px -10px;">
     <div class="container">
         <div class="row">
             <div class="col-md-9 col-xs-12">
@@ -20,7 +20,7 @@
   </button>
   <ul class="dropdown-menu">
     <li><b class="ms-3">Download<br></b></li>
-    <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/2LZM_contacts.txt">Contacts</a></li>
+    <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/contacts.csv">Contacts</a></li>
     <li><a class="dropdown-item" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/data.pdb">PDB file</a></li>
 </ul>
 </div>
@@ -50,24 +50,27 @@
         <div class="col-md-9" ng-if="cttlok">
 
             <div class="btn-group" role="group" aria-label="...">
-              <span class="btn btn-dark" id="basic-addon1"><b>Filters: </b></span>
+              <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
               <div class="btn-group" role="group">
-                <button type="button" id="show_all" class="btn btn-primary">Show all</button>
+                <button type="button" id="show_all" class="btn btn-dark">Show all</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" id="positive" class="btn btn-danger">Positive</button>
+                <button type="button" id="hb" class="btn btn-success">Hydrogen bonds</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" id="negative" class="btn btn-info">Negative</button>
+                <button type="button" id="at" class="btn btn-info">Attractive</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" id="hydrophobic" class="btn btn-success">Hydrophobic</button>
+                <button type="button" id="re" class="btn btn-danger">Repulsive</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" id="aromatic" class="btn btn-warning">Aromatic</button>
+                <button type="button" id="hy" class="btn btn-warning">Hydrophobic</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" id="disulfide" class="btn btn-outline-dark">Disulfide</button>
+                <button type="button" id="ar" class="btn btn-secondary">Aromatic</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>
               </div>
             </div>
             <br>
@@ -84,6 +87,7 @@
                             <th>R2</th>
                             <th>Atom2</th>
                             <th>Distance</th>
+                            <th>Local</th>
                             <th>Type</th>
                         </tr>
                     </thead>
@@ -92,14 +96,32 @@
                         <?php $m = explode(',',$contact); $len_mut = count($m); if(($len_mut <5)or($m[0]=='Chain1')){ continue; } ?>
                         <tr onmouseover="selectID(glviewer,this.children[0].innerHTML,1,'<?php echo 'A'; ?>')" id="<?php echo $m[2].$m[1].'/'.$m[6].$m[5]; ?>">
                             <td><?php echo $m[2].$m[1].'/'.$m[6].$m[5]; ?></td>
-                            <td><?php echo $m[0]; ?></td>
-                            <td><?php echo $m[2];echo $m[1]; ?></td>
-                            <td><?php echo $m[3]; ?></td>
-                            <td><?php echo $m[4]; ?></td>
-                            <td><?php echo $m[6];echo $m[5]; ?></td>
-                            <td><?php echo $m[7]; ?></td>
-                            <td><?php echo $m[8]; ?></td>
-                            <td><?php echo $m[9]; ?></td>
+                            <td><?php echo $m[0]; // chain 1 ?></td> 
+                            <td><?php echo $m[2];echo $m[1]; // res 1 ?></td>
+                            <td><?php echo $m[3]; // atom 1 ?></td>
+                            <td><?php echo $m[4]; // chain 2 ?></td>
+                            <td><?php echo $m[6];echo $m[5]; // res2 ?></td>
+                            <td><?php echo $m[7]; // atom2 ?></td>
+                            <td><?php echo $m[8]; // dist ?></td>
+                            <td>
+                                <?php // local = INTRA ou PPI
+                                if($m[0] == $m[4]){ echo "<span class='badge text-bg-dark'>INTRA</hb>"; } 
+                                else { echo "<span class='badge text-bg-light'>PPI</hb>"; }
+                                ?>
+                            </td>
+                            <td><?php 
+                            //echo $m[9];  // type
+                            switch(trim($m[9])){
+                                case "HB": echo "<span class='badge text-bg-success'>HB</hb>"; break;
+                                case "HY": echo "<span class='badge text-bg-warning'>HY</hb>"; break;
+                                case "AT": echo "<span class='badge text-bg-info'>AT</hb>"; break;
+                                case "RE": echo "<span class='badge text-bg-danger'>RE</hb>"; break;
+                                case "SB": echo "<span class='badge text-bg-primary'>SB</hb>"; break;
+                                default: echo $m[9]; break;
+                            }
+                            
+                            ?></td>
+                            
                        </tr>
                        <?php } ?>
                    </tbody>
@@ -132,23 +154,26 @@ $(document).ready( function () {
     var table = $('#mut').DataTable( {
         "paging": false
     } );
-    $('#negative').click(function(){
-        table.columns(1).search("(D|E)[0-9]",true, false).draw();    
+    $('#at').click(function(){
+        table.columns(9).search("AT",true, false).draw();    
     });
-    $('#positive').click(function(){
-        table.columns(1).search("(R|H|K)[0-9]",true, false).draw();    
+    $('#hb').click(function(){
+        table.columns(9).search("HB",true, false).draw();    
     });
-    $('#aromatic').click(function(){
-        table.columns(1).search("(F|W|Y)[0-9]",true, false).draw();    
+    $('#re').click(function(){
+        table.columns(9).search("RE",true, false).draw();    
     });
-    $('#hydrophobic').click(function(){
-        table.columns(1).search("(A|V|L|F|P|W|M|I)[0-9]",true, false).draw();    
+    $('#ar').click(function(){
+        table.columns(9).search("AR",true, false).draw();    
     });
-    $('#disulfide').click(function(){
-        table.columns(1).search("C.*[0-9]",true, false).columns(4).search("C.*[0-9]",true, false).draw();   
+    $('#hy').click(function(){
+        table.columns(9).search("HY",true, false).draw();    
+    });
+    $('#sb').click(function(){
+        table.columns(9).search("SB",true, false).draw();   
     });
     $('#show_all').click(function(){
-        table.columns(1).search(".*",true,false).draw();    
+        table.columns(9).search(".*",true,false).draw();    
     });
        
     

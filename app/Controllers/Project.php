@@ -36,7 +36,10 @@ class Project extends BaseController
 
             # ********************* Loading data *********************
             # Mutations
-            $contacts_file = fopen('../../public/data/'.$id.'/2LZM_contacts.txt','r');
+			$data_folder = getcwd(); // este código identifica a pasta local
+			$raiz = str_replace("/public/data", "",$data_folder);
+
+			$contacts_file = fopen($data_folder.'/'.$id.'/contacts.csv','r');
             $contacts = array();
             $total_results = 0;
             while (($line = fgets($contacts_file, 4096)) !== false) {
@@ -78,17 +81,18 @@ class Project extends BaseController
 		# Create project folder 
 		mkdir("../../public/data/$id");
 		mkdir("../../public/data/$id/tmp");
-		chmod("../../public/data/$id", 0777);
-		chmod("../../public/data/$id/tmp", 0777);
+		//chmod("../../public/data/$id", 0777);
+		//chmod("../../public/data/$id/tmp", 0777);
 
 
 		# ********************* Receiving post data *********************
 
 		$pdb = $this->request->getPost("pdb");
-
+		$data_folder = getcwd();
+		$raiz = str_replace("/public/data", "",$data_folder);
 
 		# Saving project data
-		$project = fopen('../../public/data/'.$id.'/data.pdb','w');
+		$project = fopen($data_folder.'/'.$id.'/data.pdb','w');
 		fwrite($project,$pdb); 
 		fclose($project);
 
@@ -117,7 +121,10 @@ class Project extends BaseController
 				
 
 		# START cocada PIPELINE *******************************************
-		system("python ../../app/ThirdParty/COCaDA/main.py -f ./$id/data.pdb -o ./$id");
+		system("python $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
+
+		# renomeia o arquivo com a lista de contatos
+		system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
 		$data = array();
 		$data['id'] = $id;
 

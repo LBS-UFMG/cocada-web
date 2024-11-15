@@ -8,6 +8,7 @@
     <p class="mt-4 alert alert-success"><b>Project created!</b><br><b>ID:</b> <?=$id?></p>
     <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">10</span></h1>
 
+    <p><br></p>
     <img src="<?= base_url('img/cocadito.png'); ?>" width="300px">
 
     
