@@ -126,7 +126,7 @@ class Project extends BaseController
 
 		# renomeia o arquivo com a lista de contatos
 		system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
-		// dd("python3 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
+		dd("python3 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
 
 		$data = array();
 		$data['id'] = $id;
