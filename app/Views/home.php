@@ -15,7 +15,7 @@
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Calculate contacts</h1>
 
-            <p class="lead">Insert a PDB or CIF file to calculate contacts using COCaDA algorithm.</p>
+            <p class="lead">Insert a PDB or CIF file to calculate contacts using COCaDA algorithm. </p>
             
             <form action="<?php echo base_url('run'); ?>" method="post" enctype="multipart/form-data">
                 <textarea placeholder="Paste PDB/CIF file here" class="form-control" name="pdb"></textarea>
