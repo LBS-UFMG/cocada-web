@@ -27,8 +27,8 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><b class="ms-3">Download<br></b></li>
-                                <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/contacts.csv">Contacts</a></li>
-                                <li><a class="dropdown-item" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/data.pdb">PDB file</a></li>
+                                <li><a class="dropdown-item mt-2" href="<?=base_url()?>data/projects/<?=$id?>/contacts.csv">Contacts</a></li>
+                                <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/data.<?=$extensao?>">PDB/CIF file</a></li>
                             </ul>
                         </div>
 

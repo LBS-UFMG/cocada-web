@@ -12,7 +12,7 @@
 
         <h1>Running</h1>
         <p>Making a Cocada... wait...</p>
-        <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">3</span></h1>
+        <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">5</span></h1>
 
         </div>
     </div>
@@ -28,7 +28,7 @@
 
     // Função para o contador
     function iniciarContagem() {
-        let tempoRestante = 3; // 3 segundos
+        let tempoRestante = 5; // 5 segundos
         const contadorElemento = document.getElementById("contador");
 
         const intervalo = setInterval(() => {

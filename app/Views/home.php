@@ -173,6 +173,7 @@
     <div class="col">
       <label class="badge bg-light text-dark">Protein single-chain</label>
       <a href="<?= base_url('/entry/1K0P') ?>" class="badge bg-primary azul">1K0P</a>
+      <a href="<?= base_url('/entry/1TMP') ?>" class="badge bg-primary azul">1TMP</a>
       <a href="<?= base_url('/entry/2LZM') ?>" class="badge bg-primary azul">2LZM</a>
       <a href="<?= base_url('/entry/4MDP') ?>" class="badge bg-primary azul">4MDP</a>
     </div>

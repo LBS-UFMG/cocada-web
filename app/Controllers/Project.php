@@ -59,7 +59,14 @@ class Project extends BaseController
             $data['id'] = $id;
             $data['total_results'] = $total_results-3;
 
-            return view('project', $data);
+			if (file_exists($data_folder.'/'.$id.'/data.pdb')){
+				$data['extensao'] = 'pdb';
+			}
+			else{
+				$data['extensao'] = 'cif';
+			}
+
+            return view($view, $data);
 		}
 	}
 
@@ -112,7 +119,12 @@ class Project extends BaseController
 				}
 				else{
 					// Submit file
-					$file->move("$data_folder/$id", 'data.pdb');
+					if($extensao=='pdb'){
+						$file->move("$data_folder/$id", 'data.pdb');
+					}
+					else{
+						$file->move("$data_folder/$id", 'data.cif');
+					}
 				}
 			}
 			else{
@@ -129,8 +141,11 @@ class Project extends BaseController
 				
 		echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
 		# START cocada PIPELINE *******************************************
-		print("python $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
-		system("/usr/bin/python3.6 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
+		$interpretador = "python"; 
+		#$interpretador = "python3";
+		#$interpretador = "/usr/bin/python3.6"; 
+		#$interpretador = "/bin/python3";
+		system("$interpretador $raiz/app/ThirdParty/cocada_alfa/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		
 		# renomeia o arquivo com a lista de contatos
 		system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
