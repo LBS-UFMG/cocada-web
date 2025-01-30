@@ -3,7 +3,7 @@ Author: Rafael Lemos - rafaellemos42@gmail.com
 Date: 12/08/2024
 
 License: MIT License
-"""
+""" 
 
 import os
 from timeit import default_timer as timer
