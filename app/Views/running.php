@@ -3,15 +3,19 @@
 <!-- Conteúdo personalizado -->
 
 <div class="container py-5 text-secondary text-center">
-    <h1>Running</h1>
-    <p>Making a Cocada... wait...</p>
-    <p class="mt-4 alert alert-success"><b>Project created!</b><br><b>ID:</b> <?=$id?></p>
-    <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">10</span></h1>
+    <div class="row">
+        <div class="col-3">
+            <img src="<?= base_url('img/cocadito.png'); ?>" width="300px" class="rounded">
+        </div>
+        <div class="col">
+        <p class="mt-4 alert alert-success"><b>Project created – </b>ID: <a href="<?=base_url('/project/'.$id)?>"><?=$id?></a></p>
 
-    <p><br></p>
-    <img src="<?= base_url('img/cocadito.png'); ?>" width="300px">
+        <h1>Running</h1>
+        <p>Making a Cocada... wait...</p>
+        <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">3</span></h1>
 
-    
+        </div>
+    </div>
 
 </div>
 
@@ -19,12 +23,12 @@
 <script>
     // Função para o redirecionamento
     function redirecionar() {
-        window.location.href = "<?=base_url()?>/project/<?=$id?>";
+        window.location.href = "<?=base_url('/project/'.$id)?>";
     }
 
     // Função para o contador
     function iniciarContagem() {
-        let tempoRestante = 10; // 10 segundos
+        let tempoRestante = 3; // 3 segundos
         const contadorElemento = document.getElementById("contador");
 
         const intervalo = setInterval(() => {

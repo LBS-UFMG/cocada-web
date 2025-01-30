@@ -12,42 +12,38 @@
         <strong class="ms-2">Loading...</strong>
     </div>
 </div>
+
 <div style="background-color:#e4e4e4; height:180px; margin: -25px -10px 20px -10px;">
     <div class="container-fluid px-5">
         <div class="row">
-            <div class="col-md-9 col-xs-12 pt-2">
-                <h2 class="title_h2 pt-4">
-                    <strong><?php echo $id; ?></strong>
-                    <div class="dropdown d-inline ms-2" title="Export files">
-                        <div class="dropdown d-inline">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Download
+            <div class="col-md-9 col-xs-12">
+                <br><br>
+                <h2 class="title_h2">
+                    <div class="dropdown" title="Export files">
+
+                        <div class="dropdown">
+                            <button class="btn btn-lg btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?php echo $id; ?>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><b class="ms-3">Download<br></b></li>
-                                <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>data/pdb/<?=substr($id,0,1)?>/<?=$id?>/<?=$id?>_contacts.csv">Contacts</a></li>
-                                <li><a class="dropdown-item" href="https://files.rcsb.org/download/<?php echo $id; ?>.cif">PDB file</a></li>
+                                <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/contacts.csv">Contacts</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url(); ?>/data/<?php echo $id; ?>/data.pdb">PDB file</a></li>
                             </ul>
                         </div>
+
                     </div>
                 </h2>
-                <div class="col"><p><strong>Description: </strong><?=$info[1]?></p></div>
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; $db=0; ?>
-                            <strong>Residues: </strong><?=$info[2]?>
-                            <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"></span>
+                <p><strong><a href='<?php echo base_url(); ?>result/id/<?php echo $id; ?>'><?php echo base_url(); ?>project/<?php echo $id; ?></a> </strong>
+                            <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; ?>
+                            <span class="mx-2"> | <strong>HB: </strong><span id="hbc"></span>
                             <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
                             <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"></span>
                             <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"></span>
                             <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"></span>
                             <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"></span>
-                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dbc"></span>
-                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond">?</label></sup>
+                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic stacking | SB: Salt Bridge">?</label></sup>
                         </p>
-                    </div>
-                </div>
                 
             </div>
 
@@ -66,7 +62,7 @@
 </div>
 
 
-<div class="container-fluid px-5">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-9" ng-if="cttlok">
 
@@ -93,9 +89,6 @@
                 <div class="btn-group" role="group">
                     <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>
                 </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="db" class="btn btn-light border">Disulfide</button>
-                </div>
             </div>
             <br>
 
@@ -116,14 +109,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($contacts as $contact) {  ?>
-                            <?php 
-                                $m = explode(',', $contact);
-                                $len_mut = count($m);
-                                if (($len_mut < 5) or ($m[0] == 'Chain1')) {
-                                    continue;
-                                }
-                            ?>
+                        <?php foreach ($contacts as $contact) { ?>
+                            <?php $m = explode(',', $contact);
+                            $len_mut = count($m);
+                            if (($len_mut < 5) or ($m[0] == 'Chain1')) {
+                                continue;
+                            } ?>
                             <tr onmouseover="selectID(glviewer,this.children[0].innerHTML,1,'<?php echo 'A'; ?>')" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
                                 <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
                                 <td><?php echo $m[0]; // chain 1 
@@ -169,9 +160,6 @@
                                         case "SB":
                                             echo "<span class='badge text-bg-primary'>SB</hb>";$sb++;
                                             break;
-                                        case "DB":
-                                            echo "<span class='badge text-bg-dark text-white'>DB</hb>";$db++;
-                                            break;
                                         default:
                                             echo "<span class='badge text-bg-light'>$m[9]</hb>";$ar++;
                                             break;
@@ -202,7 +190,7 @@
                 }
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
-                <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
+                <div id="pdb" style="min-height: 400px; height:50vh; width:100%; min-width: 280px"></div>
                 <p style="color:#ccc; text-align: right">Wild protein</p>
             </div>
         </div>
@@ -212,9 +200,9 @@
 <!-- Return to Top -->
 <a href="#" title="Return to top" style="font-size:25px; position:fixed; right:10px; bottom:10px"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
 
-<script>
 
-    // loading
+
+<script>
     $(()=>setTimeout(() => $('#loading').fadeOut(), 1000));
 
     $(()=>{
@@ -224,12 +212,11 @@
         $("#hyc").text(<?=$hy?>);
         $("#arc").text(<?=$ar?>);
         $("#sbc").text(<?=$sb?>);
-        $("#dbc").text(<?=$db?>);
     });
 
     $(document).ready(function() {
         var table = $('#mut').DataTable({
-            "paging": true
+            "paging": false
         });
         $('#at').click(function() {
             table.columns(9).search("AT", true, false).draw();
@@ -248,9 +235,6 @@
         });
         $('#sb').click(function() {
             table.columns(9).search("SB", true, false).draw();
-        });
-        $('#db').click(function() {
-            table.columns(9).search("DS", true, false).draw();
         });
         $('#show_all').click(function() {
             table.columns(9).search(".*", true, false).draw();
@@ -370,8 +354,8 @@
         //var title_pdb = $(".title_h2").text();
         //title_pdb = title_pdb.split(": ")
 
-        var txt = "https://files.rcsb.org/download/<?php echo $id; ?>.pdb";
-        //var txt = "<?php echo base_url(); ?>/data/<?php echo $id; ?>/data.pdb";
+        //var txt = "https://files.rcsb.org/download/"+title_pdb[1]+".pdb";
+        var txt = "<?=base_url('/data/projects/'.$id.'/data.pdb')?>";
 
         $.post(txt, function(d) {
 
@@ -445,10 +429,10 @@
             }
         };
     });
-
 </script>
 
 <?= $this->endSection() ?>
+
 
 <?= $this->section('scripts') ?>
 

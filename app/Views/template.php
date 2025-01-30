@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-    <title>COCaDA-web</title>
+    <title>COCaDA</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="shortcut icon" href="<?= base_url('img/cocada_min.png') ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?= base_url('img/new_logo/favicon.png') ?>" type="image/x-icon">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">   
@@ -14,34 +14,36 @@
 
     <link rel="stylesheet" href="<?php echo base_url('DataTables/datatables.min.css'); ?>">
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="<?= base_url('css/estilo.css') ?>">
     
 </head>
 <body>
    
-    <nav class="py-2 bg-body-tertiary border-bottom menu link-light">
-        <div class="container d-flex flex-wrap">
+    <nav class="py-2 bg-body-tertiary menu link-light">
+        <div class="px-5 container-fluid d-flex flex-wrap">
         <ul class="nav me-auto">
             <li class="nav-item"><a href="<?= base_url() ?>" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#about" class="nav-link link-body-emphasis px-2">About</a></li>
             <li class="nav-item"><a href="<?= base_url('documentation') ?>" class="nav-link link-body-emphasis px-2">Documentation</a></li>
-            <!-- <li class="nav-item"><a href="<?= base_url('download') ?>" class="nav-link link-body-emphasis px-2">Download</a></li>
-            <li class="nav-item"><a href="<?= base_url('explore') ?>" class="nav-link link-body-emphasis px-2">Explore</a></li> -->
+            <li class="nav-item"><a href="<?= base_url('download') ?>" class="nav-link link-body-emphasis px-2">Download</a></li>
+            <li class="nav-item"><a href="<?= base_url('explore') ?>" class="nav-link link-body-emphasis px-2">Explore</a></li> 
+            <li class="nav-item"><a href="<?= base_url('/#run') ?>" class="nav-link link-body-emphasis px-2">Try now</a></li> 
         </ul>
         <ul class="nav">
-            <li class="nav-item"><a href="http://bioinfo.dcc.ufmg.br/coda" 
-            class="nav-link link-body-emphasis px-2">Explore <strong>CODA</strong> (COntacts DAtabase)</a></li>
+            <!-- <li class="nav-item"><a href="http://bioinfo.dcc.ufmg.br/coda"  -->
+            <!-- class="nav-link link-body-emphasis px-2">Explore <strong>CODA</strong> (COntacts DAtabase)</a></li> -->
         </ul>
         </div>
     </nav>
     <header class="py-3 mb-4 border-bottom">
-        <div class="container d-flex flex-wrap justify-content-center">
+        <div class="px-5 container-fluid d-flex flex-wrap justify-content-center">
         <a href="<?= base_url() ?>" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
-            <img src="<?= base_url('/img/logo.png') ?>" width="360px">
+            <img src="<?= base_url('/img/cocada.svg') ?>" width="250">
         </a>
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-            <input type="search" class="form-control form-control-lg mt-2" placeholder="Search on CODA..." aria-label="Search" onkeydown="redirectToURL(event)" id="urlInput">
+        <form class="col-12 col-md-auto mb-3 mb-md-0" role="search">
+            <input type="search" class="form-control form-control-md mt-2" placeholder="Search..." aria-label="Search" onkeydown="redirectToURL(event)" id="urlInput">
         </form>
         </div>
     </header>
@@ -55,14 +57,16 @@
     <footer>
         <div class="container-fluid">
             <div class="row">
-                <div class="col ps-5">
-                    <img src="<?= base_url('/img/cocada-white.png') ?>" width="200px">
-                    <p class="bege small pt-3 col-9">COCαDA (Contact Optimization by alpha-Carbon Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files.</p>
+                <div class="col-12 col-md-6 ps-5">
+                    <img src="<?= base_url('/img/cocada.svg') ?>" width="200px">
+                    <p class="text-light small pt-3 col-9">COCαDA (Contact Optimization by alpha-Carbon Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files.</p>
+
+                    <p style="font-size: 0.7em;color:#ccc">©<?=date('Y')?> COCαDA v1.0 – Interface v2.5.122 | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <a class="text-white" href="https://github.com/LBS-UFMG/cocada">GitHub</a>
                 </div>
 
-                <div class="col">
+                <div class="col-12 col-md-6">
                     <div class="row pt-5">
-                        <div class="col"><img src="<?= base_url('/img/lbs.svg') ?>" width="220px"></div>
+                        <div class="col"><a href="http://bioinfo.dcc.ufmg.br" target="_blank"><img src="<?= base_url('/img/lbs.svg') ?>" width="220px"></a></div>
                         <div class="col"><img src="<?= base_url('/img/dcc_w.svg') ?>" width="170px"></div>
                         <div class="col"><img src="<?= base_url('/img/ufmg_w.svg') ?>" width="200px"></div>
                     </div>
@@ -75,9 +79,9 @@
     <div class="modal fade" tabindex="-1" id="about" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
-        <div class="modal-header bg-light">
+        <div class="modal-header bg-success">
             <div class="text-center">
-            <img width="150" class="me-3" src="<?php echo base_url('/img/logo.png'); ?>">
+            <img width="150" class="me-3" src="<?php echo base_url('/img/cocada.svg'); ?>">
             </div>
             <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
@@ -89,21 +93,25 @@
             </p>
             </div>
             <div class="row text-secondary">
-                <div class="col-md-6">
+                <div class="col-md-8">
 
                     <strong># Created by:</strong><br>
-                    Rafael Lemos / Diego Mariano / Raquel C. de Melo-Minardi<br><br>
+                    Rafael Lemos / Diego Mariano / Sabrina A. Silveira / Raquel C. de Melo-Minardi<br><br>
 
                     <strong># Backend/frontend:</strong><br>
                     Diego Mariano / Rafael Lemos
                 </div>
             </div>
+
+            <span><label class="badge bg-success mt-3">Cite:</label></span>
+            <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">LEMOS, Rafael P.; MARIANO, Diego; SILVEIRA, Sabrina A.; MELO-MINARDI, Raquel C. de. COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices. In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70, 2024. DOI: https://doi.org/10.5753/bsb.2024.245545
+            </p>
         </div>
         <div class="modal-footer">
             <img height="50" class="me-3" src="<?php echo base_url('/img/dcc_b.svg'); ?>">
             <img height="50"  class="me-3" src="<?php echo base_url('/img/ufmg_b.svg'); ?>">
 
-            <button type="button" class="btn btn-primary py-4 px-5" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-success py-4 px-5" data-bs-dismiss="modal">Fechar</button>
         </div>
         </div>
         <!-- /.modal-content -->
@@ -129,15 +137,17 @@
             // Verificar se a tecla pressionada foi Enter (código 13)
             if (event.keyCode === 13) {
                 event.preventDefault(); // Prevenir o envio do formulário
-                var url = document.getElementById('urlInput').value;
+                let url = document.getElementById('urlInput').value;
+                url = url.toUpperCase();
                 if (url) {
-                    if(url.length != 8){
+                    if(url.length != 4){
                         window.location.href = '<?= base_url("/entry/404") ?>';
                     }
                     window.location.href = '<?= base_url() ?>entry/'+url;
                 }
             }
         }
+        
     </script>
 
     <?= $this->renderSection('scripts') ?> 

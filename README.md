@@ -1,3 +1,10 @@
+# cocada-web
+ 
+Contact database built based on analyses of the COCADA tool on data collected from the Protein Data Base (PDB).
+
+## update 2025
+COCADA-WEB and COCADA-DB were merged.
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
