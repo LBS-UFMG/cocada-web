@@ -355,7 +355,7 @@
         //title_pdb = title_pdb.split(": ")
 
         //var txt = "https://files.rcsb.org/download/"+title_pdb[1]+".pdb";
-        var txt = "<?=base_url('/data/projects/'.$id.'/data.pdb')?>";
+        var txt = "<?=base_url('/data/projects/'.$id.'/data.'.$extensao)?>";
 
         $.post(txt, function(d) {
 
@@ -369,7 +369,7 @@
             /* Color background */
             glviewer.setBackgroundColor(0xffffff);
 
-            receptorModel = m = glviewer.addModel(data, "pqr");
+            receptorModel = m = glviewer.addModel(data, '<?=$extensao?>');
 
             /* Type of visualization */
             glviewer.setStyle({}, {
