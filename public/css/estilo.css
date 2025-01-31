@@ -50,3 +50,11 @@ footer{
     z-index: 99999;
     color: white;
 }
+
+#legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}

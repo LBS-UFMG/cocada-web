@@ -7,7 +7,7 @@
 
 <div id="loading">
     <div class="text-center">
-        <img src="<?=base_url('/img/cocadito-loading.png')?>" width="200px"><br>
+        <img src="<?= base_url('/img/cocadito-loading.png') ?>" width="200px"><br>
         <div class="spinner-border spinner-border-sm" role="status"></div>
         <strong class="ms-2">Loading...</strong>
     </div>
@@ -25,18 +25,30 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><b class="ms-3">Download<br></b></li>
-                                <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>data/pdb/<?=substr($id,0,1)?>/<?=$id?>/<?=$id?>_contacts.csv">Contacts</a></li>
+                                <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>data/pdb/<?= substr($id, 0, 1) ?>/<?= $id ?>/<?= $id ?>_contacts.csv">Contacts</a></li>
                                 <li><a class="dropdown-item" href="https://files.rcsb.org/download/<?php echo $id; ?>.cif">PDB file</a></li>
                             </ul>
                         </div>
                     </div>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactMap">
+                        Show contact map <i class="bi bi-image"></i>
+                    </button>
                 </h2>
-                <div class="col"><p><strong>Description: </strong><?=$info[1]?></p></div>
+                <div class="col">
+                    <p><strong>Description: </strong><?= $info[1] ?></p>
+                </div>
                 <div class="row">
                     <div class="col">
                         <p>
-                            <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; $db=0; ?>
-                            <strong>Residues: </strong><?=$info[2]?>
+                            <?php $hb = 0;
+                            $at = 0;
+                            $re = 0;
+                            $hy = 0;
+                            $ar = 0;
+                            $sb = 0;
+                            $db = 0; ?>
+                            <strong>Residues: </strong><?= $info[2] ?>
                             <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"></span>
                             <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
                             <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"></span>
@@ -48,7 +60,7 @@
                         </p>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="col-md-3 col-xs-12" style="height: 180px; background-color: #00bc9e; color:#fff">
@@ -117,12 +129,12 @@
                     </thead>
                     <tbody>
                         <?php foreach ($contacts as $contact) {  ?>
-                            <?php 
-                                $m = explode(',', $contact);
-                                $len_mut = count($m);
-                                if (($len_mut < 5) or ($m[0] == 'Chain1')) {
-                                    continue;
-                                }
+                            <?php
+                            $m = explode(',', $contact);
+                            $len_mut = count($m);
+                            if (($len_mut < 5) or ($m[0] == 'Chain1')) {
+                                continue;
+                            }
                             ?>
                             <tr onmouseover="selectID(glviewer,this.children[0].innerHTML,1,'<?php echo 'A'; ?>')" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
                                 <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
@@ -155,25 +167,32 @@
                                     //echo $m[9];  // type
                                     switch (trim($m[9])) {
                                         case "HB":
-                                            echo "<span class='badge text-bg-success'>HB</hb>";$hb++;
+                                            echo "<span class='badge text-bg-success'>HB</hb>";
+                                            $hb++;
                                             break;
                                         case "HY":
-                                            echo "<span class='badge text-bg-warning'>HY</hb>";$hy++;
+                                            echo "<span class='badge text-bg-warning'>HY</hb>";
+                                            $hy++;
                                             break;
                                         case "AT":
-                                            echo "<span class='badge text-bg-info'>AT</hb>";$at++;
+                                            echo "<span class='badge text-bg-info'>AT</hb>";
+                                            $at++;
                                             break;
                                         case "RE":
-                                            echo "<span class='badge text-bg-danger'>RE</hb>";$re++;
+                                            echo "<span class='badge text-bg-danger'>RE</hb>";
+                                            $re++;
                                             break;
                                         case "SB":
-                                            echo "<span class='badge text-bg-primary'>SB</hb>";$sb++;
+                                            echo "<span class='badge text-bg-primary'>SB</hb>";
+                                            $sb++;
                                             break;
                                         case "DB":
-                                            echo "<span class='badge text-bg-dark text-white'>DB</hb>";$db++;
+                                            echo "<span class='badge text-bg-dark text-white'>DB</hb>";
+                                            $db++;
                                             break;
                                         default:
-                                            echo "<span class='badge text-bg-light'>$m[9]</hb>";$ar++;
+                                            echo "<span class='badge text-bg-light'>$m[9]</hb>";
+                                            $ar++;
                                             break;
                                     }
 
@@ -209,22 +228,72 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="contactMap" tabindex="-1" aria-labelledby="contactMap" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3 text-center w-100" id="contactMapTitle"><strong>Contacts map for <?= $id ?></strong></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            <div id="controls">
+                    <div class="row px-4">
+                        <div class="col">
+                            <label for="chainX">X-axis Chain:</label>
+                            <select id="chainX" class="form-select" onchange="updateChart()"></select>
+                        </div>
+                        <div class="col">
+                            <label for="chainY">Y-axis Chain:</label>
+                            <select id="chainY" class="form-select" onchange="updateChart()"></select>
+                        </div>
+                        <!-- <div class="col">
+                                <button class="btn btn-primary w-100 mt-4" onclick="updateChart()">Update chart</button>
+                            </div> -->
+                        <div class="col">
+                            <button id="saveButton" class="btn btn-success w-100 mt-4" onclick="saveChart()">Save figure</button>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    canvas {
+                        max-width: calc(100vh - 150px) !important;
+                    }
+                </style>
+                <div class="row">
+
+                    <div class="col">
+                        <canvas id="scatterChart" class="p-4"></canvas>
+                        <div id="legend" class="pb-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer bg-white">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Return to Top -->
-<a href="#" title="Return to top" style="font-size:25px; position:fixed; right:10px; bottom:10px"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+<a href="#" title="Return to top" style="position:fixed; right:10px; bottom:10px; color:#cccccc77"><span class="glyphicon glyphicon-chevron-up small" aria-hidden="true">Return to top</span></a>
 
 <script>
-
     // loading
-    $(()=>setTimeout(() => $('#loading').fadeOut(), 1000));
+    $(() => setTimeout(() => $('#loading').fadeOut(), 1000));
 
-    $(()=>{
-        $("#hbc").text(<?=$hb?>);
-        $("#atc").text(<?=$at?>);
-        $("#rec").text(<?=$re?>);
-        $("#hyc").text(<?=$hy?>);
-        $("#arc").text(<?=$ar?>);
-        $("#sbc").text(<?=$sb?>);
-        $("#dbc").text(<?=$db?>);
+    $(() => {
+        $("#hbc").text(<?= $hb ?>);
+        $("#atc").text(<?= $at ?>);
+        $("#rec").text(<?= $re ?>);
+        $("#hyc").text(<?= $hy ?>);
+        $("#arc").text(<?= $ar ?>);
+        $("#sbc").text(<?= $sb ?>);
+        $("#dbc").text(<?= $db ?>);
     });
 
     $(document).ready(function() {
@@ -445,16 +514,162 @@
             }
         };
     });
-
 </script>
 
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-// tooltips
+    // tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+
+    // MAPA DE CONTATOS
+    let allChains = new Set();
+    let allDataPoints = [];
+    let scatterChart;
+    let colorMap = {};
+    const cat10Colors = [
+        '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+        '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
+    ];
+
+    function populateChainSelectors() {
+        const chainX = document.getElementById('chainX');
+        const chainY = document.getElementById('chainY');
+        chainX.innerHTML = "";
+        chainY.innerHTML = "";
+        allChains.forEach(chain => {
+            const optionX = document.createElement("option");
+            optionX.value = optionX.textContent = chain;
+            const optionY = document.createElement("option");
+            optionY.value = optionY.textContent = chain;
+            chainX.appendChild(optionX);
+            chainY.appendChild(optionY);
+        });
+        chainX.value = 'A';
+        chainY.value = 'A';
+    }
+
+    function updateChart() {
+        const selectedX = document.getElementById('chainX').value;
+        const selectedY = document.getElementById('chainY').value;
+        const filteredData = allDataPoints.filter(p => p.c1 === selectedX && p.c2 === selectedY);
+
+        scatterChart.data.datasets[0].data = filteredData;
+        scatterChart.data.datasets[0].pointBackgroundColor = filteredData.map(p => p.backgroundColor);
+        scatterChart.options.scales.x.title.text = `Chain ${selectedX}`;
+        scatterChart.options.scales.y.title.text = `Chain ${selectedY}`;
+        scatterChart.update();
+    }
+
+    function saveChart() {
+        const canvas = document.getElementById('scatterChart');
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'contacts_<?= $id ?>.png';
+        link.click();
+    }
+
+    fetch('<?php echo base_url(); ?>data/pdb/<?= substr($id, 0, 1) ?>/<?= $id ?>/<?= $id ?>_contacts.csv')
+        .then(response => response.text())
+        .then(text => {
+            const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+            lines.shift(); // Ignorar a primeira linha
+            let colorIndex = 0;
+            let legendHTML = "<strong>Caption:</strong>";
+
+            lines.forEach(line => {
+                const values = line.split(',');
+                if (values.length >= 10) {
+                    const c1 = values[0];
+                    const x = parseFloat(values[1]);
+                    const aa1 = values[2];
+                    const at1 = values[3];
+                    const c2 = values[4];
+                    const y = parseFloat(values[5]);
+                    const aa2 = values[6];
+                    const at2 = values[7];
+                    const category = values[9].trim();
+                    const label = `${category} | ${c1}:${aa1}${x} (${at1}) - ${c2}:${aa2}${y} (${at2})`;
+
+                    allChains.add(c1);
+                    allChains.add(c2);
+
+                    if (!colorMap[category]) {
+                        colorMap[category] = cat10Colors[colorIndex % cat10Colors.length];
+                        legendHTML += `<div style='display: flex; align-items: center; gap: 5px;'>
+                    <div style='width: 20px; height: 20px; background-color: ${colorMap[category]};'></div>${category}</div>`;
+                        colorIndex++;
+                    }
+
+                    allDataPoints.push({
+                        x,
+                        y,
+                        c1,
+                        c2,
+                        backgroundColor: colorMap[category],
+                        label
+                    });
+                }
+            });
+
+            document.getElementById('legend').innerHTML = legendHTML;
+            populateChainSelectors();
+
+            const ctx = document.getElementById('scatterChart').getContext('2d');
+            scatterChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Dispersão CSV',
+                        data: allDataPoints.filter(p => p.c1 === 'A' && p.c2 === 'A'),
+                        pointBackgroundColor: allDataPoints.map(p => p.backgroundColor),
+                        borderWidth: 0,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.raw.label;
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Chain A'
+                            },
+                            beginAtZero: false,
+                            min: 1,
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Chain A'
+                            },
+                            beginAtZero: false,
+                            min: 1,
+                        }
+                    }
+                }
+            });
+
+
+        })
+        .catch(error => console.error('Erro ao carregar o arquivo CSV:', error));
 </script>
 <?= $this->endSection() ?>
