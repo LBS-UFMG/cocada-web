@@ -131,3 +131,10 @@ nb-configuration.xml
 /phpunit*.xml
 
 /.php-cs-fixer.php
+app/ThirdParty/COCaDA_web/__pycache__/argparser.cpython-311.pyc
+app/ThirdParty/COCaDA_web/__pycache__/parser.cpython-311.pyc
+app/ThirdParty/COCaDA_web/__pycache__/distances.cpython-311.pyc
+app/ThirdParty/COCaDA_web/__pycache__/contacts.cpython-311.pyc
+app/ThirdParty/COCaDA_web/__pycache__/conditions.cpython-311.pyc
+app/ThirdParty/COCaDA_web/__pycache__/classes.cpython-311.pyc
+app/ThirdParty/COCaDA_web/__pycache__/argparser.cpython-311.pyc

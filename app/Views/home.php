@@ -41,7 +41,7 @@
               <div class="col-md-9 text-end">
                 <h3 class="mt-4">
                   <strong class="texto-azul">
-                    733,012,478
+                    <?=$h1?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>CONTACTS</strong></p>
@@ -60,7 +60,7 @@
               <div class="col-md-9 text-end">
                 <h3 class="mt-4">
                   <strong class="texto-azul">
-                    673,527,550
+                  <?=$h2?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>INTRA-CHAIN CONTACTS</strong></p>
@@ -78,7 +78,7 @@
               </div>
               <div class="col-md-9 text-end">
                 <h3 class="mt-4"><strong class="texto-azul">
-                  59,484,928
+                  <?=$h3?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>INTER-CHAIN CONTACTS</strong></p>
@@ -97,7 +97,7 @@
               <div class="col-md-9 text-end">
                 <h3 class="mt-4">
                   <strong class="texto-azul">
-                    223,505
+                    <?=$h4?> 
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>3D STRUCTURES</strong></p>
@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <h5 class="text-muted small">*Last updated on: Jan 2025</h5>
+    <h5 class="text-muted small">*Last updated on: <?=$update?></h5>
   </div>
 </div>
 

@@ -4,13 +4,10 @@ namespace App\Controllers;
 
 class Project extends BaseController
 {
-    public function index(): string
-    {
-        return view('home');
-    }
-
 
     public function id($id = 'null'){
+		# PÁGINA ENTRY
+
 		$id = substr($id, 0, 6);
 
 		# ********************* Search project *********************
@@ -139,22 +136,24 @@ class Project extends BaseController
         # Security
         #chmod("../../public/data/$id", 0644);
 				
-		echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
+		#echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
 		# START cocada PIPELINE *******************************************
 		$interpretador = "python"; 
 		#$interpretador = "python3";
 		#$interpretador = "/usr/bin/python3.6"; 
 		#$interpretador = "/bin/python3";
-		system("$interpretador $raiz/app/ThirdParty/cocada_alfa/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+		#$versao = 'cocada_alfa'; # stable
+		$versao = 'COCaDA_web';
+		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		
 		# renomeia o arquivo com a lista de contatos
-		system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
+		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
 		// dd("python3 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
 
 		$data = array();
 		$data['id'] = $id;
 		chmod("../../../public/data/projects/$id", 0755);
-		echo '</div></div>'; // end message style box
+		#echo '</div></div>'; // end message style box
         return view('running', $data);
 
 	}

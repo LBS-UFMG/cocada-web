@@ -82,33 +82,20 @@
     <div class="row">
         <div class="col-md-9" ng-if="cttlok">
 
-            <div class="btn-group" role="group" aria-label="...">
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
-                <div class="btn-group" role="group">
-                    <button type="button" id="show_all" class="btn btn-dark">Show all</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="hb" class="btn btn-success">Hydrogen bonds</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="at" class="btn btn-info">Attractive</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="re" class="btn btn-danger">Repulsive</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="hy" class="btn btn-warning">Hydrophobic</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="ar" class="btn btn-secondary">Aromatic</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" id="db" class="btn btn-light border">Disulfide</button>
-                </div>
+                <button type="button" id="show_all" class="btn btn-dark">Show all</button>             
+                <button type="button" id="hb" class="btn btn-success">Hydrogen bonds</button>          
+                <button type="button" id="at" class="btn btn-info">Attractive</button>       
+                <button type="button" id="re" class="btn btn-danger">Repulsive</button>          
+                <button type="button" id="hy" class="btn btn-warning">Hydrophobic</button>              
+                <button type="button" id="ar" class="btn btn-secondary">Aromatic</button>          
+                <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>           
+                <button type="button" id="db" class="btn btn-light border">Disulfide</button>
             </div>
+            
+            <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
+
             <br>
 
             <div class="table-responsive">
@@ -125,6 +112,7 @@
                             <th>Distance</th>
                             <th>Local</th>
                             <th>Type</th>
+                            <th>Show</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -136,7 +124,7 @@
                                 continue;
                             }
                             ?>
-                            <tr onmouseover="selectID(glviewer,this.children[0].innerHTML,1,'<?php echo 'A'; ?>')" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
+                            <tr onclick="selectID(glviewer,this.children[0].innerHTML,1,this.children[1].innerHTML, this.children[3].innerHTML, this.children[6].innerHTML)" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
                                 <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
                                 <td><?php echo $m[0]; // chain 1 
                                     ?></td>
@@ -196,7 +184,12 @@
                                             break;
                                     }
 
-                                    ?></td>
+                                    ?>
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0);"><i class="bi bi-eye-fill"></i></a>
+                                </td>
+
 
                             </tr>
                         <?php } ?>
@@ -300,6 +293,19 @@
         var table = $('#mut').DataTable({
             "paging": true
         });
+        
+        $('#side_chain').click(function() {
+            if ($("#side_chain").prop("checked")) {
+                table
+                    .columns(3).search("CB|CG|CG1|CG2|CD|CD1|CD2|CE|CE1|CE2|CE3|CZ|CZ2|CZ3|CH2|ND1|ND2|NE|NE1|NE2|NZ|OD1|OD2|OE1|OE2|OG|OG1|OH|SD|SG", true, false)
+                    .columns(6).search("CB|CG|CG1|CG2|CD|CD1|CD2|CE|CE1|CE2|CE3|CZ|CZ2|CZ3|CH2|ND1|ND2|NE|NE1|NE2|NZ|OD1|OD2|OE1|OE2|OG|OG1|OH|SD|SG", true, false)
+                    .draw();
+            } else {
+                table.columns(3).search(".*", true, false)
+                    .columns(6).search(".*", true, false).draw();
+            }
+        });
+
         $('#at').click(function() {
             table.columns(9).search("AT", true, false).draw();
         });
@@ -337,10 +343,9 @@
 
     // 3DMOL **********************************************************************
     /* Select ID */
-    function selectID(glviewer, residues, type, chain) {
+    function selectID(glviewer, residues, type, chain, a1, a2) {
 
         residues = residues.split("/");
-
 
         var res1 = residues[0].substr(1);
         var res2 = residues[1].substr(1);
@@ -372,6 +377,30 @@
             resi: [res1, res2],
             chain: chain
         });
+
+        // linha tracejada
+        let atm1 = glviewer.selectedAtoms({ resi: res1, atom: a1 }); // Resíduo 10, átomo O
+        let atm2 = glviewer.selectedAtoms({ resi: res2, atom: a2 }); // Resíduo 20, átomo N
+
+        // Garantir que os átomos foram encontrados antes de desenhar a linha
+        if (atm1.length > 0 && atm2.length > 0) {
+            var atom1 = atm1[0]; // Primeiro átomo correspondente
+            var atom2 = atm2[0]; // Primeiro átomo correspondente
+
+            console.log(atom2,'aqui')
+
+            // Adicionar a linha tracejada entre os átomos
+            glviewer.addLine({
+                dashed: true,
+                start: { x: atom1.x, y: atom1.y, z: atom1.z },
+                end: { x: atom2.x, y: atom2.y, z: atom2.z },
+                color: "red",
+                dashLength: 0.2, // Comprimento dos traços
+                linewidth:5, // Define a grossura da linha
+                gapLength:0.1
+            });
+        }
+        // fim linha tracejada
 
         glviewer.render();
 
