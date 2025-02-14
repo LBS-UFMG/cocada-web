@@ -471,7 +471,7 @@
         var txt = "https://files.rcsb.org/download/<?php echo $id; ?>.pdb";
         //var txt = "<?php echo base_url(); ?>/data/<?php echo $id; ?>/data.pdb";
 
-        $.post(txt, function(d) {
+        $.get(txt, function(d) {
 
             moldata = data = d;
 
