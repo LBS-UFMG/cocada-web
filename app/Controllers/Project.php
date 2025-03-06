@@ -75,10 +75,10 @@ class Project extends BaseController
 		$id = $this->generateRandomString(6);
 		
 		# Read directory
-		try{
+		if (file_exists('../public/data/projects')) {
 			chdir('../public/data/projects');
 		}
-		catch (Exception $e) {
+		else{
 			chdir('../data/projects');
 		}
 		
