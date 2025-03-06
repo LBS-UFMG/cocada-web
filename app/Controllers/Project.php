@@ -75,7 +75,13 @@ class Project extends BaseController
 		$id = $this->generateRandomString(6);
 		
 		# Read directory
-		chdir('../public/data/projects');
+		try{
+			chdir('../public/data/projects');
+		}
+		catch (Exception $e) {
+			chdir('../data/projects');
+		}
+		
 		$arquivos = glob("{*}", GLOB_BRACE);
 
 		# Is the id unique? If not, create a new!
