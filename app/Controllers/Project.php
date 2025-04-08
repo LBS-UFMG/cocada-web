@@ -153,6 +153,8 @@ class Project extends BaseController
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		chmod("../../../public/data/projects/$id", 0777);
 
+		d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+
 		exec("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id",$output, $return_var);
 		echo "<pre>";
 echo "Código de retorno: $return_var\n";
