@@ -153,12 +153,9 @@ class Project extends BaseController
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		chmod("../../../public/data/projects/$id", 0777);
 
-		ob_start(); // Inicia buffer de saída
-
 		echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
-		system("$interpretador $raiz/app/ThirdParty/teste.py",$x);
-		$output = ob_get_clean();
-		echo "<br>$x e $output";
+		system("$interpretador $raiz/app/ThirdParty/teste.py 2>&1",$x);
+		echo $x;
 
 		#system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 exit();
