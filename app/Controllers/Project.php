@@ -153,7 +153,12 @@ class Project extends BaseController
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		chmod("../../../public/data/projects/$id", 0777);
 
-		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+		exec("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id",$output, $return_var);
+		echo "<pre>";
+echo "Código de retorno: $return_var\n";
+echo "Saída:\n" . implode("\n", $output);
+echo "</pre>";
+exit();
 
 		
 		# renomeia o arquivo com a lista de contatos
