@@ -153,7 +153,7 @@ class Project extends BaseController
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		chmod("../../../public/data/projects/$id", 0777);
 
-		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+		dd("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 
 		
 		# renomeia o arquivo com a lista de contatos
