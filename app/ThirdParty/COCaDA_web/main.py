@@ -6,7 +6,7 @@ License: MIT License
 """
 
 import os
-import json
+# import json
 from timeit import default_timer as timer
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from psutil import Process
