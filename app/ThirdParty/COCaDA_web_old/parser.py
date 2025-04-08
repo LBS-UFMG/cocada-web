@@ -46,9 +46,6 @@ def parse_pdb(pdb_file):
     current_protein = Protein()
     current_chain = None
     current_residue = None
-    current_entity = None
-    entity_chains = {}
-    entity = None
 
     with open(pdb_file) as f:
         
@@ -59,33 +56,27 @@ def parse_pdb(pdb_file):
             
             if line == "ENDMDL":
                 break
-            
-            # for interface checking
-            elif line.startswith("COMPND"):
-                if "MOL_ID" in line:
-                    current_entity = line[-2]
-                elif "CHAIN" in line:
-                    chains = line.split(":")[1].strip().replace(";","").replace(" ","")
-                    entity_chains[current_entity] = chains.split(",")
-        
+
             elif line.startswith("HEADER"):
-                current_protein.id = line[62:]
+                if ("RNA" in line or "DNA" in line): 
+                    current_protein.id = pdb_file.split("/")[-1][:4]
+                    current_protein.title = "DNA/RNA"
+                    break
+                else:
+                    current_protein.id = line[62:]
                 
             elif line.startswith("TITLE"):
                 current_protein.set_title(line[10:])
                 
             elif line.startswith("ATOM"):
                 chain_id = line[21]
-                if entity_chains and chain_id in entity_chains[current_entity]:
-                    entity = current_entity
                 resnum = int(line[22:26])
-                # if resnum <= 0:
-                #     continue
+                if resnum <= 0:
+                    continue
                 resname = line[17:20]
                 
-                # alternative names for protonated histidines
-                if resname in ["HID", "HIE", "HSP", "HSD", "HSE"]: 
-                    resname = "HIS"
+                if resname == "HIE" or resname == "HID":  # alternative names for protonated histidines
+                    resname = "HIS" 
                 
                 if resname not in residue_mapping:
                     continue
@@ -119,7 +110,7 @@ def parse_pdb(pdb_file):
                 if occupancy == 0 or occupancy >= 0.5: # ignores low quality atoms
                     if current_residue.atoms and current_residue.atoms[-1].atomname == atomname: # ignores the second one if both have occupancy == 0.5
                         continue
-                    atom = Atom(atomname, x, y, z, occupancy, current_residue, entity) # creates atom
+                    atom = Atom(atomname, x, y, z, occupancy, current_residue) # creates atom
                     current_residue.atoms.append(atom)
                 else:
                     continue
@@ -133,7 +124,7 @@ def parse_pdb(pdb_file):
                     if all_atoms_have_occupancy_one and len(current_residue.atoms) == stacking[current_residue.resname][0]:
                         ring_atoms = array([[atom.x, atom.y, atom.z] for atom in current_residue.atoms if atom.atomname in stacking[current_residue.resname]])
 
-                        centroid_atom = centroid(current_residue, ring_atoms, entity)
+                        centroid_atom = centroid(current_residue, ring_atoms)
                         current_residue.atoms.append(centroid_atom)
                         current_residue.ring = True
 
@@ -221,19 +212,13 @@ def parse_cif(cif_file):
                 atomname_index = atom_lines.index("label_atom_id")
                 resname_index = atom_lines.index("label_comp_id")
                 chain_index = atom_lines.index("label_asym_id")
-                
-                if "auth_seq_id" in atom_lines:
-                    resnum_index = atom_lines.index("auth_seq_id")
-                else:
-                    resnum_index = atom_lines.index("label_seq_id")
-                
+                resnum_index = atom_lines.index("label_seq_id")
                 x_index = atom_lines.index("Cartn_x")
                 y_index = atom_lines.index("Cartn_y")
                 z_index = atom_lines.index("Cartn_z")
                 occupancy_index = atom_lines.index("occupancy")
                 model_index = atom_lines.index("pdbx_PDB_model_num")
                 atom_element_index = atom_lines.index("type_symbol")
-                entity_index = atom_lines.index("label_entity_id")
                                                                
                 atomsite_block = False
                 atominfo_block = True
@@ -254,12 +239,11 @@ def parse_cif(cif_file):
                 chain_id = line[chain_index]
                 
                 resnum = int(line[resnum_index])
-                # if resnum <= 0:
-                #     continue
+                if resnum <= 0:
+                    continue
                 resname = line[resname_index]
 
-                # alternative names for protonated histidines
-                if resname in ["HID", "HIE", "HSP", "HSD", "HSE"]: 
+                if resname in ["HID", "HIE", "HSP", "HSD", "HSE"]: # alternative names for protonated histidines
                     resname = "HIS" 
 
                 if resname not in residue_mapping:
@@ -290,13 +274,11 @@ def parse_cif(cif_file):
                     
                 x, y, z = float(line[x_index]), float(line[y_index]), float(line[z_index])
                 occupancy = float(line[occupancy_index])
-                
-                entity = line[entity_index]
                     
                 if (occupancy == 0 or occupancy >= 0.5): # ignores low quality atoms
                     if current_residue.atoms and current_residue.atoms[-1].atomname == atomname: # ignores the second one if both have occupancy == 0.5
                         continue
-                    atom = Atom(atomname, x, y, z, occupancy, current_residue, entity) # creates atom
+                    atom = Atom(atomname, x, y, z, occupancy, current_residue) # creates atom
                     current_residue.atoms.append(atom)
                 else:
                     continue
@@ -308,14 +290,13 @@ def parse_cif(cif_file):
                     
                     # if ring has only one conformation and the residue is complete (all atoms populated)
                     if all_atoms_have_occupancy_one and len(current_residue.atoms) == stacking[current_residue.resname][0]:
-                        ring_atoms = array([[atom.x, atom.y, atom.z] for atom in current_residue.atoms if atom.atomname in stacking[current_residue.resname]])
-                        if ring_atoms.any():
-                            centroid_atom = centroid(current_residue, ring_atoms, entity)
-                            current_residue.atoms.append(centroid_atom)
-                            current_residue.ring = True # flags the aromatic residue
+                        ring_atoms = array([[atom.x, atom.y, atom.z] for atom in current_residue.atoms if atom.atomname in stacking[current_residue.resname]])                        
+                        centroid_atom = centroid(current_residue, ring_atoms)
+                        current_residue.atoms.append(centroid_atom)
+                        current_residue.ring = True # flags the aromatic residue
 
-                            normal_vector = calc_normal_vector(ring_atoms)
-                            current_residue.normal_vector = normal_vector
+                        normal_vector = calc_normal_vector(ring_atoms)
+                        current_residue.normal_vector = normal_vector
 
             elif atominfo_block and line == "#":
                 if resname in residue_mapping:
@@ -323,13 +304,13 @@ def parse_cif(cif_file):
                 atominfo_block = False 
     
     if title is not None:
-        current_protein.set_title(title.title().replace("'","").replace('"','').replace(",","."))
+        current_protein.set_title(title.title().replace("'",""))
     else:
         current_protein.set_title(None)
     return current_protein
 
 
-def centroid(residue, ring_atoms, entity):
+def centroid(residue, ring_atoms):
     """
     Calculates the centroid of a set of ring atoms and creates a centroid Atom.
 
@@ -345,7 +326,7 @@ def centroid(residue, ring_atoms, entity):
     """
     
     centroid = mean(ring_atoms, axis = 0)
-    centroid_atom = Atom("RNG", centroid[0], centroid[1], centroid[2], 1, residue, entity)
+    centroid_atom = Atom("RNG", centroid[0], centroid[1], centroid[2], 1, residue)
     
     return centroid_atom
 

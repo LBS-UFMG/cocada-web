@@ -14,7 +14,7 @@ from distances import distances
 import conditions
 
 
-def contact_detection(protein, region, interface, custom_distances, epsilon):
+def contact_detection(protein):
     """
     Detects contacts between atoms in a given protein.
 
@@ -27,37 +27,24 @@ def contact_detection(protein, region, interface, custom_distances, epsilon):
 
     residues = list(protein.get_residues())
     contacts = []
-    interface_res = set()
-    max_ca_distance = 20.47 # 0.01 higher than the Arg-Arg pair
     
-    categories = custom_distances if custom_distances else conditions.categories
-
-    if epsilon > 0:
-        max_ca_distance += epsilon
-        updated_distances = {key: value + epsilon for key, value in distances.items()}
-    else:
-        updated_distances = distances
-        
     for i, residue1 in enumerate(residues[1:]):
         for _, residue2 in enumerate(residues[i+1:], start=i+1):
             
             if residue1.resnum == residue2.resnum and residue1.chain.id == residue2.chain.id: # ignores same residue
                 continue
             
-            if region and (residue1.resnum not in region or residue2.resnum not in region):
-                continue
-
             if len(residue1.atoms) > 1 and len(residue2.atoms) > 1:
                 ca1, ca2 = residue1.atoms[1], residue2.atoms[1] # alpha carbons
 
                 distance_ca = dist((ca1.x, ca1.y, ca1.z), (ca2.x, ca2.y, ca2.z))
                 
                 # filter distant residues (static value then specific values)
-                if distance_ca > max_ca_distance:
+                if distance_ca > 20.4:
                     continue
                 else:
                     key = ''.join(sorted((residue1.resname, residue2.resname)))
-                    if distance_ca > (updated_distances[key] + epsilon):
+                    if distance_ca > distances[key]:
                         continue
 
             else:
@@ -66,14 +53,9 @@ def contact_detection(protein, region, interface, custom_distances, epsilon):
             # CHECKING FOR AROMATIC STACKINGS
             if residue1.ring and residue2.ring:
                 ring1, ring2 = residue1.atoms[-1], residue2.atoms[-1] # RNG atoms
-                if interface and ring1.entity == ring2.entity:
-                    continue
-                
                 distance = dist((ring1.x, ring1.y, ring1.z), (ring2.x, ring2.y, ring2.z))
                 angle = calc_angle(residue1.normal_vector, residue2.normal_vector)
-                
-                aromatic_range = categories['aromatic']
-                if aromatic_range[0] <= distance <= aromatic_range[1]:
+                if distance >= 2 and distance <= 5: # within aromatic stacking limits
                     if (160 <= angle < 180) or (0 <= angle < 20):
                         stack_type = "-parallel"
                     elif (80 <= angle < 100):
@@ -89,20 +71,15 @@ def contact_detection(protein, region, interface, custom_distances, epsilon):
                     
             for atom1 in residue1.atoms:
                 for atom2 in residue2.atoms:
-                    
-                    if interface and atom1.entity == atom2.entity:
-                        continue
-                    
                     name1 = f"{atom1.residue.resname}:{atom1.atomname}" # matches the pattern from conditions dictionary
                     name2 = f"{atom2.residue.resname}:{atom2.atomname}"
-
+                    
                     if name1 in conditions.contact_types and name2 in conditions.contact_types: # excludes the RNG atom and any different other
                         
                         distance = dist((atom1.x, atom1.y, atom1.z), (atom2.x, atom2.y, atom2.z))
                         
                         if distance <= 6: # max distance for contacts
-
-                            for contact_type, distance_range in categories.items():
+                            for contact_type, distance_range in conditions.categories.items():
 
                                 if contact_type == 'hydrogen_bond' and (abs(residue2.resnum - residue1.resnum) <= 3): # skips alpha-helix for h-bonds
                                     continue
@@ -115,9 +92,8 @@ def contact_detection(protein, region, interface, custom_distances, epsilon):
                                                         float(f"{distance:.2f}"), contact_type, atom1, atom2)
 
                                         contacts.append(contact)
-                                        
-                                        interface_res.add(f"{residue1.chain.id},{residue1.resnum},{residue1.resname}")
-    return contacts, interface_res
+                                                                                                                
+    return contacts
 
 
 def show_contacts(contacts):
@@ -134,13 +110,12 @@ def show_contacts(contacts):
     output = []
     
     output.append("Chain1,Res1,ResName1,Atom1,Chain2,Res2,ResName2,Atom2,Distance,Type")
-    for contact in contacts:
-        output.append(contact.print_text())
+    for entry in contacts:
+        output.append(entry.print_text())
         
     return "\n".join(output) # returns as a string to be written directly into the file
 
 
-# COCaDA-web exclusive
 def count_contacts(contacts):
     """
     Formats and returns the number of contacts for each type. Only works with the -o flag.
