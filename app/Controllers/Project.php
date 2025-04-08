@@ -145,7 +145,7 @@ class Project extends BaseController
 		#echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
 		# START cocada PIPELINE *******************************************
 		$interpretador = "python"; 
-		$interpretador = "python3.8";
+		$interpretador = "/usr/bin/python3.8";
 		#$interpretador = "/usr/bin/python3.6"; 
 		#$interpretador = "/bin/python3";
 		#$versao = 'cocada_alfa'; # stable
@@ -166,7 +166,7 @@ exit();
 		$data = array();
 		$data['id'] = $id;
 		#echo '</div></div>'; // end message style box
-		#chmod("../../../public/data/projects/$id", 0755);
+		chmod("../../../public/data/projects/$id", 0755);
 
 		return view('running', $data);
 
