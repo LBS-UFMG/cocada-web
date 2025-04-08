@@ -154,10 +154,9 @@ class Project extends BaseController
 		chmod("../../../public/data/projects/$id", 0777);
 
 		echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
-		system("$interpretador $raiz/app/ThirdParty/teste.py 2>&1",$x);
+		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id  2>&1",$x);
 		echo $x;
 
-		#system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 exit();
 
 		
