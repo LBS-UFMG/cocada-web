@@ -153,13 +153,12 @@ class Project extends BaseController
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		chmod("../../../public/data/projects/$id", 0777);
 
-		echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
-		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id  2>&1",$x);
-		echo $x;
+		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
+		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id  2>&1",$error_log);
+// 		echo $error_log;
 
-exit();
+// exit();
 
-		
 		# renomeia o arquivo com a lista de contatos
 		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
 		// dd("python3 $raiz/app/ThirdParty/COCaDA/main.py -f $data_folder/$id/data.pdb -o $data_folder/$id");
@@ -167,7 +166,7 @@ exit();
 		$data = array();
 		$data['id'] = $id;
 		#echo '</div></div>'; // end message style box
-		#chmod("../../../public/data/projects/$id", 0755);
+		chmod("../../../public/data/projects/$id", 0755);
 
 		return view('running', $data);
 
