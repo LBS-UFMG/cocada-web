@@ -163,7 +163,7 @@ class Project extends BaseController
 		$data = array();
 		$data['id'] = $id;
 		#echo '</div></div>'; // end message style box
-		chmod("../../../public/data/projects/$id", 0755);
+		#chmod("../../../public/data/projects/$id", 0755);
 
 		return view('running', $data);
 
