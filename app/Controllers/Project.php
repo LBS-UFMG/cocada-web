@@ -155,8 +155,10 @@ class Project extends BaseController
 
 		echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		system("$interpretador $raiz/app/ThirdParty/teste.py");
+		$output = ob_get_clean();
+		echo "<br>".$output;
 
-		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+		#system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 exit();
 
 		
