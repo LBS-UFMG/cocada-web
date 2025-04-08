@@ -151,7 +151,9 @@ class Project extends BaseController
 		#$versao = 'cocada_alfa'; # stable
 		$versao = 'COCaDA_web';
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
-		dd("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+		chmod("../../../public/data/projects/$id", 0755);
+
+		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 
 		
 		# renomeia o arquivo com a lista de contatos
@@ -160,7 +162,6 @@ class Project extends BaseController
 
 		$data = array();
 		$data['id'] = $id;
-		chmod("../../../public/data/projects/$id", 0755);
 		#echo '</div></div>'; // end message style box
 
 		return view('running', $data);
