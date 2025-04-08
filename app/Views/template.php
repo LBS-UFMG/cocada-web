@@ -61,7 +61,7 @@
                     <img src="<?= base_url('/img/cocada.svg') ?>" width="200px">
                     <p class="text-light small pt-3 col-9">COCαDA (Contact Optimization by alpha-Carbon Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files.</p>
 
-                    <p style="font-size: 0.6em;color:#ccc">©<?=date('Y')?> COCαDA v1.0 – Interface v2.5.306 | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <a class="text-white" href="https://github.com/LBS-UFMG/cocada">GitHub</a>
+                    <p style="font-size: 0.6em;color:#ccc">©<?=date('Y')?> COCαDA v1.0 – Interface v2.5.408 | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <a class="text-white" href="https://github.com/LBS-UFMG/cocada">GitHub</a>
                 </div>
 
                 <div class="col-12 col-md-6">
