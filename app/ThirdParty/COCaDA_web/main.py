@@ -176,7 +176,7 @@ def process_result(result, output):
         print(output_data)
         
         if output:
-            output_folder = f"{output}"
+            output_folder = f"{output}/"
             
             # COCaDA-web exclusive
             number_contacts = contacts.count_contacts(contacts_list)
