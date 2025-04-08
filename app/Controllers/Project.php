@@ -142,7 +142,7 @@ class Project extends BaseController
         # Security
         #chmod("../../public/data/$id", 0644);
 				
-		#echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
+		echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
 		# START cocada PIPELINE *******************************************
 		$interpretador = "python"; 
 		$interpretador = "python3.8";
@@ -150,14 +150,11 @@ class Project extends BaseController
 		#$interpretador = "/bin/python3";
 		#$versao = 'cocada_alfa'; # stable
 		$versao = 'COCaDA_web';
-		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		chmod("../../../public/data/projects/$id", 0777);
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id  2>&1",$error_log);
-// 		echo $error_log;
-
-// exit();
+		// 	echo $error_log;
 
 		# renomeia o arquivo com a lista de contatos
 		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
@@ -165,7 +162,7 @@ class Project extends BaseController
 
 		$data = array();
 		$data['id'] = $id;
-		#echo '</div></div>'; // end message style box
+		echo '</div></div>'; // end message style box
 		chmod("../../../public/data/projects/$id", 0755);
 
 		return view('running', $data);
