@@ -151,7 +151,7 @@ class Project extends BaseController
 		#$versao = 'cocada_alfa'; # stable
 		$versao = 'COCaDA_web';
 		#d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
-		chmod("../../../public/data/projects/$id", 0755);
+		chmod("../../../public/data/projects/$id", 0777);
 
 		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 
@@ -163,6 +163,7 @@ class Project extends BaseController
 		$data = array();
 		$data['id'] = $id;
 		#echo '</div></div>'; // end message style box
+		chmod("../../../public/data/projects/$id", 0755);
 
 		return view('running', $data);
 
