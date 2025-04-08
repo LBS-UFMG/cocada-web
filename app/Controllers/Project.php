@@ -150,7 +150,9 @@ class Project extends BaseController
 		#$interpretador = "/bin/python3";
 		#$versao = 'cocada_alfa'; # stable
 		$versao = 'COCaDA_web';
+		d("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
 		system("$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id");
+
 		
 		# renomeia o arquivo com a lista de contatos
 		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
@@ -160,6 +162,7 @@ class Project extends BaseController
 		$data['id'] = $id;
 		chmod("../../../public/data/projects/$id", 0755);
 		#echo '</div></div>'; // end message style box
+		exit();
         return view('running', $data);
 
 	}
