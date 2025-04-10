@@ -144,7 +144,7 @@ class Project extends BaseController
 				
 		echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
 		# START cocada PIPELINE *******************************************
-		$interpretador = "python"; 
+		$interpretador = "/home/liase/miniconda3/bin/python"; 
 		#$interpretador = "python3.8";
 		#$interpretador = "/usr/bin/python3.6"; 
 		#$interpretador = "/bin/python3";
