@@ -172,23 +172,43 @@
       <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
         <div class="accordion-body">
           
-          <strong>Change contact cutoff values (check default values <a href="<?=base_url('/documentation/#cutoff_values')?>">here</a>):</strong>
+          <div class="row">
+            <div class="col">
 
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Hydrogen </label>
+              <h3>Cutoffs</h3>
+              <strong>Change contact cutoff values (check default values <a href="<?=base_url('/documentation/#cutoff_values')?>">here</a>):</strong>
+
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Hydrogen </label>
+              </div>
+              
+              <span class="badge text-bg-primary">Hydrogen bonds</span>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="minhb">Min</span>
+                <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                <span class="input-group-text" id="maxhb">Max</span>
+                <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+              </div>
+
+              <span class="badge text-bg-primary">Hydrophobic</span>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="minhb">Min</span>
+                <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                <span class="input-group-text" id="maxhb">Max</span>
+                <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+              </div>
+            </div>
+
+            <div class="col">
+              <h3>pH</h3>
+              <strong>Change the pH (default is 7.4):</strong>
+              <input type="range" min="0" max="14" step="0.1" name="ph" value="7.4">
+
+            </div>
           </div>
-          
-          <span class="badge text-bg-primary">Hydrogen bonds</span>
-
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="minhb">Min</span>
-            <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
-            <span class="input-group-text" id="maxhb">Max</span>
-            <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
-          </div>
-
-
         </div>
       </div>
     </div>
