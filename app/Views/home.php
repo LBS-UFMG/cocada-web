@@ -170,7 +170,7 @@
           Advanced options
         </button>
       </h2>
-      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#adv_opt">
+      <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
         <div class="accordion-body">
           teste
         </div>
