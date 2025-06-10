@@ -41,7 +41,7 @@
               <div class="col-md-9 text-end">
                 <h3 class="mt-4">
                   <strong class="texto-azul">
-                    <?=$h1?>
+                    <?= $h1 ?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>CONTACTS</strong></p>
@@ -60,7 +60,7 @@
               <div class="col-md-9 text-end">
                 <h3 class="mt-4">
                   <strong class="texto-azul">
-                  <?=$h2?>
+                    <?= $h2 ?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>INTRA-CHAIN CONTACTS</strong></p>
@@ -78,7 +78,7 @@
               </div>
               <div class="col-md-9 text-end">
                 <h3 class="mt-4"><strong class="texto-azul">
-                  <?=$h3?>
+                    <?= $h3 ?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>INTER-CHAIN CONTACTS</strong></p>
@@ -97,7 +97,7 @@
               <div class="col-md-9 text-end">
                 <h3 class="mt-4">
                   <strong class="texto-azul">
-                    <?=$h4?> 
+                    <?= $h4 ?>
                   </strong>
                 </h3>
                 <p class="text-muted small"><strong>3D STRUCTURES</strong></p>
@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <h5 class="text-muted small">*Last updated on: <?=$update?></h5>
+    <h5 class="text-muted small">*Last updated on: <?= $update ?></h5>
   </div>
 </div>
 
@@ -171,76 +171,102 @@
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
         <div class="accordion-body">
-          
+
           <div class="row">
             <div class="col">
 
               <h4>Cutoffs</h4>
-              <p>Change contact cutoff values (check default values <a href="<?=base_url('/documentation/#cutoff_values')?>">here</a>):</p>
-              
-              <span class="badge text-bg-success">Hydrogen bonds</span>
+              <p>Change contact cutoff values (check default values <a href="<?= base_url('/documentation/#cutoff_values') ?>">here</a>):</p>
 
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minhb">Min</span>
-                <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxhb">Max</span>
-                <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+              <div class="row">
+                <div class="col">
+                  <span class="badge text-bg-success">Hydrogen bonds</span>
+
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minhb">Min</span>
+                    <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxhb">Max</span>
+                    <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+                  </div>
+
+
+                </div>
+                <div class="col">
+                  <span class="badge text-bg-light">Disulfide Bond</span>
+
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minds">Min</span>
+                    <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxds">Max</span>
+                    <input type="text" class="form-control" placeholder="2.8" aria-label="max" aria-describedby="maxhb">
+                  </div>
+                </div>
               </div>
 
-              <span class="badge text-bg-light">Disulfide Bond</span>
+              <div class="row">
+                <div class="col">
+                  <span class="badge text-bg-warning">Hydrophobic</span>
 
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minds">Min</span>
-                <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxds">Max</span>
-                <input type="text" class="form-control" placeholder="2.8" aria-label="max" aria-describedby="maxhb">
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minhy">Min</span>
+                    <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxhy">Max</span>
+                    <input type="text" class="form-control" placeholder="4.5" aria-label="max" aria-describedby="maxhb">
+                  </div>
+
+
+                </div>
+                <div class="col">
+                  <span class="badge text-bg-danger">Repulsive</span>
+
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minre">Min</span>
+                    <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxre">Max</span>
+                    <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
+                  </div>
+                </div>
               </div>
 
-              <span class="badge text-bg-warning">Hydrophobic</span>
+              <div class="row">
+                <div class="col">
 
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minhy">Min</span>
-                <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxhy">Max</span>
-                <input type="text" class="form-control" placeholder="4.5" aria-label="max" aria-describedby="maxhb">
+                  <span class="badge text-bg-info">Attractive</span>
+
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minat">Min</span>
+                    <input type="text" class="form-control" placeholder="3.9" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxat">Max</span>
+                    <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
+                  </div>
+
+
+                </div>
+                <div class="col">
+                  <span class="badge text-bg-primary">Salt Bridge</span>
+
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minsb">Min</span>
+                    <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxsb">Max</span>
+                    <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+                  </div>
+                </div>
               </div>
 
-              <span class="badge text-bg-danger">Repulsive</span>
+              <div class="row">
+                <div class="col">
+                  <span class="badge text-bg-secondary">Aromatic Stacking</span>
 
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minre">Min</span>
-                <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxre">Max</span>
-                <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="minas">Min</span>
+                    <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
+                    <span class="input-group-text" id="maxas">Max</span>
+                    <input type="text" class="form-control" placeholder="5" aria-label="max" aria-describedby="maxhb">
+                  </div>
+                </div>
               </div>
 
-              <span class="badge text-bg-info">Attractive</span>
-
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minat">Min</span>
-                <input type="text" class="form-control" placeholder="3.9" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxat">Max</span>
-                <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
-              </div>
-
-              <span class="badge text-bg-primary">Salt Bridge</span>
-
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minsb">Min</span>
-                <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxsb">Max</span>
-                <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
-              </div>
-            
-
-            <span class="badge text-bg-secondary">Aromatic Stacking</span>
-
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="minas">Min</span>
-                <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
-                <span class="input-group-text" id="maxas">Max</span>
-                <input type="text" class="form-control" placeholder="5" aria-label="max" aria-describedby="maxhb">
-              </div>
             </div>
 
             <div class="col border-start">
@@ -250,8 +276,8 @@
               <p id="nameph" class="text-center text-muted">7.4</p>
 
               <script>
-                $(document).ready(function () {
-                  $('#ph').on('input', function () {
+                $(document).ready(function() {
+                  $('#ph').on('input', function() {
                     $('#nameph').text($('#ph').val());
                   });
                 });
