@@ -152,7 +152,7 @@
       </form>
 
     </div>
-    <div class="col border-start">
+    <div class="col border-start pb-4">
       <label class="badge text-bg-light">or type a PDB ID</label>
       <div class="input-group mb-3 w-50">
         <input type="text" id="pdb_go" class="form-control" placeholder="e.g., 2LZM" aria-label="PDB ID" aria-describedby="explore" onkeydown="redirectToURL2(event)">
