@@ -270,9 +270,16 @@
             </div>
 
             <div class="col border-start">
-              <h4>pH</h4>
-              <p>Change the pH (default is 7.4):</p>
-              <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
+              
+              <h4>Filter chains</h4>
+                <input type="radio" name="filter_chains" selected> All
+                <input type="radio" name="filter_chains"> Only interchain contacts
+                <input type="radio" name="filter_chains"> Only intrachain contacts
+                <input type="radio" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C">
+
+              <h4>pH (not available yet)</h4>
+              <p>Change the pH value (default is 7.4):</p>
+              <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range" disabled>
               <p id="nameph" class="text-center text-muted">7.4</p>
 
               <script>
