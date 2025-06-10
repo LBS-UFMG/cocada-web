@@ -176,7 +176,7 @@
             <div class="col p-4">
 
               <h4>Cutoffs</h4>
-              <p>Change contact cutoff values (check default values <a href="<?= base_url('/documentation/#cutoff_values') ?>">here</a>):</p>
+              <p>Change contact cutoff values (check default values <a target="_blank" href="<?= base_url('/documentation/#cutoff_values') ?>">here</a>):</p>
 
               <div class="row">
                 <div class="col">
