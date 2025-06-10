@@ -231,9 +231,9 @@
                 <span class="input-group-text" id="maxsb">Max</span>
                 <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
               </div>
-            </div>
+            
 
-            <span class="badge text-bg-primary">Aromatic Stacking	</span>
+            <span class="badge text-bg-primary">Aromatic Stacking</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minas">Min</span>
@@ -241,19 +241,20 @@
                 <span class="input-group-text" id="maxas">Max</span>
                 <input type="text" class="form-control" placeholder="5" aria-label="max" aria-describedby="maxhb">
               </div>
+            </div>
 
             <div class="col">
               <h4>pH</h4>
               <strong>Change the pH (default is 7.4):</strong>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
-              <label id="nameph" for="ph" class="form-label">7.4</label>
+              <label id="nameph" for="ph" class="text-center text-muted">7.4</label>
 
               <script>
-                $("#ph").onchange(()=>{
-                  $('#nameph').text(
-                    'teste'
-                  )
-                })
+                $(document).ready(function () {
+                  $('#ph').on('input', function () {
+                    $('#nameph').text($(this).val());
+                  });
+                });
               </script>
 
             </div>
