@@ -147,7 +147,6 @@
 
         <div class="input-group">
           <input type="file" class="form-control" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
-          <button class="btn btn-success azul" type="submit" id="run">Run</button>
         </div>
 
       </form>
@@ -178,6 +177,7 @@
     </div>
   </div>
 
+  <button class="btn btn-success azul" type="submit" id="run">Run</button>
 
 </div>
 
