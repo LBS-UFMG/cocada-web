@@ -24,7 +24,7 @@
 <br>
 <hr>
 
-<h4 class="pt-4 pb-1">Contact rules</h4>
+<h4 class="pt-4 pb-1" id="cutoff_values">Contact rules</h4>
 <table class="table table-condensed table-hover table-striped">
   <caption><strong>Distance criteria for defining contacts.</strong>dist = Euclidean distance between the atom pair.</caption>
   <thead>
