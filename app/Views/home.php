@@ -180,7 +180,7 @@
               
               <span class="badge text-bg-success">Hydrogen bonds</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minhb">Min</span>
                 <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxhb">Max</span>
@@ -189,7 +189,7 @@
 
               <span class="badge text-bg-light">Disulfide Bond</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minds">Min</span>
                 <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxds">Max</span>
@@ -198,7 +198,7 @@
 
               <span class="badge text-bg-warning">Hydrophobic</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minhy">Min</span>
                 <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxhy">Max</span>
@@ -207,7 +207,7 @@
 
               <span class="badge text-bg-danger">Repulsive</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minre">Min</span>
                 <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxre">Max</span>
@@ -216,7 +216,7 @@
 
               <span class="badge text-bg-info">Attractive</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minat">Min</span>
                 <input type="text" class="form-control" placeholder="3.9" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxat">Max</span>
@@ -225,7 +225,7 @@
 
               <span class="badge text-bg-primary">Salt Bridge</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minsb">Min</span>
                 <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxsb">Max</span>
@@ -235,7 +235,7 @@
 
             <span class="badge text-bg-secondary">Aromatic Stacking</span>
 
-              <div class="input-group mb-3">
+              <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="minas">Min</span>
                 <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
                 <span class="input-group-text" id="maxas">Max</span>
@@ -247,7 +247,7 @@
               <h4>pH</h4>
               <p>Change the pH (default is 7.4):</p>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
-              <label id="nameph" class="text-center text-muted">7.4</label>
+              <p id="nameph" class="text-center text-muted">7.4</p>
 
               <script>
                 $(document).ready(function () {
