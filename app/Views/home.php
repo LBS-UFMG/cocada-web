@@ -243,7 +243,7 @@
               </div>
             </div>
 
-            <div class="col">
+            <div class="col border-start">
               <h4>pH</h4>
               <p>Change the pH (default is 7.4):</p>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
