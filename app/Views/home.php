@@ -272,10 +272,10 @@
             <div class="col border-start">
               
               <h4>Filter chains</h4>
-                <input type="radio" name="filter_chains" selected> All
-                <input type="radio" name="filter_chains"> Only interchain contacts
-                <input type="radio" name="filter_chains"> Only intrachain contacts
-                <input type="radio" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C">
+                <input type="radio" name="filter_chains" checked> All <br>
+                <input type="radio" name="filter_chains"> Only interchain contacts <br>
+                <input type="radio" name="filter_chains"> Only intrachain contacts<br>
+                <input type="radio" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C"><br class="mb-4">
 
               <h4>pH (not available yet)</h4>
               <p>Change the pH value (default is 7.4):</p>
