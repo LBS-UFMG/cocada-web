@@ -255,7 +255,7 @@
               </div>
 
               <div class="row">
-                <div class="col">
+                <div class="col-6">
                   <span class="badge text-bg-secondary">Aromatic Stacking</span>
 
                   <div class="input-group input-group-sm mb-3">
