@@ -170,10 +170,10 @@
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
-        <div class="accordion-body text-muted">
+        <div class="accordion-body text-muted small">
 
           <div class="row">
-            <div class="col">
+            <div class="col p-4">
 
               <h4>Cutoffs</h4>
               <p>Change contact cutoff values (check default values <a href="<?= base_url('/documentation/#cutoff_values') ?>">here</a>):</p>
@@ -269,7 +269,7 @@
 
             </div>
 
-            <div class="col border-start">
+            <div class="col border-start p-4">
               
               <h4>Filter chains</h4>
               <p>Select the chains you want to calculate contacts for.</p>
@@ -278,7 +278,7 @@
                 <input type="radio" name="filter_chains"> Only intrachain contacts<br>
                 <input type="radio" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C">
                 
-              <h4 class="mt-4">pH (not available yet)</h4>
+              <h4 class="mt-5">pH (not available yet)</h4>
               <p>Change the pH value (default is 7.4):</p>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range" disabled>
               <p id="nameph" class="text-center text-muted">7.4</p>
