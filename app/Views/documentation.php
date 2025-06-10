@@ -26,49 +26,57 @@
 
 <h4 class="pt-4 pb-1">Contact rules</h4>
 <table class="table table-condensed table-hover table-striped">
-  <caption><strong>Summary of Types, Range and Conditions for contacts to occur.</strong><br>D<sub>a</sub> = Euclidean distance between the atom pair.</caption>
+  <caption><strong>Distance criteria for defining contacts.</strong><br>dist = Euclidean distance between the atom pair.</caption>
   <thead>
     <tr>
       <th>Contact Type</th>
-      <th>Range (Å)</th>
-      <th>Condition (other than range)</th>
+      <th>Distance range (Å)</th>
+      <th>Description</th>
+      <th>Acronym</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Hydrogen Bond</td>
-      <td>0 ≤ D<sub>a</sub> ≤ 3.9</td>
-      <td>Acceptor + Donor atoms</td>
+      <td>0 ≤ dist ≤ 3.9</td>
+      <td>Acceptor and Donor atoms pair</td>
+      <td>HB</td>
     </tr>
     <tr>
       <td>Disulfide Bond</td>
-      <td>0 ≤ D<sub>a</sub> ≤ 2.8</td>
-      <td>Cys:SG + Cys:SG atoms</td>
+      <td>0 ≤ dist ≤ 2.8</td>
+      <td>Cys:SG atoms pair</td>
+      <td>DS</td>
     </tr>
     <tr>
       <td>Hydrophobic</td>
-      <td>2.0 ≤ D<sub>a</sub> ≤ 4.5</td>
-      <td>Hydrophobic + Hydrophobic atoms</td>
+      <td>2.0 ≤ dist ≤ 4.5</td>
+      <td>Hydrophobic atoms pair</td>
+      <td>HY</td>
     </tr>
     <tr>
       <td>Repulsive</td>
-      <td>2.0 ≤ D<sub>a</sub> ≤ 6.0</td>
+      <td>2.0 ≤ dist ≤ 6.0</td>
       <td>Equally charged atoms</td>
+      <td>RE</td>
     </tr>
     <tr>
       <td>Attractive</td>
-      <td>3.9 ≤ D<sub>a</sub> ≤ 6.0</td>
+      <td>3.9 ≤ dist ≤ 6.0</td>
       <td>Differently charged atoms</td>
+      <td>AT</td>
     </tr>
     <tr>
       <td>Salt Bridge</td>
-      <td>0 ≤ D<sub>a</sub> ≤ 3.9</td>
-      <td>Equally charged atoms + hydrogen bonding</td>
+      <td>0 ≤ dist ≤ 3.9</td>
+      <td>Equally charged atoms AND hydrogen bonding</td>
+      <td>SB</td>
     </tr>
     <tr>
       <td>Aromatic Stacking</td>
-      <td>2.0 ≤ D<sub>a</sub> ≤ 5.0</td>
+      <td>2.0 ≤ dist ≤ 5.0</td>
       <td>Centroids of two aromatic rings in <br>parallel or perpendicular orientation</td>
+      <td>AS</td>
     </tr>
   </tbody>
 </table>
