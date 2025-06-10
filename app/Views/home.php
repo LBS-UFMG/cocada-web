@@ -177,7 +177,7 @@
     </div>
   </div>
 
-  <button class="btn btn-success azul  w-100 mt-4" type="submit" id="run">Run</button>
+  <button class="btn btn-success azul btn-lg  w-100 mt-4" type="submit" id="run">Run</button>
 
 </div>
 
