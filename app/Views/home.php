@@ -111,7 +111,7 @@
   </div>
 </div>
 
-<div class="container mt-5" id="run">
+<div class="container mt-5">
   <div class="row">
     <div class="col-xs-12 col-lg-12">
       <div class="alert alert-light shadow my-4 " style="border-left: #6cbd16 5px solid">
@@ -131,7 +131,7 @@
 
 <!-- ************************ RUN ************************ -->
 
-<div class="container mt-5 border rounded p-5 bg-light">
+<div class="container mt-5 border rounded p-5 bg-light" id="run">
 
   <h1><strong>Run COCαDA-web</strong></h1>
   <hr>
@@ -161,6 +161,8 @@
       </div>
     </div>
   </div>
+
+  
 </div>
 
 <!-- ************************ EXAMPLES ************************ -->
