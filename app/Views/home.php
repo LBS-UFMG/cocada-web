@@ -178,7 +178,7 @@
               <h4>Cutoffs</h4>
               <p>Change contact cutoff values (check default values <a href="<?=base_url('/documentation/#cutoff_values')?>">here</a>):</p>
               
-              <span class="badge text-bg-primary">Hydrogen bonds</span>
+              <span class="badge text-bg-success">Hydrogen bonds</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minhb">Min</span>
@@ -187,7 +187,7 @@
                 <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
               </div>
 
-              <span class="badge text-bg-primary">Disulfide Bond	</span>
+              <span class="badge text-bg-light">Disulfide Bond</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minds">Min</span>
@@ -196,7 +196,7 @@
                 <input type="text" class="form-control" placeholder="2.8" aria-label="max" aria-describedby="maxhb">
               </div>
 
-                            <span class="badge text-bg-primary">Hydrophobic</span>
+              <span class="badge text-bg-warning">Hydrophobic</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minhy">Min</span>
@@ -205,7 +205,7 @@
                 <input type="text" class="form-control" placeholder="4.5" aria-label="max" aria-describedby="maxhb">
               </div>
 
-                            <span class="badge text-bg-primary">Repulsive</span>
+              <span class="badge text-bg-danger">Repulsive</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minre">Min</span>
@@ -214,7 +214,7 @@
                 <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
               </div>
 
-                            <span class="badge text-bg-primary">Attractive</span>
+              <span class="badge text-bg-info">Attractive</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minat">Min</span>
@@ -223,7 +223,7 @@
                 <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
               </div>
 
-                            <span class="badge text-bg-primary">Salt Bridge</span>
+              <span class="badge text-bg-primary">Salt Bridge</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minsb">Min</span>
@@ -233,7 +233,7 @@
               </div>
             
 
-            <span class="badge text-bg-primary">Aromatic Stacking</span>
+            <span class="badge text-bg-secondary">Aromatic Stacking</span>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="minas">Min</span>
@@ -245,14 +245,14 @@
 
             <div class="col">
               <h4>pH</h4>
-              <strong>Change the pH (default is 7.4):</strong>
+              <p>Change the pH (default is 7.4):</p>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
-              <label id="nameph" for="ph" class="text-center text-muted">7.4</label>
+              <label id="nameph" class="text-center text-muted">7.4</label>
 
               <script>
                 $(document).ready(function () {
                   $('#ph').on('input', function () {
-                    $('#nameph').text($(this).val());
+                    $('#nameph').text($('#ph').val());
                   });
                 });
               </script>
