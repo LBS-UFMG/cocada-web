@@ -26,7 +26,7 @@
 
 <h4 class="pt-4 pb-1">Contact rules</h4>
 <table class="table table-condensed table-hover table-striped">
-  <caption><strong>Distance criteria for defining contacts.</strong><br>dist = Euclidean distance between the atom pair.</caption>
+  <caption><strong>Distance criteria for defining contacts.</strong>dist = Euclidean distance between the atom pair.</caption>
   <thead>
     <tr>
       <th>Contact Type</th>
@@ -39,19 +39,19 @@
     <tr>
       <td>Hydrogen Bond</td>
       <td>0 ≤ dist ≤ 3.9</td>
-      <td>Acceptor and Donor atoms pair</td>
+      <td>Acceptor and Donor atom pair</td>
       <td>HB</td>
     </tr>
     <tr>
       <td>Disulfide Bond</td>
       <td>0 ≤ dist ≤ 2.8</td>
-      <td>Cys:SG atoms pair</td>
+      <td>Cys:SG atom pair</td>
       <td>DS</td>
     </tr>
     <tr>
       <td>Hydrophobic</td>
       <td>2.0 ≤ dist ≤ 4.5</td>
-      <td>Hydrophobic atoms pair</td>
+      <td>Hydrophobic atom pair</td>
       <td>HY</td>
     </tr>
     <tr>
