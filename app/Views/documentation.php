@@ -24,6 +24,56 @@
 <br>
 <hr>
 
+<h4 class="pt-4 pb-1">Contact rules</h4>
+<table class="table table-condensed table-hover table-striped">
+  <caption><strong>Summary of Types, Range and Conditions for contacts to occur.</strong><br>D<sub>a</sub> = Euclidean distance between the atom pair.</caption>
+  <thead>
+    <tr>
+      <th>Contact Type</th>
+      <th>Range (Å)</th>
+      <th>Condition (other than range)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Hydrogen Bond</td>
+      <td>0 ≤ D<sub>a</sub> ≤ 3.9</td>
+      <td>Acceptor + Donor atoms</td>
+    </tr>
+    <tr>
+      <td>Disulfide Bond</td>
+      <td>0 ≤ D<sub>a</sub> ≤ 2.8</td>
+      <td>Cys:SG + Cys:SG atoms</td>
+    </tr>
+    <tr>
+      <td>Hydrophobic</td>
+      <td>2.0 ≤ D<sub>a</sub> ≤ 4.5</td>
+      <td>Hydrophobic + Hydrophobic atoms</td>
+    </tr>
+    <tr>
+      <td>Repulsive</td>
+      <td>2.0 ≤ D<sub>a</sub> ≤ 6.0</td>
+      <td>Equally charged atoms</td>
+    </tr>
+    <tr>
+      <td>Attractive</td>
+      <td>3.9 ≤ D<sub>a</sub> ≤ 6.0</td>
+      <td>Differently charged atoms</td>
+    </tr>
+    <tr>
+      <td>Salt Bridge</td>
+      <td>0 ≤ D<sub>a</sub> ≤ 3.9</td>
+      <td>Equally charged atoms + hydrogen bonding</td>
+    </tr>
+    <tr>
+      <td>Aromatic Stacking</td>
+      <td>2.0 ≤ D<sub>a</sub> ≤ 5.0</td>
+      <td>Centroids of two aromatic rings in <br>parallel or perpendicular orientation</td>
+    </tr>
+  </tbody>
+</table>
+
+
 <h3 class="pt-5 pb-1">How to use COCαDA-web</h3>
 
 <h4 class="pt-2 pb-1" id="landing_page1">Landing Page</h4>
