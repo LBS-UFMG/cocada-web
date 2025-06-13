@@ -223,7 +223,10 @@
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
                 <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
-                <p style="color:#ccc; text-align: right"><button class="btn btn-link" onclick="reset()">Clear</button></p>
+                <p style="color:#ccc; text-align: right" class="small">
+                    <button class="btn btn-link btn-sm" onclick="zoom()">Zoom</button></p>
+                    <button class="btn btn-link btn-sm" onclick="reset()">Clear</button>
+                </p>
             </div>
         </div>
     </div>
