@@ -489,7 +489,7 @@
     function zoom(){
         $("#col1").removeClass('col-md-9').addClass('col-md-6')
         $("#col2").removeClass('col-md-3').addClass('col-md-6')
-        $("#pdb canva").css('width', '100%');
+        $("canva").css('width', '100%');
     }
 
     function reset(){
