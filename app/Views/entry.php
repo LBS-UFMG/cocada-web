@@ -397,8 +397,6 @@
             });
         }
 
-        console.log(type)
-
         // linha tracejada
         let atm1 = glviewer.selectedAtoms({ resi: res1, atom: a1, chain: chain1 }); // Resíduo 10, átomo O
         let atm2 = glviewer.selectedAtoms({ resi: res2, atom: a2, chain: chain2 }); // Resíduo 20, átomo N
@@ -487,6 +485,7 @@
     function reset(){
        
         console.log("Reiniciando visualização")
+        glviewer.removeAllModels();
 
         /* Color background */
         glviewer.setBackgroundColor(0xffffff);
