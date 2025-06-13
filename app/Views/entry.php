@@ -124,7 +124,15 @@
                                 continue;
                             }
                             ?>
-                            <tr onclick="selectID(glviewer,this.children[0].innerHTML,1,this.children[1].innerHTML, this.children[3].innerHTML, this.children[6].innerHTML)" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
+                            <tr onclick="selectID(
+                            glviewer,
+                            this.children[0].innerHTML, // residues, 
+                            1, // type, 
+                            this.children[1].innerHTML,  // chain 1, 
+                            this.children[4].innerHTML,  // chain 2, 
+                            this.children[3].innerHTML,  // a1, 
+                            this.children[6].innerHTML  // a2
+                            )" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
                                 <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
                                 <td><?php echo $m[0]; // chain 1 
                                     ?></td>
@@ -343,14 +351,12 @@
 
     // 3DMOL **********************************************************************
     /* Select ID */
-    function selectID(glviewer, residues, type, chain, a1, a2) {
+    function selectID(glviewer, residues, type, chain1, chain2, a1, a2) {
 
         residues = residues.split("/");
 
         var res1 = residues[0].substr(1);
         var res2 = residues[1].substr(1);
-
-        console.log(glviewer, residues, type, chain, a1, a2)
 
         glviewer.setStyle({}, {
             line: {
@@ -380,7 +386,7 @@
 
         glviewer.zoomTo({
             resi: [res1, res2],
-            chain: chain
+            chain: [chain1, chain2]
         });
 
         // linha tracejada
