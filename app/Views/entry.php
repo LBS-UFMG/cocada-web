@@ -485,7 +485,6 @@
     function reset(){
        
         console.log("Reiniciando visualização")
-        glviewer.removeAllModels();
 
         /* Color background */
         glviewer.setBackgroundColor(0xffffff);
@@ -506,6 +505,9 @@
 
         glviewer.zoomTo();
         glviewer.render();
+
+        location.reload();
+
     }
 
     $(document).ready(function() {
