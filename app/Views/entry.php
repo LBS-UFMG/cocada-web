@@ -384,14 +384,22 @@
             }
         });
 
-        glviewer.zoomTo({
-            resi: [res1, res2],
-            chain: chain1
-        });
+        if(type == 'INTRA'){
+            glviewer.zoomTo({
+                resi: [res1, res2],
+                chain: chain1
+            });
+        }
+        else if(type=='INTER'){
+            glviewer.zoomTo({
+                resi: res1,
+                chain: chain1
+            });
+        }
 
         // linha tracejada
-        let atm1 = glviewer.selectedAtoms({ resi: res1, atom: a1 }); // Resíduo 10, átomo O
-        let atm2 = glviewer.selectedAtoms({ resi: res2, atom: a2 }); // Resíduo 20, átomo N
+        let atm1 = glviewer.selectedAtoms({ resi: res1, atom: a1, chain: chain1 }); // Resíduo 10, átomo O
+        let atm2 = glviewer.selectedAtoms({ resi: res2, atom: a2, chain: chain2 }); // Resíduo 20, átomo N
 
         // Garantir que os átomos foram encontrados antes de desenhar a linha
         if (atm1.length > 0 && atm2.length > 0) {
