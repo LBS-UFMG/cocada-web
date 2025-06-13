@@ -484,6 +484,31 @@
 
     }
 
+    function reset(){
+        /* Creating visualization */
+        glviewer = $3Dmol.createViewer("pdb", {
+            defaultcolors: $3Dmol.rasmolElementColors
+        });
+
+        /* Color background */
+        glviewer.setBackgroundColor(0xffffff);
+
+        receptorModel = m = glviewer.addModel(data, "pqr");
+
+        /* Type of visualization */
+        glviewer.setStyle({}, {
+            line: {
+                color: 'grey'
+            },
+            cartoon: {
+                color: 'white'
+            }
+        }); /* Cartoon multi-color */
+        glviewer.mapAtomProperties($3Dmol.applyPartialCharges);
+        glviewer.zoomTo();
+        glviewer.render();
+    }
+
     $(document).ready(function() {
 
         //var title_pdb = $(".title_h2").text();
