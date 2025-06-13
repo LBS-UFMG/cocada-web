@@ -408,7 +408,7 @@
             var atom1 = atm1[0]; // Primeiro átomo correspondente
             var atom2 = atm2[0]; // Primeiro átomo correspondente
 
-            console.log(atom2,'aqui')
+            //console.log(atom2,'aqui')
 
             // Adicionar a linha tracejada entre os átomos
             glviewer.addLine({
@@ -487,7 +487,7 @@
     function reset(){
        
         console.log("Reiniciando visualização")
-        
+
         /* Color background */
         glviewer.setBackgroundColor(0xffffff);
 
@@ -500,7 +500,7 @@
                 color: 'white'
             }
         }); /* Cartoon multi-color */
-
+        glviewer.lines = []; // apaga todas as linhas
         glviewer.zoomTo();
         glviewer.render();
     }
