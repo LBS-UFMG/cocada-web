@@ -362,7 +362,7 @@
 
         glviewer.setStyle({}, {
             line: {
-                color: 'green'
+                color: 'grey'
             },
             cartoon: {
                 color: 'white'
