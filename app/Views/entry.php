@@ -222,8 +222,6 @@
                 }
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
-                                    <button class="btn btn-link btn-sm" onclick="zoom()">Zoom</button></p>
-
                 <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
                 <p style="color:#ccc; text-align: right" class="small">
                     <button class="btn btn-link btn-sm" onclick="reset()">Clear</button>
@@ -483,19 +481,6 @@
                 }
             }
         };
-
-    }
-
-    function zoom(){
-        $("#col1").removeClass('col-md-9').addClass('col-md-6')
-        $("#col2").removeClass('col-md-3').addClass('col-md-6')
-        $('canvas').attr({ 
-        width: $('canvas').attr('width') * 2, 
-        height: $('canvas').attr('height') * 2 
-        }).css({ 
-        width: parseInt($('canvas').css('width'), 10) * 2, 
-        height: parseInt($('canvas').css('height'), 10) * 2 
-        });
 
     }
 
