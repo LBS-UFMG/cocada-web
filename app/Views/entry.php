@@ -47,7 +47,7 @@
                             $hy = 0;
                             $ar = 0;
                             $sb = 0;
-                            $db = 0; ?>
+                            $ds = 0; ?>
                             <strong>Residues: </strong><?= $info[2] ?>
                             <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"></span>
                             <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
@@ -55,7 +55,7 @@
                             <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"></span>
                             <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"></span>
                             <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"></span>
-                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dbc"></span>
+                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"></span>
                             <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond">?</label></sup>
                         </p>
                     </div>
@@ -91,7 +91,7 @@
                 <button type="button" id="hy" class="btn btn-warning">Hydrophobic</button>              
                 <button type="button" id="ar" class="btn btn-secondary">Aromatic</button>          
                 <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>           
-                <button type="button" id="db" class="btn btn-light border">Disulfide</button>
+                <button type="button" id="ds" class="btn btn-light border">Disulfide</button>
             </div>
             
             <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
@@ -174,9 +174,9 @@
                                             echo "<span class='badge text-bg-primary'>SB</hb>";
                                             $sb++;
                                             break;
-                                        case "DB":
-                                            echo "<span class='badge text-bg-dark text-white'>DB</hb>";
-                                            $db++;
+                                        case "DS":
+                                            echo "<span class='badge text-bg-dark text-white'>DS</hb>";
+                                            $ds++;
                                             break;
                                         default:
                                             echo "<span class='badge text-bg-light'>$m[9]</hb>";
@@ -286,7 +286,7 @@
         $("#hyc").text(<?= $hy ?>);
         $("#arc").text(<?= $ar ?>);
         $("#sbc").text(<?= $sb ?>);
-        $("#dbc").text(<?= $db ?>);
+        $("#dsc").text(<?= $ds ?>);
     });
 
     $(document).ready(function() {
@@ -324,7 +324,7 @@
         $('#sb').click(function() {
             table.columns(9).search("SB", true, false).draw();
         });
-        $('#db').click(function() {
+        $('#ds').click(function() {
             table.columns(9).search("DS", true, false).draw();
         });
         $('#show_all').click(function() {
