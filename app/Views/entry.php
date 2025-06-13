@@ -384,13 +384,13 @@
             }
         });
 
-        if(type == 'INTRA'){
+        if(type.includes('INTRA')){
             glviewer.zoomTo({
                 resi: [res1, res2],
                 chain: chain1
             });
         }
-        else if(type=='INTER'){
+        else if(type.includes('INTER')){
             glviewer.zoomTo({
                 resi: res1,
                 chain: chain1
