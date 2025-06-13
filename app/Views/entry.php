@@ -500,7 +500,11 @@
                 color: 'white'
             }
         }); /* Cartoon multi-color */
-        glviewer.lines = []; // apaga todas as linhas
+       
+        // Limpe as lines
+        let model = glviewer.getModel(0);
+        model.lines = []; 
+
         glviewer.zoomTo();
         glviewer.render();
     }
