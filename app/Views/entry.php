@@ -361,7 +361,7 @@
         glviewer.setStyle({
             resi: res1
         }, {
-            cartoon: {opacity:0.7},
+            //cartoon: {opacity:0.7},
             stick: {
                 colorscheme: 'whiteCarbon'
             }
