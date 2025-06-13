@@ -223,7 +223,7 @@
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
                 <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
-                <p style="color:#ccc; text-align: right">Wild protein</p>
+                <p style="color:#ccc; text-align: right"><button class="btn btn-link" onclick="reset()">Clear</button></p>
             </div>
         </div>
     </div>
@@ -485,15 +485,11 @@
     }
 
     function reset(){
-        /* Creating visualization */
-        glviewer = $3Dmol.createViewer("pdb", {
-            defaultcolors: $3Dmol.rasmolElementColors
-        });
-
+       
+        console.log("Reiniciando visualização")
+        
         /* Color background */
         glviewer.setBackgroundColor(0xffffff);
-
-        receptorModel = m = glviewer.addModel(data, "pqr");
 
         /* Type of visualization */
         glviewer.setStyle({}, {
@@ -504,7 +500,7 @@
                 color: 'white'
             }
         }); /* Cartoon multi-color */
-        glviewer.mapAtomProperties($3Dmol.applyPartialCharges);
+
         glviewer.zoomTo();
         glviewer.render();
     }
