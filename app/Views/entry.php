@@ -80,7 +80,7 @@
 
 <div class="container-fluid px-5">
     <div class="row">
-        <div class="col-md-9" ng-if="cttlok">
+        <div class="col-md-9" ng-if="cttlok" id="col1">
 
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
@@ -207,7 +207,7 @@
         </div>
 
 
-        <div class="col-md-3">
+        <div class="col-md-3" id="col2">
 
             <style>
                 .affix {
@@ -222,9 +222,10 @@
                 }
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
+                                    <button class="btn btn-link btn-sm" onclick="zoom()">Zoom</button></p>
+
                 <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
                 <p style="color:#ccc; text-align: right" class="small">
-                    <button class="btn btn-link btn-sm" onclick="zoom()">Zoom</button></p>
                     <button class="btn btn-link btn-sm" onclick="reset()">Clear</button>
                 </p>
             </div>
@@ -485,29 +486,35 @@
 
     }
 
+    function zoom(){
+        $("#col1").removeClass('col-md-9').addClass('col-md-6')
+        $("#col2").removeClass('col-md-3').addClass('col-md-6')
+        $("#pdb canva").addClass('w-100')
+    }
+
     function reset(){
        
         console.log("Reiniciando visualização")
 
-        /* Color background */
-        glviewer.setBackgroundColor(0xffffff);
+        // /* Color background */
+        // glviewer.setBackgroundColor(0xffffff);
 
-        /* Type of visualization */
-        glviewer.setStyle({}, {
-            line: {
-                color: 'grey'
-            },
-            cartoon: {
-                color: 'white'
-            }
-        }); /* Cartoon multi-color */
+        // /* Type of visualization */
+        // glviewer.setStyle({}, {
+        //     line: {
+        //         color: 'grey'
+        //     },
+        //     cartoon: {
+        //         color: 'white'
+        //     }
+        // }); /* Cartoon multi-color */
        
-        // Limpe as lines
-        let model = glviewer.getModel(0);
-        model.lines = []; 
+        // // Limpe as lines
+        // let model = glviewer.getModel(0);
+        // model.lines = []; 
 
-        glviewer.zoomTo();
-        glviewer.render();
+        // glviewer.zoomTo();
+        // glviewer.render();
 
         location.reload();
 
