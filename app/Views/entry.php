@@ -350,6 +350,8 @@
         var res1 = residues[0].substr(1);
         var res2 = residues[1].substr(1);
 
+        alert(residues)
+
         glviewer.setStyle({}, {
             line: {
                 color: 'grey'
