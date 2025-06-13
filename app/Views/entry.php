@@ -127,7 +127,7 @@
                             <tr onclick="selectID(
                             glviewer,
                             this.children[0].innerHTML, // residues, 
-                            1, // type, 
+                            this.children[8].innerHTML, // type, => inter ou intra
                             this.children[1].innerHTML,  // chain 1, 
                             this.children[4].innerHTML,  // chain 2, 
                             this.children[3].innerHTML,  // a1, 
@@ -367,7 +367,7 @@
             }
         }); /* Cartoon multi-color */
         glviewer.setStyle({
-            resi: res1
+            resi: res1, chain: chain1
         }, {
             cartoon: {opacity:0.7},
             stick: {
@@ -376,7 +376,7 @@
         });
 
         glviewer.setStyle({
-            resi: res2
+            resi: res2, chain: chain2
         }, {
             cartoon: {opacity:0.7},
             stick: {
@@ -386,7 +386,7 @@
 
         glviewer.zoomTo({
             resi: [res1, res2],
-            chain: [chain1, chain2]
+            chain: chain1
         });
 
         // linha tracejada
