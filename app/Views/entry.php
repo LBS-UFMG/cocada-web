@@ -370,6 +370,7 @@
         glviewer.setStyle({
             resi: res2
         }, {
+            cartoon: {},
             stick: {
                 colorscheme: 'whiteCarbon'
             }
