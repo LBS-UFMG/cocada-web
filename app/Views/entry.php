@@ -489,7 +489,14 @@
     function zoom(){
         $("#col1").removeClass('col-md-9').addClass('col-md-6')
         $("#col2").removeClass('col-md-3').addClass('col-md-6')
-        $("canvas").css('width', '100%');
+        $('canvas').attr({ 
+        width: $('canvas').attr('width') * 2, 
+        height: $('canvas').attr('height') * 2 
+        }).css({ 
+        width: parseInt($('canvas').css('width'), 10) * 2, 
+        height: parseInt($('canvas').css('height'), 10) * 2 
+        });
+
     }
 
     function reset(){
