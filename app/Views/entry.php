@@ -361,12 +361,11 @@
         glviewer.setStyle({
             resi: res1
         }, {
+            cartoon: {},
             stick: {
                 colorscheme: 'whiteCarbon'
             }
         });
-
-        glviewer.setStyle({ resi: res1 }, { cartoon: {} });
 
         glviewer.setStyle({
             resi: res2
@@ -375,9 +374,6 @@
                 colorscheme: 'whiteCarbon'
             }
         });
-
-        glviewer.setStyle({ resi: res2 }, { cartoon: {} });
-
 
         glviewer.zoomTo({
             resi: [res1, res2],
