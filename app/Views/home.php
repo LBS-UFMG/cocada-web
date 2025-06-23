@@ -149,7 +149,7 @@
           <input type="file" class="form-control" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
         </div>
 
-      </form>
+      
 
     </div>
     <div class="col border-start pb-3">
@@ -299,6 +299,8 @@
   </div>
 
   <button class="btn btn-success azul btn-lg  w-100 mt-4" type="submit" id="run">Run</button>
+
+  </form>
 
 </div>
 
