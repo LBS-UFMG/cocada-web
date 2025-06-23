@@ -150,6 +150,7 @@ class Project extends BaseController
 		#$interpretador = "/bin/python3";
 		#$versao = 'cocada_alfa'; # stable
 		$versao = 'COCaDA_web';
+		$versao = 'cocada_25.06';
 		chmod("../../../public/data/projects/$id", 0777);
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";

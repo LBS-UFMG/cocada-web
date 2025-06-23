@@ -285,7 +285,7 @@
 <!-- Return to Top -->
 <a href="#" title="Return to top" style="position:fixed; right:10px; bottom:10px; color:#cccccc77"><span class="glyphicon glyphicon-chevron-up small" aria-hidden="true">Return to top</span></a>
 
-<script>
+<script> 
     // loading
     $(() => setTimeout(() => $('#loading').fadeOut(), 1000));
 
