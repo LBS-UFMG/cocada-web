@@ -71,6 +71,8 @@ class Project extends BaseController
 
     public function create(){
 
+		dd($this->request);
+
 		# ********************* Create new ID *********************
 		$id = $this->generateRandomString(6);
 		
