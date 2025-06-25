@@ -40,7 +40,7 @@
 
   <script>
     function copiarLink() {
-      const link = '<?php echo base_url(); ?>result/id/<?php echo $id; ?>';
+      const link = '<?=base_url("result/id/$id")?>';
       navigator.clipboard.writeText(link)
         .then(() => {
           alert("Link copiado para a área de transferência!");
