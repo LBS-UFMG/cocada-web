@@ -64,6 +64,7 @@
 
                 <p>
                             <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; $ds=0;?>
+                            <span><strong>Total of contacts:</strong></span>
                             <span class="mx-2"> | <strong>HB: </strong><span id="hbc"></span>
                             <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
                             <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"></span>
