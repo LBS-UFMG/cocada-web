@@ -280,7 +280,7 @@
                 
               <h4 class="mt-5">pH (not available yet)</h4>
               <p>Change the pH value (default is 7.4):</p>
-              <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range" disabled>
+              <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
               <p id="nameph" class="text-center text-muted">7.4</p>
 
               <script>
