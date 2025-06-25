@@ -41,11 +41,19 @@
   <script>
     function copiarLink() {
       const link = '<?=base_url("result/id/$id")?>';
-      navigator.clipboard.writeText(link)
-        .then(() => {
-          alert("Link copiado para a área de transferência!");
-        })
-        .catch(err => { console.log("Erro ao copiar: " + err); });
+      // Cria um elemento <input> temporário
+      const inputTemp = document.createElement("input");
+      inputTemp.value = link;
+      document.body.appendChild(inputTemp);
+
+      // Seleciona o conteúdo e copia
+      inputTemp.select();
+      document.execCommand("copy");
+
+      // Remove o input temporário
+      document.body.removeChild(inputTemp);
+
+      alert("Link copiado para a área de transferência!");
     }
   </script>
 
