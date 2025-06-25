@@ -184,9 +184,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minhb">Min</span>
-                    <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="0" value="0" aria-label="min" aria-describedby="minhb" name="minhb">
                     <span class="input-group-text" id="maxhb">Max</span>
-                    <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="3.9" value="3.9" aria-label="max" aria-describedby="maxhb" name="maxhb">
                   </div>
 
 
@@ -196,9 +196,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minds">Min</span>
-                    <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="0" value="0" aria-label="min" aria-describedby="minds" name="minds">
                     <span class="input-group-text" id="maxds">Max</span>
-                    <input type="text" class="form-control" placeholder="2.8" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="2.8" value="2.8" aria-label="max" aria-describedby="maxds" name="maxds">
                   </div>
                 </div>
               </div>
@@ -209,9 +209,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minhy">Min</span>
-                    <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="2" value="2" aria-label="min" aria-describedby="minhy" name="minhy">
                     <span class="input-group-text" id="maxhy">Max</span>
-                    <input type="text" class="form-control" placeholder="4.5" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="4.5" value="4.5" aria-label="max" aria-describedby="maxhy" name="maxhy">
                   </div>
 
 
@@ -221,9 +221,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minre">Min</span>
-                    <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="2" value="2" aria-label="min" aria-describedby="minre" name="minre">
                     <span class="input-group-text" id="maxre">Max</span>
-                    <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="6" value="6" aria-label="max" aria-describedby="maxre" name="maxre">
                   </div>
                 </div>
               </div>
@@ -235,9 +235,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minat">Min</span>
-                    <input type="text" class="form-control" placeholder="3.9" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="3.9" value="3.9" aria-label="min" aria-describedby="minat" name="minat">
                     <span class="input-group-text" id="maxat">Max</span>
-                    <input type="text" class="form-control" placeholder="6" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="6" value="6" aria-label="max" aria-describedby="maxat" name="maxat">
                   </div>
 
 
@@ -247,9 +247,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minsb">Min</span>
-                    <input type="text" class="form-control" placeholder="0" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="0" value="0" aria-label="min" aria-describedby="minsb" name="minsb">
                     <span class="input-group-text" id="maxsb">Max</span>
-                    <input type="text" class="form-control" placeholder="3.9" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="3.9" value="3.9" aria-label="max" aria-describedby="maxsb" name="maxsb">
                   </div>
                 </div>
               </div>
@@ -260,9 +260,9 @@
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minas">Min</span>
-                    <input type="text" class="form-control" placeholder="2" aria-label="min" aria-describedby="minhb">
+                    <input type="text" class="form-control" placeholder="2" value="2" aria-label="min" aria-describedby="minas" name="minas">
                     <span class="input-group-text" id="maxas">Max</span>
-                    <input type="text" class="form-control" placeholder="5" aria-label="max" aria-describedby="maxhb">
+                    <input type="text" class="form-control" placeholder="5" value="5" aria-label="max" aria-describedby="maxas" name="maxas">
                   </div>
                 </div>
               </div>
@@ -278,7 +278,7 @@
                 <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br>
                 <input type="radio" value="chains" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains">
                 
-              <h4 class="mt-5">pH (not available yet)</h4>
+              <h4 class="mt-5">pH</h4>
               <p>Change the pH value (default is 7.4):</p>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
               <p id="nameph" class="text-center text-muted">7.4</p>

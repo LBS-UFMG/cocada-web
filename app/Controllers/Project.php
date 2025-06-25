@@ -70,8 +70,24 @@ class Project extends BaseController
 
 
     public function create(){
-		d($this->request->getPost('chains'));
-		dd($this->request->getPost('filter_chains'));
+		$filter_chains = $this->request->getPost('filter_chains');
+		$chains = $this->request->getPost('chains');
+		$ph = $this->request->getPost('ph');
+
+		// contact cutoffs
+		$min_hb = $this->request->getPost('minhb'); $max_hb = $this->request->getPost('maxhb');
+		$min_hy = $this->request->getPost('minhy'); $max_hy = $this->request->getPost('maxhy');
+		$min_ds = $this->request->getPost('minds'); $max_ds = $this->request->getPost('maxds');
+		$min_sb = $this->request->getPost('minsb'); $max_sb = $this->request->getPost('maxsb');
+		$min_at = $this->request->getPost('minat'); $max_at = $this->request->getPost('maxat');
+		$min_re = $this->request->getPost('minre'); $max_re = $this->request->getPost('maxre');
+		$min_as = $this->request->getPost('minas'); $max_as = $this->request->getPost('maxas');
+
+		dd($filter_chains,
+	$chains,
+	$ph,$min_hb,$max_hb,$min_hy,$max_hy, $min_ds, $max_ds, $min_sb, $max_sb, $min_at, $max_at, $min_re, $max_re, $min_as, $max_as
+
+	);
 
 		# ********************* Create new ID *********************
 		$id = $this->generateRandomString(6);
