@@ -72,7 +72,7 @@ class Project extends BaseController
     public function create(){
 		$filter_chains = $this->request->getPost('filter_chains');
 		$chains = $this->request->getPost('chains');
-		if(empty($chains)){
+		if(empty($chains)and($filter_chains!='chains')){
 			$region = '';
 		}
 		else{

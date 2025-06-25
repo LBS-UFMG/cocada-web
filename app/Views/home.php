@@ -276,7 +276,7 @@
                 <input type="radio" value="all" name="filter_chains" checked> All <br>
                 <input type="radio" value="inter" name="filter_chains"> Only interchain contacts <br>
                 <!-- <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br> -->
-                <input type="radio" value="chains" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains">
+                <input type="radio" value="chains" name="filter_chains" id="rchains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains" disabled>
                 
               <h4 class="mt-5">pH</h4>
               <p>Change the pH value (default is 7.4):</p>
@@ -288,6 +288,10 @@
                   $('#ph').on('input', function() {
                     $('#nameph').text($('#ph').val());
                   });
+                  $('#rchains').on('click', function() {
+                    $('[name="chains"]').removeAttr('disabled');
+                  });
+
                 });
               </script>
 
