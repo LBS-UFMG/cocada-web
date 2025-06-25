@@ -20,6 +20,8 @@
                 <br><br>
                 <h2 class="title_h2">
                     
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+
                     <?php echo $id; ?>
 
                     <div class="dropdown" title="Export files">
@@ -38,6 +40,7 @@
 
                     </div>
                     <button onclick="copiarLink()" class="btn btn-lg btn-secondary"><i class="bi bi-copy"></i></button>
+                </div>
                 </h2>
 
   <script>
@@ -59,15 +62,16 @@
     }
   </script>
 
-                <p><strong><a href='<?php echo base_url(); ?>result/id/<?php echo $id; ?>'><?php echo base_url(); ?>project/<?php echo $id; ?></a> </strong>
-                            <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; ?>
+                <p>
+                            <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; $ds=0;?>
                             <span class="mx-2"> | <strong>HB: </strong><span id="hbc"></span>
                             <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
                             <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"></span>
                             <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"></span>
                             <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"></span>
                             <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"></span>
-                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic stacking | SB: Salt Bridge">?</label></sup>
+                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"></span>
+                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic stacking | SB: Salt Bridge | DS: Disulfide Bonds">?</label></sup>
                         </p>
                 
             </div>
