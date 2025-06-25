@@ -187,7 +187,7 @@ class Project extends BaseController
 		-o $data_folder/$id  
 		-ph $ph 
 		-d $distances 
-		$inter $chains 
+		$inter $region  
 		2>&1");//, $error_log);
 		// 	echo $error_log;
 
