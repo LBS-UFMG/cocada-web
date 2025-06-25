@@ -19,24 +19,26 @@
             <div class="col-md-9 col-xs-12">
                 <br><br>
                 <h2 class="title_h2">
+                    
+                    <?php echo $id; ?>
+
                     <div class="dropdown" title="Export files">
 
                         <div class="dropdown">
                             <button class="btn btn-lg btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php echo $id; ?>
+                                Download
                             </button>
                             <ul class="dropdown-menu">
-                                <li><b class="ms-3">Download<br></b></li>
+                                <li><b class="ms-3">Download files<br></b></li>
                                 <li><a class="dropdown-item mt-2" href="<?=base_url()?>data/projects/<?=$id?>/contacts.csv">Contacts</a></li>
+                                <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/uncertain_contacts.csv">Uncertain contacts</a></li>
                                 <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/data.<?=$extensao?>">PDB/CIF file</a></li>
                             </ul>
                         </div>
 
                     </div>
+                    <button onclick="copiarLink()" class="btn btn-lg btn-secondary"><i class="bi bi-copy"></i></button>
                 </h2>
-
-
-  <button onclick="copiarLink()">Copiar link</button>
 
   <script>
     function copiarLink() {
@@ -53,7 +55,7 @@
       // Remove o input temporário
       document.body.removeChild(inputTemp);
 
-      alert("Link copiado para a área de transferência!");
+      alert("Link do projeto copiado para a área de transferência!");
     }
   </script>
 
