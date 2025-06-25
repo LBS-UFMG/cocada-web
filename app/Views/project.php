@@ -39,7 +39,7 @@
                         </div>
 
                     </div>
-                    <button onclick="copiarLink()" class="btn ms-2 btn-outline-secondary"><i class="bi bi-copy"></i></button>
+                    <button onclick="copiarLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
                 </div>
                 </h2>
 
