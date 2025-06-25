@@ -34,6 +34,21 @@
 
                     </div>
                 </h2>
+
+
+  <button onclick="copiarLink()">Copiar link</button>
+
+  <script>
+    function copiarLink() {
+      const link = '<?php echo base_url(); ?>result/id/<?php echo $id; ?>';
+      navigator.clipboard.writeText(link)
+        .then(() => {
+          alert("Link copiado para a área de transferência!");
+        })
+        .catch(err => { console.log("Erro ao copiar: " + err); });
+    }
+  </script>
+
                 <p><strong><a href='<?php echo base_url(); ?>result/id/<?php echo $id; ?>'><?php echo base_url(); ?>project/<?php echo $id; ?></a> </strong>
                             <?php $hb=0; $at=0; $re=0; $hy=0; $ar=0; $sb=0; ?>
                             <span class="mx-2"> | <strong>HB: </strong><span id="hbc"></span>
