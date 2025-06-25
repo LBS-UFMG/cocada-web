@@ -20,14 +20,14 @@
                 <br><br>
                 <h2 class="title_h2">
                     
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-toolbar" role="toolbar">
 
                     <?php echo $id; ?>
 
                     <div class="dropdown" title="Export files">
 
                         <div class="dropdown">
-                            <button class="btn btn-lg btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn ms-2 btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Download
                             </button>
                             <ul class="dropdown-menu">
@@ -39,7 +39,7 @@
                         </div>
 
                     </div>
-                    <button onclick="copiarLink()" class="btn btn-lg btn-secondary"><i class="bi bi-copy"></i></button>
+                    <button onclick="copiarLink()" class="btn ms-2 btn-outline-secondary"><i class="bi bi-copy"></i></button>
                 </div>
                 </h2>
 
