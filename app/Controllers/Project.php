@@ -182,13 +182,15 @@ class Project extends BaseController
 		chmod("../../../public/data/projects/$id", 0777);
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
-		system("$interpretador $raiz/app/ThirdParty/$versao/cocada.py 
+		$comando = "$interpretador $raiz/app/ThirdParty/$versao/cocada.py 
 		-f $data_folder/$id/data.$extensao 
 		-o $data_folder/$id  
 		-ph $ph 
 		-d $distances 
 		$inter $region  
-		2>&1");//, $error_log);
+		2>&1";
+		$comando = str_replace("\n","",$comando);
+		system($comando, $error_log);
 		// 	echo $error_log;
 
 		# renomeia o arquivo com a lista de contatos
