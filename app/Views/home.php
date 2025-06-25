@@ -273,10 +273,10 @@
               
               <h4>Filter chains</h4>
               <p>Select the chains you want to calculate contacts for.</p>
-                <input type="radio" name="filter_chains" checked> All <br>
-                <input type="radio" name="filter_chains"> Only interchain contacts <br>
-                <input type="radio" name="filter_chains"> Only intrachain contacts<br>
-                <input type="radio" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C">
+                <input type="radio" value="all" name="filter_chains" checked> All <br>
+                <input type="radio" value="inter" name="filter_chains"> Only interchain contacts <br>
+                <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br>
+                <input type="radio" value="chains" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains">
                 
               <h4 class="mt-5">pH (not available yet)</h4>
               <p>Change the pH value (default is 7.4):</p>

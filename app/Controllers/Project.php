@@ -70,7 +70,7 @@ class Project extends BaseController
 
 
     public function create(){
-
+		d($this->request->getPost('chains'));
 		dd($this->request->getPost('filter_chains'));
 
 		# ********************* Create new ID *********************
