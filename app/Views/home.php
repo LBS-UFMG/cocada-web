@@ -275,7 +275,7 @@
               <p>Select the chains you want to calculate contacts for.</p>
                 <input type="radio" value="all" name="filter_chains" checked> All <br>
                 <input type="radio" value="inter" name="filter_chains"> Only interchain contacts <br>
-                <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br>
+                <!-- <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br> -->
                 <input type="radio" value="chains" name="filter_chains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains">
                 
               <h4 class="mt-5">pH</h4>
