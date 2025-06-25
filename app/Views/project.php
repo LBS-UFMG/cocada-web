@@ -155,9 +155,9 @@
                                 <td>
                                     <?php // local = INTRA ou PPI
                                     if ($m[0] == $m[4]) {
-                                        echo "<span class='badge text-bg-dark'>INTRA</hb>";
+                                        echo "<span class='badge text-bg-dark'>INTRA</span>";
                                     } else {
-                                        echo "<span class='badge text-bg-secondary'>INTER</hb>";
+                                        echo "<span class='badge text-bg-secondary'>INTER</span>";
                                     }
                                     ?>
                                 </td>
@@ -165,22 +165,25 @@
                                     //echo $m[9];  // type
                                     switch (trim($m[9])) {
                                         case "HB":
-                                            echo "<span class='badge text-bg-success'>HB</hb>";$hb++;
+                                            echo "<span class='badge text-bg-success'>HB</span>";$hb++;
                                             break;
                                         case "HY":
-                                            echo "<span class='badge text-bg-warning'>HY</hb>";$hy++;
+                                            echo "<span class='badge text-bg-warning'>HY</span>";$hy++;
                                             break;
                                         case "AT":
-                                            echo "<span class='badge text-bg-info'>AT</hb>";$at++;
+                                            echo "<span class='badge text-bg-info'>AT</span>";$at++;
                                             break;
                                         case "RE":
-                                            echo "<span class='badge text-bg-danger'>RE</hb>";$re++;
+                                            echo "<span class='badge text-bg-danger'>RE</span>";$re++;
                                             break;
                                         case "SB":
-                                            echo "<span class='badge text-bg-primary'>SB</hb>";$sb++;
+                                            echo "<span class='badge text-bg-primary'>SB</span>";$sb++;
+                                            break;
+                                        case "DS":
+                                            echo "<span class='badge text-bg-light'>DS</span>";$ds++;
                                             break;
                                         default:
-                                            echo "<span class='badge text-bg-light'>$m[9]</hb>";$ar++;
+                                            echo "<span class='badge text-bg-light'>$m[9]</span>";$ar++;
                                             break;
                                     }
 
@@ -233,6 +236,7 @@
         $("#hyc").text(<?=$hy?>);
         $("#arc").text(<?=$ar?>);
         $("#sbc").text(<?=$sb?>);
+        $("#dsc").text(<?=$ds?>);
     });
 
     $(document).ready(function() {
@@ -269,6 +273,9 @@
         });
         $('#sb').click(function() {
             table.columns(9).search("SB", true, false).draw();
+        });
+        $('#ds').click(function() {
+            table.columns(9).search("DS", true, false).draw();
         });
         $('#show_all').click(function() {
             table.columns(9).search(".*", true, false).draw();
