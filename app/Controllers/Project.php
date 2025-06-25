@@ -72,7 +72,20 @@ class Project extends BaseController
     public function create(){
 		$filter_chains = $this->request->getPost('filter_chains');
 		$chains = $this->request->getPost('chains');
+		if(empty($chains)){
+			$region = '';
+		}
+		else{
+			$region = '-r '.$chains;
+		}
 		$ph = $this->request->getPost('ph');
+
+		if($filter_chains == 'inter'){
+			$inter = '-i ';
+		}
+		else{
+			$inter = '';
+		}
 
 		// contact cutoffs
 		$min_hb = $this->request->getPost('minhb'); $max_hb = $this->request->getPost('maxhb');
@@ -82,12 +95,9 @@ class Project extends BaseController
 		$min_at = $this->request->getPost('minat'); $max_at = $this->request->getPost('maxat');
 		$min_re = $this->request->getPost('minre'); $max_re = $this->request->getPost('maxre');
 		$min_as = $this->request->getPost('minas'); $max_as = $this->request->getPost('maxas');
+		$distances = "$min_sb,$max_sb,$min_hy,$max_hy,$min_hb,$max_hb,$min_re,$max_re,$min_at,$max_at,$min_ds,$max_ds,$min_as,$max_as";
 
-		dd($filter_chains,
-	$chains,
-	$ph,$min_hb,$max_hb,$min_hy,$max_hy, $min_ds, $max_ds, $min_sb, $max_sb, $min_at, $max_at, $min_re, $max_re, $min_as, $max_as
-
-	);
+		//dd($filter_chains,$chains,$ph,$min_hb,$max_hb,$min_hy,$max_hy, $min_ds, $max_ds, $min_sb, $max_sb, $min_at, $max_at, $min_re, $max_re, $min_as, $max_as);
 
 		# ********************* Create new ID *********************
 		$id = $this->generateRandomString(6);
@@ -172,7 +182,13 @@ class Project extends BaseController
 		chmod("../../../public/data/projects/$id", 0777);
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
-		system("$interpretador $raiz/app/ThirdParty/$versao/cocada.py -f $data_folder/$id/data.$extensao -o $data_folder/$id  2>&1",$error_log);
+		dd("$interpretador $raiz/app/ThirdParty/$versao/cocada.py 
+		-f $data_folder/$id/data.$extensao 
+		-o $data_folder/$id  
+		-ph $ph 
+		-d $distances 
+		$inter $chains 
+		2>&1");//, $error_log);
 		// 	echo $error_log;
 
 		# renomeia o arquivo com a lista de contatos
