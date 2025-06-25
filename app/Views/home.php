@@ -140,7 +140,7 @@
   </p>
   <div class="row">
     <div class="col">
-      <label class="badge text-bg-light bg-primary">Submit your PDB file (limit 10MB)</label>
+      <label class="badge bg-primary">Submit your PDB file (limit 10MB)</label>
 
       <form action="<?php echo base_url('run'); ?>" method="post" enctype="multipart/form-data">
         <!-- <textarea placeholder="Paste PDB/CIF file here" class="form-control" name="pdb"></textarea> -->
