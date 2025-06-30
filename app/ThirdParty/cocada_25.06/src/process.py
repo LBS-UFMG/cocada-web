@@ -140,7 +140,7 @@ def process_file(file_path, context):
         else:
             uncertainty_flags, local_contact_types = contacts.change_protonation(context.ph, context.silent)
             
-        contacts_list, interface_res, count_contacts, uncertain_results = contacts.contact_detection(parsed_data, context.region, context.interface, context.custom_distances, context.epsilon, uncertainty_flags, local_contact_types)
+        contacts_list, interface_res, count_contacts, uncertain_results = contacts.contact_detection(parsed_data, context.region, context.chains, context.interface, context.custom_distances, context.epsilon, uncertainty_flags, local_contact_types)
         process_time = timer() - start_time
         return parsed_data, contacts_list, process_time, interface_res, count_contacts, uncertain_results, ph
 
@@ -162,7 +162,7 @@ def process_result(result, context):
         output, silent = context.output, context.silent
         ph = ph if context.ph is None else context.ph
         
-        output_data = f"ID: {protein.id} | Size: {protein.true_count():<7} | Contacts: {len(contacts_list):<7} | pH: {ph} | Time: {process_time:.3f}s"
+        output_data = f"ID: {protein.id} | Size: {protein.true_count():<7} | Contacts: {len(contacts_list):<7} | pH: {ph:.2f} | Time: {process_time:.3f}s"
         count = '; '.join(f"{v[0]}: {v[1]:>5}" for v in count_contacts.values())
         log(output_data)
         log(f"{count}\n", silent)
