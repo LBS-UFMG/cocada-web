@@ -76,7 +76,7 @@ class Project extends BaseController
 			$region = '';
 		}
 		else{
-			$region = '-r '.$chains;
+			$region = '-c '.$chains;
 		}
 		$ph = $this->request->getPost('ph');
 
