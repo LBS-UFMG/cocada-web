@@ -1,0 +1,3 @@
+[submodule "app/ThirdParty/COCaDA-CLI"]
+	path = app/ThirdParty/COCaDA-CLI
+	url = https://github.com/rplemos/COCaDA_web.git
