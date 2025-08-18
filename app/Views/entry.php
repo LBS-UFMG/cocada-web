@@ -47,7 +47,7 @@
                             $hy = 0;
                             $ar = 0;
                             $sb = 0;
-                            $ds = 0; ?>
+                            $ds = 0; dd($info); ?>
                             <strong>Residues: </strong><?= $info[2] ?>
                             <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"></span>
                             <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
