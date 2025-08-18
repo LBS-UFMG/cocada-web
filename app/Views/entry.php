@@ -83,19 +83,19 @@
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
                 <button type="button" id="show_all" class="btn btn-dark">Show all contacts</button>             
-                <button type="button" id="hb" class="btn btn-success">HB</button>          
-                <button type="button" id="at" class="btn btn-info">AT</button>       
-                <button type="button" id="re" class="btn btn-danger">RE</button>          
-                <button type="button" id="hy" class="btn btn-warning">HY</button>              
-                <button type="button" id="ar" class="btn btn-secondary">AR</button>          
-                <button type="button" id="sb" class="btn btn-primary">SB</button>           
-                <button type="button" id="ds" class="btn btn-light border">DS</button>
-                <button type="button" id="un" class="btn btn-light border border-dark">Uncertain</button>
+                <button type="button" id="hb" class="btn btn-success border-dark">HB</button>          
+                <button type="button" id="at" class="btn btn-info border-dark">AT</button>       
+                <button type="button" id="re" class="btn btn-danger border-dark">RE</button>          
+                <button type="button" id="hy" class="btn btn-warning border-dark">HY</button>              
+                <button type="button" id="ar" class="btn btn-secondary border-dark">AR</button>          
+                <button type="button" id="sb" class="btn btn-primary border-dark">SB</button>           
+                <button type="button" id="ds" class="btn btn-light border border-dark">DS</button>
+                <button type="button" id="un" class="btn btn-light border border-dark">UN</button>
             </div>
 
             <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
             
-            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain | 'Only side chain contacts' option remove main chain contacts">?</label></sup>
+            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | UN: uncertain contacts (depends on pH) | 'Only side chain contacts' option remove main chain contacts">?</label></sup>
 
             <br>
 
