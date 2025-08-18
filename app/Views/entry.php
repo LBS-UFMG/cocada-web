@@ -82,16 +82,18 @@
 
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
-                <button type="button" id="show_all" class="btn btn-outline-dark">Show all</button>             
-                <button type="button" id="hb" class="btn btn-outline-success">Hydrogen bonds</button>          
-                <button type="button" id="at" class="btn btn-outline-info">Attractive</button>       
-                <button type="button" id="re" class="btn btn-outline-danger">Repulsive</button>          
-                <button type="button" id="hy" class="btn btn-outline-warning">Hydrophobic</button>              
-                <button type="button" id="ar" class="btn btn-outline-secondary">Aromatic</button>          
-                <button type="button" id="sb" class="btn btn-outline-primary">Salt Bridge</button>           
-                <button type="button" id="ds" class="btn btn-outline-light border">Disulfide</button>
-                <button type="button" id="un" class="btn btn-outline-light border">Uncertain</button>
+                <button type="button" id="show_all" class="btn btn-dark">Show all</button>             
+                <button type="button" id="hb" class="btn btn-success">HB</button>          
+                <button type="button" id="at" class="btn btn-info">AT</button>       
+                <button type="button" id="re" class="btn btn-danger">RE</button>          
+                <button type="button" id="hy" class="btn btn-warning">HY</button>              
+                <button type="button" id="ar" class="btn btn-secondary">AR</button>          
+                <button type="button" id="sb" class="btn btn-primary">SB</button>           
+                <button type="button" id="ds" class="btn btn-light border border-primary">DS</button>
+                <button type="button" id="un" class="btn btn-light border">Uncertain</button>
             </div>
+
+            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain">?</label></sup>
             
             <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
 
