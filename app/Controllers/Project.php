@@ -7,8 +7,8 @@ class Project extends BaseController
 
 	private function getInfo($id): Array 
     {
-        $first_letter = substr($id, 0, 1);
-        $url = "./data/projects/$id/info.csv";
+        $url = "../data/projects/$id/info.csv";
+		d($url);
 
         if (!file_exists($url)) {
             return ["File not exist."];
