@@ -5,6 +5,31 @@ namespace App\Controllers;
 class Project extends BaseController
 {
 
+	private function getInfo($id): Array 
+    {
+        $first_letter = substr($id, 0, 1);
+        $url = "./data/project/$id/info.csv";
+
+        if (!file_exists($url)) {
+            return ["File not exist."];
+        }
+
+        $file_handle = fopen($url, 'r');
+        $lines = "";
+        if($file_handle) {
+            while (($line = fgets($file_handle)) !== false) {
+                $lines = $lines.$line;
+            }
+            fclose($file_handle);
+        } else {
+            echo "Error.";
+        }
+        
+        $info = explode(",", $lines);
+        return $info;
+    }
+
+
     public function id($id = 'null'){
 		# PÁGINA ENTRY
 
@@ -55,6 +80,7 @@ class Project extends BaseController
             $data['contacts'] = $contacts;
             $data['id'] = $id;
             $data['total_results'] = $total_results-3;
+			$data['info'] = $this->getInfo($id);
 
 			if (file_exists($data_folder.'/'.$id.'/data.pdb')){
 				$data['extensao'] = 'pdb';
@@ -67,8 +93,7 @@ class Project extends BaseController
 		}
 	}
 
-
-
+	
     public function create(){
 		$filter_chains = $this->request->getPost('filter_chains');
 		$chains = $this->request->getPost('chains');
