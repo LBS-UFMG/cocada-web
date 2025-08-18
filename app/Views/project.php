@@ -46,26 +46,6 @@
                     <button onclick="copyLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
                 </div>
                 </h2>
-
-  <script>
-    function copyLink() {
-      const link = '<?=base_url("/project/$id")?>';
-      // Cria um elemento <input> temporário
-      const inputTemp = document.createElement("input");
-      inputTemp.value = link;
-      document.body.appendChild(inputTemp);
-
-      // Seleciona o conteúdo e copia
-      inputTemp.select();
-      document.execCommand("copy");
-
-      // Remove o input temporário
-      document.body.removeChild(inputTemp);
-
-      alert("Project link copied to clipboard!");
-    }
-  </script>
-
                 <p>
                     <strong>Residues: </strong><?= $info[2] ?>
 
@@ -105,20 +85,23 @@
     <div class="row">
         <div class="col-md-9" ng-if="cttlok">
 
-            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
-                <button type="button" id="show_all" class="btn btn-dark">Show all</button>             
-                <button type="button" id="hb" class="btn btn-success">Hydrogen bonds</button>          
-                <button type="button" id="at" class="btn btn-info">Attractive</button>       
-                <button type="button" id="re" class="btn btn-danger">Repulsive</button>          
-                <button type="button" id="hy" class="btn btn-warning">Hydrophobic</button>              
-                <button type="button" id="ar" class="btn btn-secondary">Aromatic</button>          
-                <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>           
-                <button type="button" id="db" class="btn btn-light border">Disulfide</button>
-            </div>
-            
-            <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
-            <br>
+            <center>
+                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                    <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
+                    <button type="button" id="show_all" class="btn btn-dark">Show all contacts</button>             
+                    <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>          
+                    <button type="button" id="at" class="btn btn-info border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT</button>       
+                    <button type="button" id="re" class="btn btn-danger border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE</button>          
+                    <button type="button" id="hy" class="btn btn-warning border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY</button>              
+                    <button type="button" id="ar" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic">AR</button>          
+                    <button type="button" id="sb" class="btn btn-primary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB</button>           
+                    <button type="button" id="ds" class="btn btn-light border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS</button>
+                    <button type="button" id="un" class="btn btn-white border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH)">UN</button>
+                </div>
+
+                <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
+                
+            </center>
 
             <div class="table-responsive">
                 <table class="display" id="mut">
@@ -285,9 +268,24 @@
 <!-- Return to Top -->
 <a href="#" title="Return to top" style="font-size:25px; position:fixed; right:10px; bottom:10px"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
 
-
-
 <script>
+    function copyLink() {
+      const link = '<?=base_url("/project/$id")?>';
+      // Cria um elemento <input> temporário
+      const inputTemp = document.createElement("input");
+      inputTemp.value = link;
+      document.body.appendChild(inputTemp);
+
+      // Seleciona o conteúdo e copia
+      inputTemp.select();
+      document.execCommand("copy");
+
+      // Remove o input temporário
+      document.body.removeChild(inputTemp);
+
+      alert("Project link copied to clipboard!");
+    }
+
     $(()=>setTimeout(() => $('#loading').fadeOut(), 1000));
 
     $(document).ready(function() {
