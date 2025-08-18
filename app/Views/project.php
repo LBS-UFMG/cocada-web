@@ -22,7 +22,7 @@
                     
                 <div class="btn-toolbar" role="toolbar">
 
-                    <?php echo $id; ?>
+                    <strong><?php echo $id; ?></strong>
 
                     <div class="dropdown" title="Export files">
 
@@ -38,9 +38,11 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactMap">
+
+                    <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#contactMap">
                         Show contact map <i class="bi bi-image"></i>
                     </button>
+
                     <button onclick="copyLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
                 </div>
                 </h2>
