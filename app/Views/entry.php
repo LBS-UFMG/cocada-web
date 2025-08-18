@@ -83,13 +83,13 @@
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
                 <button type="button" id="show_all" class="btn btn-dark">Show all contacts</button>             
-                <button type="button" id="hb" class="btn btn-success border-dark">HB</button>          
+                <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Hydrogen Bonds">HB</button>          
                 <button type="button" id="at" class="btn btn-info border-dark">AT</button>       
                 <button type="button" id="re" class="btn btn-danger border-dark">RE</button>          
                 <button type="button" id="hy" class="btn btn-warning border-dark">HY</button>              
                 <button type="button" id="ar" class="btn btn-secondary border-dark">AR</button>          
                 <button type="button" id="sb" class="btn btn-primary border-dark">SB</button>           
-                <button type="button" id="ds" class="btn btn-light border border-dark">DS</button>
+                <button type="button" id="ds" class="btn btn-white border border-dark">DS</button>
                 <button type="button" id="un" class="btn btn-light border border-dark">UN</button>
             </div>
 
