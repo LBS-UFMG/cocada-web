@@ -82,7 +82,7 @@
             <center>
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                     <span class="btn btn-outline-dark" id="basic-addon1"><b>Filter results: </b></span>
-                    <button type="button" id="show_all" class="btn btn-dark">Show all contacts</button>             
+                    <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">Show all contacts</button>             
                     <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>          
                     <button type="button" id="at" class="btn btn-info border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT</button>       
                     <button type="button" id="re" class="btn btn-danger border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE</button>          
