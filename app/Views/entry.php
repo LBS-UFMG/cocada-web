@@ -79,7 +79,7 @@
 <div class="container-fluid px-5">
     <div class="row">
         <div class="col-md-9" ng-if="cttlok" id="col1">
-
+            <p class="text-center pt-0">
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
                 <button type="button" id="show_all" class="btn btn-dark">Show all contacts</button>             
@@ -96,8 +96,8 @@
             <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
             
             <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | UN: uncertain contacts (depends on pH) | 'Only side chain contacts' option remove main chain contacts">?</label></sup>
-
-            <br>
+</p>
+            <!-- <br> -->
 
             <div class="table-responsive">
                 <table class="display" id="mut">
