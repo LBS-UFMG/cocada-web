@@ -37,15 +37,17 @@
                                 <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/data.<?=$extensao?>">PDB/CIF file</a></li>
                             </ul>
                         </div>
-
                     </div>
-                    <button onclick="copiarLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactMap">
+                        Show contact map <i class="bi bi-image"></i>
+                    </button>
+                    <button onclick="copyLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
                 </div>
                 </h2>
 
   <script>
-    function copiarLink() {
-      const link = '<?=base_url("result/id/$id")?>';
+    function copyLink() {
+      const link = '<?=base_url("/project/$id")?>';
       // Cria um elemento <input> temporário
       const inputTemp = document.createElement("input");
       inputTemp.value = link;
@@ -58,7 +60,7 @@
       // Remove o input temporário
       document.body.removeChild(inputTemp);
 
-      alert("Link do projeto copiado para a área de transferência!");
+      alert("Project link copied to clipboard!");
     }
   </script>
 
@@ -217,6 +219,57 @@
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
                 <div id="pdb" style="min-height: 400px; height:50vh; width:100%; min-width: 280px"></div>
                 <p style="color:#ccc; text-align: right">Wild protein</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="contactMap" tabindex="-1" aria-labelledby="contactMap" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3 text-center w-100" id="contactMapTitle"><strong>Contacts map for <?= $id ?></strong></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            <div id="controls">
+                    <div class="row px-4">
+                        <div class="col">
+                            <label for="chainX">X-axis Chain:</label>
+                            <select id="chainX" class="form-select" onchange="updateChart()"></select>
+                        </div>
+                        <div class="col">
+                            <label for="chainY">Y-axis Chain:</label>
+                            <select id="chainY" class="form-select" onchange="updateChart()"></select>
+                        </div>
+                        <!-- <div class="col">
+                                <button class="btn btn-primary w-100 mt-4" onclick="updateChart()">Update chart</button>
+                            </div> -->
+                        <div class="col">
+                            <button id="saveButton" class="btn btn-success w-100 mt-4" onclick="saveChart()">Save figure</button>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    canvas {
+                        max-width: calc(100vh - 150px) !important;
+                    }
+                </style>
+                <div class="row">
+
+                    <div class="col">
+                        <canvas id="scatterChart" class="p-4"></canvas>
+                        <div id="legend" class="pb-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer bg-white">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
