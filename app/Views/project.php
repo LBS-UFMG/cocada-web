@@ -555,9 +555,156 @@
 
 <?= $this->section('scripts') ?>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 // tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+
+    // MAPA DE CONTATOS
+    let allChains = new Set();
+    let allDataPoints = [];
+    let scatterChart;
+    let colorMap = {};
+    const cat10Colors = [
+        '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+        '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
+    ];
+
+    function populateChainSelectors() {
+        const chainX = document.getElementById('chainX');
+        const chainY = document.getElementById('chainY');
+        chainX.innerHTML = "";
+        chainY.innerHTML = "";
+        allChains.forEach(chain => {
+            const optionX = document.createElement("option");
+            optionX.value = optionX.textContent = chain;
+            const optionY = document.createElement("option");
+            optionY.value = optionY.textContent = chain;
+            chainX.appendChild(optionX);
+            chainY.appendChild(optionY);
+        });
+        chainX.value = 'A';
+        chainY.value = 'A';
+    }
+
+    function updateChart() {
+        const selectedX = document.getElementById('chainX').value;
+        const selectedY = document.getElementById('chainY').value;
+        const filteredData = allDataPoints.filter(p => p.c1 === selectedX && p.c2 === selectedY);
+
+        scatterChart.data.datasets[0].data = filteredData;
+        scatterChart.data.datasets[0].pointBackgroundColor = filteredData.map(p => p.backgroundColor);
+        scatterChart.options.scales.x.title.text = `Chain ${selectedX}`;
+        scatterChart.options.scales.y.title.text = `Chain ${selectedY}`;
+        scatterChart.update();
+    }
+
+    function saveChart() {
+        const canvas = document.getElementById('scatterChart');
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'contacts_<?= $id ?>.png';
+        link.click();
+    }
+
+    fetch('<?php echo base_url("/data/projects/$id/contacts.csv"); ?>')
+        .then(response => response.text())
+        .then(text => {
+            const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+            lines.shift(); // Ignorar a primeira linha
+            let colorIndex = 0;
+            let legendHTML = "<strong>Caption:</strong>";
+
+            lines.forEach(line => {
+                const values = line.split(',');
+                if (values.length >= 10) {
+                    const c1 = values[0];
+                    const x = parseFloat(values[1]);
+                    const aa1 = values[2];
+                    const at1 = values[3];
+                    const c2 = values[4];
+                    const y = parseFloat(values[5]);
+                    const aa2 = values[6];
+                    const at2 = values[7];
+                    const category = values[9].trim();
+                    const label = `${category} | ${c1}:${aa1}${x} (${at1}) - ${c2}:${aa2}${y} (${at2})`;
+
+                    allChains.add(c1);
+                    allChains.add(c2);
+
+                    if (!colorMap[category]) {
+                        colorMap[category] = cat10Colors[colorIndex % cat10Colors.length];
+                        legendHTML += `<div style='display: flex; align-items: center; gap: 5px;'>
+                    <div style='width: 20px; height: 20px; background-color: ${colorMap[category]};'></div>${category}</div>`;
+                        colorIndex++;
+                    }
+
+                    allDataPoints.push({
+                        x,
+                        y,
+                        c1,
+                        c2,
+                        backgroundColor: colorMap[category],
+                        label
+                    });
+                }
+            });
+
+            document.getElementById('legend').innerHTML = legendHTML;
+            populateChainSelectors();
+
+            const ctx = document.getElementById('scatterChart').getContext('2d');
+            scatterChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Dispersão CSV',
+                        data: allDataPoints.filter(p => p.c1 === 'A' && p.c2 === 'A'),
+                        pointBackgroundColor: allDataPoints.map(p => p.backgroundColor),
+                        borderWidth: 0,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.raw.label;
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Chain A'
+                            },
+                            beginAtZero: false,
+                            min: 1,
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Chain A'
+                            },
+                            beginAtZero: false,
+                            min: 1,
+                        }
+                    }
+                }
+            });
+
+
+        })
+        .catch(error => console.error('Erro ao carregar o arquivo CSV:', error));
 </script>
 <?= $this->endSection() ?>
