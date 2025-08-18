@@ -203,6 +203,7 @@ class Project extends BaseController
 		#$versao = 'cocada_alfa'; # stable
 		$versao = 'COCaDA_web';
 		$versao = 'cocada_25.06';
+		$versao = 'COCaDA-CLI';
 		chmod("../../../public/data/projects/$id", 0777);
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
@@ -212,6 +213,7 @@ class Project extends BaseController
 		-ph $ph 
 		-d $distances 
 		$inter $region  
+		-w
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
