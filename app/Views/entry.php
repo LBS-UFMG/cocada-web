@@ -82,14 +82,15 @@
 
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <span class="btn btn-outline-dark" id="basic-addon1"><b>Filters: </b></span>
-                <button type="button" id="show_all" class="btn btn-dark">Show all</button>             
-                <button type="button" id="hb" class="btn btn-success">Hydrogen bonds</button>          
-                <button type="button" id="at" class="btn btn-info">Attractive</button>       
-                <button type="button" id="re" class="btn btn-danger">Repulsive</button>          
-                <button type="button" id="hy" class="btn btn-warning">Hydrophobic</button>              
-                <button type="button" id="ar" class="btn btn-secondary">Aromatic</button>          
-                <button type="button" id="sb" class="btn btn-primary">Salt Bridge</button>           
-                <button type="button" id="ds" class="btn btn-light border">Disulfide</button>
+                <button type="button" id="show_all" class="btn btn-outline-dark">Show all</button>             
+                <button type="button" id="hb" class="btn btn-outline-success">Hydrogen bonds</button>          
+                <button type="button" id="at" class="btn btn-outline-info">Attractive</button>       
+                <button type="button" id="re" class="btn btn-outline-danger">Repulsive</button>          
+                <button type="button" id="hy" class="btn btn-outline-warning">Hydrophobic</button>              
+                <button type="button" id="ar" class="btn btn-outline-secondary">Aromatic</button>          
+                <button type="button" id="sb" class="btn btn-outline-primary">Salt Bridge</button>           
+                <button type="button" id="ds" class="btn btn-outline-light border">Disulfide</button>
+                <button type="button" id="un" class="btn btn-outline-light border">Uncertain</button>
             </div>
             
             <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
@@ -318,6 +319,9 @@
         $('#ds').click(function() {
             table.columns(9).search("DS", true, false).draw();
         });
+        $('#un').click(function() {
+            table.columns(9).search("u", true, false).draw();
+        });
         $('#show_all').click(function() {
             table.columns(9).search(".*", true, false).draw();
         });
@@ -462,35 +466,11 @@
                 }
             }
         };
-
     }
 
     function reset(){
-       
         console.log("Reiniciando visualização")
-
-        // /* Color background */
-        // glviewer.setBackgroundColor(0xffffff);
-
-        // /* Type of visualization */
-        // glviewer.setStyle({}, {
-        //     line: {
-        //         color: 'grey'
-        //     },
-        //     cartoon: {
-        //         color: 'white'
-        //     }
-        // }); /* Cartoon multi-color */
-       
-        // // Limpe as lines
-        // let model = glviewer.getModel(0);
-        // model.lines = []; 
-
-        // glviewer.zoomTo();
-        // glviewer.render();
-
         location.reload();
-
     }
 
     $(document).ready(function() {
