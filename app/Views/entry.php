@@ -41,23 +41,20 @@
                 <div class="row">
                     <div class="col">
                         <p>
-                            <?php $hb = 0;
-                            $at = 0;
-                            $re = 0;
-                            $hy = 0;
-                            $ar = 0;
-                            $sb = 0;
-                            $ds = 0; ?>
                             <strong>Residues: </strong><?= $info[2] ?>
-                            <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"></span>
-                            <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"></span>
-                            <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"></span>
-                            <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"></span>
-                            <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"></span>
-                            <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"></span>
-                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"></span>
+
+                            <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"><?=$info[4]?></span>
+                            <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"><?=$info[6]?></span>
+                            <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"><?=$info[7]?></span>
+                            <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"><?=$info[5]?></span>
+                            <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"><?=$info[10]?></span>
+                            <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"><?=$info[8]?></span>
+                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"><?=$info[9]?></span>
+                            <span class="mx-2"> | </span><strong>uAT: </strong><span id="uat"><?=$info[11]?></span>
+                            <span class="mx-2"> | </span><strong>uRE: </strong><span id="ure"><?=$info[12]?></span>
+                            <span class="mx-2"> | </span><strong>uSB: </strong><span id="usb"><?=$info[13]?></span>
                             <span class="mx-2"> | </span><strong>pH: </strong><span id="ph"><?=$info[14]?></span>
-                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond">?</label></sup>
+                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain">?</label></sup>
                         </p>
                     </div>
                 </div>
@@ -165,31 +162,24 @@
                                     switch (trim($m[9])) {
                                         case "HB":
                                             echo "<span class='badge text-bg-success'>HB</hb>";
-                                            $hb++;
                                             break;
                                         case "HY":
                                             echo "<span class='badge text-bg-warning'>HY</hb>";
-                                            $hy++;
                                             break;
                                         case "AT":
                                             echo "<span class='badge text-bg-info'>AT</hb>";
-                                            $at++;
                                             break;
                                         case "RE":
                                             echo "<span class='badge text-bg-danger'>RE</hb>";
-                                            $re++;
                                             break;
                                         case "SB":
                                             echo "<span class='badge text-bg-primary'>SB</hb>";
-                                            $sb++;
                                             break;
                                         case "DS":
                                             echo "<span class='badge text-bg-dark text-white'>DS</hb>";
-                                            $ds++;
                                             break;
                                         default:
                                             echo "<span class='badge text-bg-light'>$m[9]</hb>";
-                                            $ar++;
                                             break;
                                     }
 
@@ -289,16 +279,6 @@
 <script> 
     // loading
     $(() => setTimeout(() => $('#loading').fadeOut(), 1000));
-
-    $(() => {
-        $("#hbc").text(<?= $hb ?>);
-        $("#atc").text(<?= $at ?>);
-        $("#rec").text(<?= $re ?>);
-        $("#hyc").text(<?= $hy ?>);
-        $("#arc").text(<?= $ar ?>);
-        $("#sbc").text(<?= $sb ?>);
-        $("#dsc").text(<?= $ds ?>);
-    });
 
     $(document).ready(function() {
         var table = $('#mut').DataTable({
