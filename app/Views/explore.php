@@ -99,7 +99,7 @@
             })
         }
 
-        lerDados("<?= base_url('data/list.csv') ?>");
+        lerDados("<?= base_url('data/pdb/list.csv') ?>");
 
     })
 
