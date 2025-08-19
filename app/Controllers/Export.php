@@ -24,6 +24,6 @@ class Export extends BaseController
 
         #chmod("../../../public/data/projects/$id", 0755); // protege a pasta de acessos indevidos
 
-        echo '<a href="'.base_url("/project/$id/data_visualization.pse").'">Download</a>';
+        echo '<a href="'.base_url("/data/projects/$id/data_visualization.pse").'">Download</a>';
 	}
 }
