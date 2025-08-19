@@ -219,7 +219,7 @@
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
                 <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
                 <p style="color:#ccc; text-align: right" class="small">
-                    <a href="<?= base_url("/export/pdb-to-pymol/$id") ?>" class="me-3">Export to PyMOL</a> | <button class="btn btn-link btn-sm pt-0" onclick="reset()">Clear</button>
+                    <a href="<?= base_url("/export/pdb-to-pymol/$id") ?>" class="me-2">Export to PyMOL</a> | <button class="btn btn-link btn-sm pt-0" onclick="reset()">Clear</button>
                 </p>
             </div>
         </div>
