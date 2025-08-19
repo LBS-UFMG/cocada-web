@@ -57,8 +57,8 @@
     window.onload = function() {
         // Cria link temporário para download
         const link = document.querySelector("#pse");
-        link.click();
-        iniciarContagem();
+        //link.click();
+        //iniciarContagem();
     };
 </script>
 
