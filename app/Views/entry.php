@@ -24,9 +24,12 @@
                                 Download
                             </button>
                             <ul class="dropdown-menu">
-                                <li><b class="ms-3">Download<br></b></li>
+                                <li><b class="ms-3">Download</b></li>
+                                <hr>
                                 <li><a class="dropdown-item mt-2" href="<?php echo base_url(); ?>data/pdb/<?= substr($id, 0, 1) ?>/<?= $id ?>/<?= $id ?>_contacts.csv">Contacts</a></li>
                                 <li><a class="dropdown-item" href="https://files.rcsb.org/download/<?php echo $id; ?>.cif">PDB file</a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="<?= base_url("/export/pdb-to-pymol/$id") ?>">Export to PyMOL</a></li>                                
                             </ul>
                         </div>
                     </div>
@@ -216,7 +219,7 @@
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
                 <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
                 <p style="color:#ccc; text-align: right" class="small">
-                    <button class="btn btn-link btn-sm" onclick="reset()">Clear</button>
+                    <a href="<?= base_url("/export/pdb-to-pymol/$id") ?>">Export to PyMOL</a> | <button class="btn btn-link btn-sm" onclick="reset()">Clear</button>
                 </p>
             </div>
         </div>
