@@ -45,22 +45,21 @@ class Export extends BaseController
         chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
 
         // BAIXAR O PDB
-        $destino = "$data_folder/data/pdb/$id[0]/$id/";
+        $destino = "$data_folder/data/pdb/$id[0]/$id/data.cif";
         $url = "https://files.rcsb.org/download/$id.cif";
         $conteudo = file_get_contents($url);
 
         if ($conteudo !== false) {
             // Salva o arquivo no destino especificado
             file_put_contents($destino, $conteudo);
-            echo "Arquivo baixado e salvo em: $destino";
         } else {
-            echo "Erro ao baixar o arquivo.";
+            echo "Fail.";
         }
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
 		$data_folder/data/pdb/$id[0]/$id/data.cif
-		$data_folder/data/pdb/$id[0]/$id/contacts.csv
+		$data_folder/data/pdb/$id[0]/$id/$id"."_contacts.csv
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
