@@ -34,7 +34,12 @@
 <script>
     // Função para o redirecionamento
     function redirecionar() {
-        window.location.href = "<?= base_url('/project/' . $id) ?>";
+        if($id.length == 6){ 
+            window.location.href = "<?= base_url('/project/' . $id) ?>";
+        }
+        else{
+            window.location.href = "<?= base_url('/entry/' . $id) ?>";
+        }
     }
 
     // Função para o contador
