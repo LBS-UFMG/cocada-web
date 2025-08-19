@@ -5,7 +5,7 @@ namespace App\Controllers;
 class Export extends BaseController
 {
     public function pymol($id = 'null'){
-        echo "Exporting $id to PyMOL...";
+        echo "Exporting $id to PyMOL...<br>";
 
         # START cocada PIPELINE *******************************************
 		$data_folder = getcwd();
@@ -23,9 +23,11 @@ class Export extends BaseController
 		system($comando, $error_log);
 
         echo $comando;
-        
+
         chmod("$raiz/public/data/projects/$id", 0755); // protege a pasta de acessos indevidos
 
-        echo '<a href="'.base_url("/data/projects/$id/data_visualization.pse").'">Download</a>';
+        echo '<br><a href="'.base_url("/data/projects/$id/contacts.pse").'">Download</a>';
+
+        redirect("/project/$id");
 	}
 }
