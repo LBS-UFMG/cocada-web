@@ -28,6 +28,6 @@ class Export extends BaseController
 
         echo '<br><a href="'.base_url("/data/projects/$id/contacts.pse").'">Download</a>';
 
-        redirect("/project/$id");
+        redirect()->route("/project/$id");
 	}
 }
