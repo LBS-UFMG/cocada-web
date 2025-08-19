@@ -42,7 +42,7 @@ class Export extends BaseController
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
-		chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
+		dd("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
