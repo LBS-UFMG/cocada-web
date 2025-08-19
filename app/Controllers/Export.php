@@ -9,8 +9,7 @@ class Export extends BaseController
 
         # START cocada PIPELINE *******************************************
 		$data_folder = getcwd();
-        dd($data_folder);
-		$raiz = str_replace("/public/data/projects", "",$data_folder);
+		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
 		#chmod("../../../public/data/projects/$id", 0777); // quebra de segurança
