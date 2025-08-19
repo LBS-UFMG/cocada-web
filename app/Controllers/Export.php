@@ -42,7 +42,7 @@ class Export extends BaseController
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
-		#chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
+		chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
@@ -54,7 +54,7 @@ class Export extends BaseController
 
         echo $comando;
 
-       # chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
+        chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
 
         echo '<br><a href="'.base_url("/data/pdb/$id[0]/$id/contacts.pse").'">Download</a></div>';
         $data = [];
