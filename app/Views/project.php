@@ -7,7 +7,7 @@
 
 <div id="loading">
     <div class="text-center">
-        <img src="<?=base_url('/img/cocadito-loading.png')?>" width="200px"><br>
+        <img src="<?= base_url('/img/cocadito-loading.png') ?>" width="200px"><br>
         <div class="spinner-border spinner-border-sm" role="status"></div>
         <strong class="ms-2">Loading...</strong>
     </div>
@@ -19,53 +19,53 @@
             <div class="col-md-9 col-xs-12">
                 <br><br>
                 <h2 class="title_h2">
-                    
-                <div class="btn-toolbar" role="toolbar">
 
-                    <strong><?php echo $id; ?></strong>
+                    <div class="btn-toolbar" role="toolbar">
 
-                    <div class="dropdown" title="Export files">
+                        <strong><?php echo $id; ?></strong>
 
-                        <div class="dropdown">
-                            <button class="btn ms-2 btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Download
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><b class="ms-3">Download files<br></b></li>
-                                <li><a class="dropdown-item mt-2" href="<?=base_url()?>data/projects/<?=$id?>/contacts.csv">Contacts</a></li>
-                                <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/uncertain_contacts.csv">Uncertain contacts</a></li>
-                                <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/data.<?=$extensao?>">PDB/CIF file</a></li>
-                                <hr>
-                                <li><a class="dropdown-item" href="<?=base_url("/export/pymol/$id")?>">Export to PyMOL</a></li>
-                            </ul>
+                        <div class="dropdown" title="Export files">
+
+                            <div class="dropdown">
+                                <button class="btn ms-2 btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Download
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><b class="ms-3">Download files<br></b></li>
+                                    <li><a class="dropdown-item mt-2" href="<?= base_url() ?>data/projects/<?= $id ?>/contacts.csv">Contacts</a></li>
+                                    <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/uncertain_contacts.csv">Uncertain contacts</a></li>
+                                    <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/data.<?= $extensao ?>">PDB/CIF file</a></li>
+                                    <hr>
+                                    <li><a class="dropdown-item" href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></li>
+                                </ul>
+                            </div>
                         </div>
+
+                        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#contactMap">
+                            Show contact map <i class="bi bi-image"></i>
+                        </button>
+
+                        <button onclick="copyLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
                     </div>
-
-                    <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#contactMap">
-                        Show contact map <i class="bi bi-image"></i>
-                    </button>
-
-                    <button onclick="copyLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
-                </div>
                 </h2>
                 <p>
                     <strong>Residues: </strong><?= $info[2] ?>
 
-                            <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"><?=$info[4]?></span>
-                            <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"><?=$info[6]?></span>
-                            <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"><?=$info[7]?></span>
-                            <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"><?=$info[5]?></span>
-                            <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"><?=$info[10]?></span>
-                            <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"><?=$info[8]?></span>
-                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"><?=$info[9]?></span>
-                            <span class="mx-2"> | </span><strong>uAT: </strong><span id="uat"><?=$info[11]?></span>
-                            <span class="mx-2"> | </span><strong>uRE: </strong><span id="ure"><?=$info[12]?></span>
-                            <span class="mx-2"> | </span><strong>uSB: </strong><span id="usb"><?=$info[13]?></span>
-                            <span class="mx-2"> | </span><strong>pH: </strong><span id="ph"><?=$info[14]?></span>
-                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain">?</label></sup>
+                    <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"><?= $info[4] ?></span>
+                    <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"><?= $info[6] ?></span>
+                    <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"><?= $info[7] ?></span>
+                    <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"><?= $info[5] ?></span>
+                    <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"><?= $info[10] ?></span>
+                    <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"><?= $info[8] ?></span>
+                    <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"><?= $info[9] ?></span>
+                    <span class="mx-2"> | </span><strong>uAT: </strong><span id="uat"><?= $info[11] ?></span>
+                    <span class="mx-2"> | </span><strong>uRE: </strong><span id="ure"><?= $info[12] ?></span>
+                    <span class="mx-2"> | </span><strong>uSB: </strong><span id="usb"><?= $info[13] ?></span>
+                    <span class="mx-2"> | </span><strong>pH: </strong><span id="ph"><?= $info[14] ?></span>
+                    <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain">?</label></sup>
 
-                        </p>
-                
+                </p>
+
             </div>
 
             <div class="col-md-3 col-xs-12" style="height: 180px; background-color: #00bc9e; color:#fff">
@@ -90,19 +90,19 @@
             <center>
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                     <span class="btn btn-outline-dark" id="basic-addon1"><b>Filter results: </b></span>
-                    <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">Show all contacts</button>             
-                    <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>          
-                    <button type="button" id="at" class="btn btn-info border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT</button>       
-                    <button type="button" id="re" class="btn btn-danger border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE</button>          
-                    <button type="button" id="hy" class="btn btn-warning border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY</button>              
-                    <button type="button" id="ar" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic">AR</button>          
-                    <button type="button" id="sb" class="btn btn-primary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB</button>           
+                    <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">Show all contacts</button>
+                    <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>
+                    <button type="button" id="at" class="btn btn-info border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT</button>
+                    <button type="button" id="re" class="btn btn-danger border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE</button>
+                    <button type="button" id="hy" class="btn btn-warning border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY</button>
+                    <button type="button" id="ar" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic">AR</button>
+                    <button type="button" id="sb" class="btn btn-primary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB</button>
                     <button type="button" id="ds" class="btn btn-light border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS</button>
                     <button type="button" id="un" class="btn btn-white border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN</button>
                 </div>
 
                 <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
-                
+
             </center>
 
             <div class="table-responsive">
@@ -130,7 +130,7 @@
                                 continue;
                             } ?>
                             <tr onclick="selectID(glviewer,this.children[0].innerHTML,1,this.children[1].innerHTML, this.children[3].innerHTML, this.children[6].innerHTML)" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
-                            <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
+                                <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
                                 <td><?php echo $m[0]; // chain 1 
                                     ?></td>
                                 <td><?php echo $m[2];
@@ -227,7 +227,7 @@
             </div>
             <div class="modal-body">
 
-            <div id="controls">
+                <div id="controls">
                     <div class="row px-4">
                         <div class="col">
                             <label for="chainX">X-axis Chain:</label>
@@ -259,7 +259,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer bg-white">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
@@ -272,29 +272,29 @@
 
 <script>
     function copyLink() {
-      const link = '<?=base_url("/project/$id")?>';
-      // Cria um elemento <input> temporário
-      const inputTemp = document.createElement("input");
-      inputTemp.value = link;
-      document.body.appendChild(inputTemp);
+        const link = '<?= base_url("/project/$id") ?>';
+        // Cria um elemento <input> temporário
+        const inputTemp = document.createElement("input");
+        inputTemp.value = link;
+        document.body.appendChild(inputTemp);
 
-      // Seleciona o conteúdo e copia
-      inputTemp.select();
-      document.execCommand("copy");
+        // Seleciona o conteúdo e copia
+        inputTemp.select();
+        document.execCommand("copy");
 
-      // Remove o input temporário
-      document.body.removeChild(inputTemp);
+        // Remove o input temporário
+        document.body.removeChild(inputTemp);
 
-      alert("Project link copied to clipboard!");
+        alert("Project link copied to clipboard!");
     }
 
-    $(()=>setTimeout(() => $('#loading').fadeOut(), 1000));
+    $(() => setTimeout(() => $('#loading').fadeOut(), 1000));
 
     $(document).ready(function() {
         var table = $('#mut').DataTable({
             "paging": true
         });
-        
+
         $('#side_chain').click(function() {
             if ($("#side_chain").prop("checked")) {
                 table
@@ -380,8 +380,14 @@
         });
 
         // linha tracejada
-        let atm1 = glviewer.selectedAtoms({ resi: res1, atom: a1 }); // Resíduo 10, átomo O
-        let atm2 = glviewer.selectedAtoms({ resi: res2, atom: a2 }); // Resíduo 20, átomo N
+        let atm1 = glviewer.selectedAtoms({
+            resi: res1,
+            atom: a1
+        }); // Resíduo 10, átomo O
+        let atm2 = glviewer.selectedAtoms({
+            resi: res2,
+            atom: a2
+        }); // Resíduo 20, átomo N
 
         // Garantir que os átomos foram encontrados antes de desenhar a linha
         if (atm1.length > 0 && atm2.length > 0) {
@@ -391,12 +397,20 @@
             // Adicionar a linha tracejada entre os átomos
             glviewer.addLine({
                 dashed: true,
-                start: { x: atom1.x, y: atom1.y, z: atom1.z },
-                end: { x: atom2.x, y: atom2.y, z: atom2.z },
+                start: {
+                    x: atom1.x,
+                    y: atom1.y,
+                    z: atom1.z
+                },
+                end: {
+                    x: atom2.x,
+                    y: atom2.y,
+                    z: atom2.z
+                },
                 color: "red",
                 dashLength: 0.2, // Comprimento dos traços
-                linewidth:5, // Define a grossura da linha
-                gapLength:0.1
+                linewidth: 5, // Define a grossura da linha
+                gapLength: 0.1
             });
         }
         // fim linha tracejada
@@ -468,7 +482,7 @@
         //title_pdb = title_pdb.split(": ")
 
         //var txt = "https://files.rcsb.org/download/"+title_pdb[1]+".pdb";
-        var txt = "<?=base_url('/data/projects/'.$id.'/data.'.$extensao)?>";
+        var txt = "<?= base_url('/data/projects/' . $id . '/data.' . $extensao) ?>";
 
         $.post(txt, function(d) {
 
@@ -482,7 +496,7 @@
             /* Color background */
             glviewer.setBackgroundColor(0xffffff);
 
-            receptorModel = m = glviewer.addModel(data, '<?=$extensao?>');
+            receptorModel = m = glviewer.addModel(data, '<?= $extensao ?>');
 
             /* Type of visualization */
             glviewer.setStyle({}, {
@@ -552,7 +566,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-// tooltips
+    // tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
