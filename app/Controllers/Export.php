@@ -9,16 +9,15 @@ class Export extends BaseController
 
         # START cocada PIPELINE *******************************************
 		$data_folder = getcwd();
-		#$raiz = str_replace("/public", "",$data_folder);
-        $raiz = $data_folder;
+		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
 		#chmod("../../../public/data/projects/$id", 0777); // quebra de segurança
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
-		$data_folder/$id/data.cif
-		$data_folder/$id/contacts.csv
+		$data_folder/public/$id/data.cif
+		$data_folder/public/$id/contacts.csv
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
