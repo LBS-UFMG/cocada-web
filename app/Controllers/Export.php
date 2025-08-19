@@ -27,7 +27,8 @@ class Export extends BaseController
         chmod("$raiz/public/data/projects/$id", 0755); // protege a pasta de acessos indevidos
 
         echo '<br><a href="'.base_url("/data/projects/$id/contacts.pse").'">Download</a>';
-
-        redirect()->to("/project/$id");
+        $data = [];
+        $data['id'] = $id;
+        return view('exporting', $data);
 	}
 }
