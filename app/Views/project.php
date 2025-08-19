@@ -36,8 +36,7 @@
                                 <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/uncertain_contacts.csv">Uncertain contacts</a></li>
                                 <li><a class="dropdown-item" href="<?=base_url()?>data/projects/<?=$id?>/data.<?=$extensao?>">PDB/CIF file</a></li>
                                 <hr>
-                                <li><b class="ms-3 py-2">Export<br></b></li>
-                                <li><a class="dropdown-item" href="<?=base_url("/export/pymol/$id")?>">to PyMOL</a></li>
+                                <li><a class="dropdown-item" href="<?=base_url("/export/pymol/$id")?>">Export to PyMOL</a></li>
                             </ul>
                         </div>
                     </div>
