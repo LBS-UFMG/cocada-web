@@ -12,7 +12,7 @@
 
         <h1>Exporting</h1>
         <p>Making a Cocada... wait... ready!</p>
-        <p><a href='<?=base_url("/data/projects/$id/contacts.pse")?>'>Download PSE file</a></p>
+        <p><a id="pse" href='<?=base_url("/data/projects/$id/contacts.pse")?>'>Download PSE file</a></p>
         <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">10</span></h1>
 
         <hr>
@@ -32,8 +32,6 @@
 
 
 <script>
-
-    <?php $fileUrl = base_url("/data/projects/$id/contacts.pse"); ?>
 
     // Função para o redirecionamento
     function redirecionar() {
@@ -58,19 +56,11 @@
 
     // Inicia a contagem quando a página for carregada
     window.onload = function () {
-        // URL do arquivo gerada no PHP
-        const fileUrl = "<?= $fileUrl ?>";
-
         // Cria link temporário para download
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = ''; // Browser decide o nome do arquivo
-        document.body.appendChild(link);
+        const link = querySelector("#pse");
         link.click();
-        document.body.removeChild(link);
+        iniciarContagem();
     };
-
-    window.onload = iniciarContagem;
 
 </script>
 
