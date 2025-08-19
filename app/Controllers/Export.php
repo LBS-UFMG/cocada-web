@@ -12,7 +12,7 @@ class Export extends BaseController
 		$raiz = str_replace("/public/data/projects", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
-		chmod("../../../public/data/projects/$id", 0777); // quebra de segurança
+		#chmod("../../../public/data/projects/$id", 0777); // quebra de segurança
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
@@ -22,7 +22,7 @@ class Export extends BaseController
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
 
-        chmod("../../../public/data/projects/$id", 0755); // protege a pasta de acessos indevidos
+        #chmod("../../../public/data/projects/$id", 0755); // protege a pasta de acessos indevidos
 
         echo '<a href="'.base_url("/project/$id/data_visualization.pse").'">Download</a>';
 	}
