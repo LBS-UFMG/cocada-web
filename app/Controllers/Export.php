@@ -42,7 +42,20 @@ class Export extends BaseController
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
-		chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
+        chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
+
+        // BAIXAR O PDB
+        $destino = "$data_folder/data/pdb/$id[0]/$id/";
+        $url = "https://files.rcsb.org/download/$id.cif";
+        $conteudo = file_get_contents($url);
+
+        if ($conteudo !== false) {
+            // Salva o arquivo no destino especificado
+            file_put_contents($destino, $conteudo);
+            echo "Arquivo baixado e salvo em: $destino";
+        } else {
+            echo "Erro ao baixar o arquivo.";
+        }
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
