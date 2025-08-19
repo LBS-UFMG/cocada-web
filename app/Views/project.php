@@ -34,7 +34,6 @@
                                     <li><b class="ms-3">Download files<br></b></li>
                                     <hr>
                                     <li><a class="dropdown-item mt-2" href="<?= base_url() ?>data/projects/<?= $id ?>/contacts.csv">Contacts</a></li>
-                                    <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/uncertain_contacts.csv">Uncertain contacts</a></li>
                                     <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/data.<?= $extensao ?>">PDB/CIF file</a></li>
                                     <hr>
                                     <li><a class="dropdown-item" href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></li>
