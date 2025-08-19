@@ -141,7 +141,9 @@ def load_contacts(protein_input, csv_file):
             cmd.disable(f"group_{interaction_type}")
 
     cmd.orient()
-    cmd.save(f"{protein_id}_visualization.pse")
+
+    output = csv_file.replace(".csv","")
+    cmd.save(f"{output}.pse")
 
 # ======================== Main ========================
 parser = argparse.ArgumentParser(description="Visualize protein-protein interactions in PyMOL.")
