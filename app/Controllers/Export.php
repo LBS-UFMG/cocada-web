@@ -66,7 +66,6 @@ class Export extends BaseController
 
         chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
 
-        echo '<br><a href="'.base_url("/data/pdb/$id[0]/$id/contacts.pse").'">Download</a></div>';
         $data = [];
         $data['id'] = $id;
         return view('exporting', $data);
