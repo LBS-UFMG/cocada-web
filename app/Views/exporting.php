@@ -57,7 +57,7 @@
     // Inicia a contagem quando a página for carregada
     window.onload = function () {
         // Cria link temporário para download
-        const link = querySelector("#pse");
+        const link = document.querySelector("#pse");
         link.click();
         iniciarContagem();
     };
