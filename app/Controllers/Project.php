@@ -105,7 +105,7 @@ class Project extends BaseController
 		$ph = $this->request->getPost('ph');
 
 		if($filter_chains == 'inter'){
-			$inter = '-i ';
+			$inter = '-inter ';
 		}
 		else{
 			$inter = '';

@@ -24,6 +24,7 @@
                         <th class="dt-center">Description <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Description of the pdb file">?</a></sup></th>
                         <th>Protein size</th>
                         <th class="dt-center">Contacts <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Number of contacts calculated by COCaDA">?</a></sup></th>
+                        <th>pH</th>
                     </tr>
                 </thead>
                 <tbody>
