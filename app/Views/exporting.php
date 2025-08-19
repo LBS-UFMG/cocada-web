@@ -8,11 +8,10 @@
             <img src="<?= base_url('img/cocadito.png'); ?>" width="300px" class="rounded">
         </div>
         <div class="col">
-            <p class="mt-4 alert alert-success"><b>Project exported to PyMOL – </b>ID: <a href="<?= base_url('/project/' . $id) ?>"><?= $id ?></a></p>
 
             <h1>Exporting</h1>
             <p>Making a Cocada... wait... ready!</p>
-            <p>If the download does not start automatically, click here to <a id="pse" href='<?php if(strlen($id)==6){ echo base_url("/data/projects/$id/contacts.pse"); } else{ echo base_url("/data/projects/$id/$id"."_contacts.pse"); } ?>'>Download the PSE file</a>.</p>
+            <p>If the download does not start automatically, click here to <a id="pse" href='<?php if(strlen($id)==6){ echo base_url("/data/entry/$id/$id"."_contacts.pse"); } else{ echo base_url("/data/projects/$id/$id"."_contacts.pse"); } ?>'>Download the PSE file</a>.</p>
             <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">10</span></h1>
 
                 <hr>

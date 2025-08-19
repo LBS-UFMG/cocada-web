@@ -22,8 +22,7 @@ class Export extends BaseController
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
-
-        echo $comando;
+        //echo $comando;
 
         chmod("$raiz/public/data/projects/$id", 0755); // protege a pasta de acessos indevidos
 
@@ -63,8 +62,7 @@ class Export extends BaseController
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
-
-        echo $comando;
+        //echo $comando;
 
         chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
 
