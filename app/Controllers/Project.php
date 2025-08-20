@@ -78,7 +78,7 @@ class Project extends BaseController
             // Load template
             $data['contacts'] = $contacts;
             $data['id'] = $id;
-            $data['total_results'] = $total_results-3;
+            $data['total_results'] = $total_results-1;
 			$data['info'] = $this->getInfo($id);
 
 			if (file_exists($data_folder.'/'.$id.'/data.pdb')){
