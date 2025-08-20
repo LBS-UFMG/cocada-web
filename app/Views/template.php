@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <title>COCaDA – The Protein Contacts Database</title>
-    <?php $version = "2.5.625"; // 25-6-2025 ?> 
+    <?php $version = "2.5.819"; // 19-ago-2025 ?> 
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
