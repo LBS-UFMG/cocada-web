@@ -90,7 +90,7 @@
             <center>
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                     <span class="btn btn-outline-dark" id="basic-addon1">
-                        <span class="d-none d-md-inline"><b>Filter results: </b></span>
+                        <span class="d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter results: </b></span>
                         <span class="d-md-none"><i class="bi bi-funnel-fill"></i></span>
                     </span>
                     <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">
