@@ -103,6 +103,9 @@ class Project extends BaseController
 			$region = '-c '.$chains;
 		}
 		$ph = $this->request->getPost('ph');
+		if($this->request->getPost('ph_from_file') == 'ph_from_file'){
+			$ph = "-1"; # pega o valor default do pdb
+		}
 
 		if($filter_chains == 'inter'){
 			$inter = '-inter ';

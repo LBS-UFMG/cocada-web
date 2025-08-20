@@ -283,6 +283,8 @@
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
               <p id="nameph" class="text-center text-muted">7.4</p>
 
+              <input type="checkbox" value="ph_from_file" name="ph_from_file"> Use the pH value defined in the CIF/PDB file 
+
               <script>
                 $(document).ready(function() {
                   $('#ph').on('input', function() {
