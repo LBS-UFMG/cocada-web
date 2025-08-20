@@ -13,10 +13,10 @@
     </div>
 </div>
 
-<div style="background-color:#e4e4e4; height:180px; margin: -25px -10px 20px -10px;">
+<div style="background-color:#e4e4e4; min-height:180px; margin: -25px -10px 20px -10px;">
     <div class="container-fluid px-5">
         <div class="row">
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-9 col-12">
                 <br><br>
                 <h2 class="title_h2">
 
@@ -85,7 +85,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-9" ng-if="cttlok">
+        <div class="col-md-9 col-12" ng-if="cttlok">
 
             <center>
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
