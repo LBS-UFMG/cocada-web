@@ -106,7 +106,6 @@ class Project extends BaseController
 		if($this->request->getPost('ph_from_file') == 'ph_from_file'){
 			$ph = "-1"; # pega o valor default do pdb
 		}
-		dd($ph);
 
 		if($filter_chains == 'inter'){
 			$inter = '-inter ';
