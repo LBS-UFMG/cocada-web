@@ -13,15 +13,17 @@
       <img src="<?= base_url('/img/home.png') ?>" class="d-block mx-lg-auto img-fluid" width="450" loading="lazy">
     </div>
     <div class="col-md-6">
-      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">The Interatomic Contact Database & Tool</h1>
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">An interactive web server for exploratory analysis of interatomic contacts in proteins.</h1>
 
-      <p class="lead">COCaDA-web is a tool and a database that presents contacts in all structures available in the PDB database. COCaDA calculates seven types of contacts: hydrogen bonds, hydrophobic, aromatic, attractive, repulsive, salt bridges and disulfide bridges. </p>
+      <p class="lead">
+        COCαDA-web is a user-friendly web server, as well as a database comprising precomputed interatomic contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which 
+        improves search space pruning using alpha-carbon (Cα) distance matrices, and classifies contacts into seven different types.
+      </p>
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-1">
 
         <a class="btn btn-primary btn-lg px-4 me-md-2 azul" href="#run">Run</button>
           <a href="#examples" class="btn btn-outline-dark btn-lg px-4 me-md-2">Examples</a>
-
 
       </div>
     </div>
@@ -100,7 +102,7 @@
                     <?= $h4 ?>
                   </strong>
                 </h3>
-                <p class="text-muted small"><strong>3D STRUCTURES</strong></p>
+                <p class="text-muted small"><strong>PDB STRUCTURES</strong></p>
               </div>
             </div>
           </div>
@@ -136,7 +138,8 @@
   <h1><strong>Run COCαDA-web</strong></h1>
   <hr>
   <p class="pb-4 text-muted">
-    There are two ways to run COCaDA-web: (1) Upload a file in PDB or CIF format; or (2) enter the 4-digit corresponding PDB code to access COCaDA-db pre-calculated structure contacts. COCaDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file.
+    There are two ways to run COCαDA-web: (1) Upload a file in PDBx or mmCIF format; 
+    or (2) enter a PDB or UniProt ID. PDB entries are precalculated, while UniProt uses structures from the AlphaFold Database. For entries with more than 10,000 residues, structural ensembles or molecular dynamics trajectories, we recommend using the COCαDA command-line version.
   </p>
   <div class="row">
     <div class="col">
@@ -153,9 +156,9 @@
 
     </div>
     <div class="col border-start pb-3">
-      <label class="badge text-bg-light">or type a PDB ID</label>
+      <label class="badge text-bg-light">Type a PDB or UniProt ID</label>
       <div class="input-group mb-3 w-50">
-        <input type="text" id="pdb_go" class="form-control" placeholder="e.g., 2LZM" aria-label="PDB ID" aria-describedby="explore" onkeydown="redirectToURL2(event)">
+        <input type="text" id="pdb_go" class="form-control" placeholder="e.g., 2LZM/P02766" aria-label="PDB ID" aria-describedby="explore" onkeydown="redirectToURL2(event)">
         <button class="btn btn-outline-secondary" type="button" id="go">Go</button>
       </div>
     </div>
@@ -180,7 +183,7 @@
 
               <div class="row">
                 <div class="col">
-                  <span class="badge text-bg-success">Hydrogen bonds</span>
+                  <span class="badge text-bg-success">Hydrogen Bond</span>
 
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="minhb">Min</span>
@@ -273,8 +276,8 @@
               
               <h4>Filter chains</h4>
               <p>Select the chains you want to calculate contacts for.</p>
-                <input type="radio" value="all" name="filter_chains" checked> All <br>
-                <input type="radio" value="inter" name="filter_chains"> Only interchain contacts <br>
+                <input type="radio" value="all" name="filter_chains" checked> All (default) <br>
+                <input type="radio" value="inter" name="filter_chains"> Only inter-chain contacts <br>
                 <!-- <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br> -->
                 <input type="radio" value="chains" name="filter_chains" id="rchains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains" disabled>
                 
@@ -315,7 +318,7 @@
 <div class="container mt-5 my-5 px-5 pb-5" id="examples">
   <h1 class="pt-5"><strong>Examples</strong></h1>
   <hr>
-  <p class="text-muted">Click on one of the following PDB-IDs to explore the corresponding entry:</p>
+  <p class="text-muted">Click on one of the following PDB IDs to explore the corresponding entry:</p>
   <div class="row">
     <div class="col">
       <label class="badge bg-light text-dark">Protein single-chain</label>

@@ -62,7 +62,9 @@
             <div class="row">
                 <div class="col-12 col-md-6 ps-5">
                     <img src="<?= base_url('/img/cocada.svg') ?>" width="200px">
-                    <p class="text-light small pt-3 col-9">COCαDA (Contact Optimization by alpha-Carbon Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files.</p>
+                    <p class="text-light small pt-3 col-9">
+                        COCαDA-web is a user-friendly web server for calculating interatomic contacts in protein structures, as well as a database comprising precomputed contacts from the PDB. The web server uses the COCαDA algorithm (COntact search pruning by Cα Distance Analysis), which improves search pruning in large-scale interatomic protein contact analysis using alpha-carbon (Cα) distance matrices.
+                    </p>
 
                     <p style="font-size: 0.6em;color:#ccc">©<?=date('Y')?> COCαDA v1.0 – Interface v<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <a class="text-white" href="https://github.com/LBS-UFMG/cocada">GitHub</a>
                 </div>
@@ -91,8 +93,9 @@
         <div class="modal-body small">
             <div class="row">
             <p class="text-muted">
-            COCαDA (Contact Optimization by alpha-Carbon Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files, containing functionalities for handling large files, filtering out specific residues and interactions, and calculating geometric properties such as centroid and normal vectors for aromatic residues.
-
+            COCαDA-web is a user-friendly web server for calculating interatomic contacts in protein structures, as well as a database comprising precomputed contacts from the PDB.
+            <br>
+            COCαDA-web uses the COCαDA algorithm (COntact search pruning by Cα Distance Analysis), which improves search space pruning in large-scale interatomic protein contact analysis using alpha-carbon (Cα) distance matrices. COCαDA efficiently detects intra- and inter-chain contacts, and classifies them into seven different types.
             </p>
             </div>
             <div class="row text-secondary">
@@ -100,6 +103,8 @@
 
                     <strong># Created by:</strong><br>
                     Rafael Lemos / Diego Mariano / Sabrina A. Silveira / Raquel C. de Melo-Minardi<br><br>
+                    <em>Laboratory of Bioinformatics and Systems (LBS), Department of Computer Science, Federal University of Minas Gerais (UFMG), Brazil.</em><br>
+                    <br>
 
                     <strong># Backend/frontend:</strong><br>
                     Diego Mariano / Rafael Lemos

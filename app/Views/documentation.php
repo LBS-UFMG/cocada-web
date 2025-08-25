@@ -5,6 +5,9 @@
 
 <h1 class="pb-2 text-dark"><strong>Documentation</strong></h1>
 <hr>
+<h3 class="pt-4 pb-1">What is COCαDA-web?</h4>
+<p><strong>COCαDA-web</strong> is a user-friendly web interface for using the COCαDA command line tool. COCαDA-web contains a database of pre-calculated contacts for all structures available in the PDB (Protein Data Bank).</p>
+
 <h3 class="pt-4 pb-1">What is COCαDA?</h3>
 <p><strong>COCαDA</strong> (Contact Optimization by alpha-Carbon Distance Analysis) is a tool for calculating intra- and inter-molecular contacts in proteins. COCαDA optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files, containing functionalities for handling large files, filtering out specific residues and interactions, and calculating geometric properties such as centroid and normal vectors for aromatic residues.</p>
 
@@ -18,9 +21,6 @@
 <li>Salt Bridge</li>
 <li>Aromatic Stacking</li>
 </ul>
-
-<h4 class="pt-4 pb-1">What is COCαDA-web?</h4>
-<p><strong>COCαDA-web</strong> is a user-friendly web interface for using the COCαDA command line tool. COCαDA-web contains a database of pre-calculated contacts for all structures available in the PDB (Protein Data Bank).</p>
 <br>
 <hr>
 
@@ -77,6 +77,12 @@
       <td>2.0 ≤ dist ≤ 5.0</td>
       <td>Centroids of two aromatic rings in <br>parallel or perpendicular orientation</td>
       <td>AS</td>
+    </tr>
+    <tr>
+      <td>Uncertain Electrostatic</td>
+      <td>Same as AT, RE, SB</td>
+      <td>Check the description <a target="_blank" href="<?= base_url('/documentation/#uncertain') ?>">here</a></td>
+      <td>uAT, uRE, uSB</td>
     </tr>
   </tbody>
 </table>
@@ -182,6 +188,62 @@
 <p align="center">
   <img src="<?=base_url('/img')?>/docs/stacking.png">
 </p>
+
+<br>
+
+<h4 class="pt-4 pb-1" id="uncertain">Uncertain Electrostatic Contacts</h4>
+<p>The pH customization feature allows for a more nuanced analysis of electrostatic interactions. We defined pH-sensitive atoms as those located in the side chains of ionizable residues, which can exist in either protonated or deprotonated states (Nelson2012). The protonation state of each sensitive atom is assessed by comparing the user-specified pH value to the residue's characteristic side-chain pKa. If the absolute difference between pH and pKa is ≤ 2.0, the protonation state is treated as ambiguous, reflecting the significant population of both protonated and deprotonated forms as described by the Henderson-Hasselbalch equation (REF).</p>
+
+<p>This ambiguity directly impacts the assignment of electrostatic contacts. When a pH-sensitive atom is in an ambiguous protonation state, any electrostatic contact it forms, namely attractive, repulsive, or salt bridges, is classified as "uncertain" (designated uAT, uRE, and uSB, respectively). An important exception is the thiol group of cysteine residues (C:SG), whose capacity to act as either a hydrogen-bond donor or acceptor is also considered pH-dependent (REF).</p>
+
+<h6 class="pt-4 pb-1" id="uncertain_atoms">Ionizable residues with their corresponding side-chain pKa values and pH-sensitive atoms</h4>
+<table class="table table-condensed table-hover table-striped">
+  <caption>Side-chain pKa values and pH-sensitive atoms are derived from \cite{Nelson2021}. The pKa values are typical estimates and can vary significantly depending on the local protein environment.</caption>
+  <thead>
+    <tr>
+      <th>Residue</th>
+      <th>Side-chain pKa</th>
+      <th>pH-sensitive atoms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Aspartic Acid</td>
+      <td>~3.9</td>
+      <td>OD1, OD2</td>
+    </tr>
+    <tr>
+      <td>Glutamic Acid</td>
+      <td>~4.3</td>
+      <td>OE1, OE2</td>
+    </tr>
+    <tr>
+      <td>Histidine</td>
+      <td>~6.0</td>
+      <td>ND1, NE2</td>
+    </tr>
+    <tr>
+      <td>Cysteine</td>
+      <td>~8.3</td>
+      <td>SG</td>
+    </tr>
+    <tr>
+      <td>Tyrosine</td>
+      <td>~10.1</td>
+      <td>OH</td>
+    </tr>
+    <tr>
+      <td>Lysine</td>
+      <td>~10.5</td>
+      <td>NZ</td>
+    </tr>
+    <tr>
+      <td>Arginine</td>
+      <td>~12.5</td>
+      <td>NE, NH1, NH2, CZ</td>
+    </tr>
+  </tbody>
+</table>
 
 <br>
 <hr>
