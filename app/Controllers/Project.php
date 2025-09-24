@@ -95,6 +95,10 @@ class Project extends BaseController
 	
     public function create(){
 		$filter_chains = $this->request->getPost('filter_chains');
+		$pdb_via_api = $this->request->getPost('pdb_via_api');
+
+		dd($pdb_via_api);
+
 		$chains = $this->request->getPost('chains');
 		if(empty($chains)and($filter_chains!='chains')){
 			$region = '';
