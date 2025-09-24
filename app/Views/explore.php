@@ -84,15 +84,30 @@
         // formatar tabela --> FIM 
 
         // plotando a tabela
-        const plotar = (dados) => {
-            console.log(dados)
+        const plotar = (dados, initialSearch = '') => {
+            // destrói se já existir DataTable
+            if ($.fn.DataTable.isDataTable('#table_explore')) {
+                $('#table_explore').DataTable().clear().destroy();
+                $('#table_explore tbody').empty();
+            }
+            
             // ativar datatable
-            $("#table_explore").DataTable({
+            const table = $("#table_explore").DataTable({
                 "data": dados,
                 // "order": [
                 //     [0, 'asc']
                 // ] // ordena pela coluna 0
             })
+
+            if (initialSearch) {
+                // define valor no input de busca (interface)
+                const filterInput = $('#table_explore_filter input');
+                if (filterInput.length) filterInput.val(initialSearch);
+
+                // aplica a busca e redesenha
+                table.search(initialSearch).draw();
+            }
+
         }
         lerDados("<?= base_url('data/pdb/list.csv') ?>");
     })
