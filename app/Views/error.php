@@ -13,7 +13,7 @@
 
             <div class="alert alert-danger" role="alert">
                 <h4 class="alert-heading">Error log:</h4>
-                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <i class="bi bi-exclamation-circle-fill"></i>
                 <?=$details?>
             </div>
         </div>
