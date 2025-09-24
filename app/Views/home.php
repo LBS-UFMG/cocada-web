@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="col border-start pb-3">
-      <label class="badge text-bg-light">or type a PDB ID or an UniProt ID (for AlphaFoldDB entry) <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="You can enter a 4-character PDB code to download a file from the Protein Data Bank API (for a list of available PDB files, visit: https://www.rcsb.org). Optionally, you can enter a UniProt code to download an entry directly from the AlphaFoldDB API (for a list of available entries, visit: https://alphafold.ebi.ac.uk/)."><i class="bi bi-question-circle-fill"></i></a></label>
+      <label class="badge text-bg-light">or type a PDB ID or an UniProt ID (for AlphaFoldDB entry) <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="You can enter a 4-character PDB code to download a file from the Protein Data Bank API (for a list of available PDB files, visit: https://www.rcsb.org). Optionally, you can enter a UniProt code to download an entry directly from the AlphaFoldDB API (for a list of available entries, visit: https://alphafold.ebi.ac.uk)."><i class="bi bi-question-circle-fill"></i></a></label>
       <div class="input-group mb-3 w-50">
         <input type="text" id="pdb_via_api" class="form-control" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> 
       </div>
@@ -166,7 +166,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Advanced options
+          Advanced options <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Click here only if you want to change the default parameters used by COCaDA for calculating contacts. If you want to run with the parameters recommended by the developers, just click the RUN button below."><i class="bi bi-question-circle-fill"></i></a>
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
