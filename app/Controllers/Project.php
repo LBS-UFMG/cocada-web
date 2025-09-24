@@ -193,7 +193,6 @@ class Project extends BaseController
 			dd("Error: Empty file.");
 		}
 		
-
         # Security
         #chmod("../../public/data/$id", 0644);
 				
