@@ -111,7 +111,7 @@
   </div>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5" id="cite">
   <div class="row">
     <div class="col-xs-12 col-lg-12">
       <div class="alert alert-light shadow my-4 " style="border-left: #6cbd16 5px solid">
@@ -121,6 +121,8 @@
               <h4 class="" style="color:#6cbd16"><strong>How to cite:</strong></h4>
               <p class="small" id="browse">LEMOS, Rafael P.; MARIANO, Diego; SILVEIRA, Sabrina A.; MELO-MINARDI, Raquel C. de. <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices.</strong> In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70, 2024. DOI: https://doi.org/10.5753/bsb.2024.245545
               </p>
+
+              <p class="small">Lemos RP, Mariano D, Silveira SDA and de Melo-Minardi RC (2025) COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
             </div>
           </div>
         </div>
