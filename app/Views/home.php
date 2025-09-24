@@ -143,7 +143,7 @@
   </p>
   <div class="row">
     <div class="col-12 col-md-6 mt-2">
-      <label class="badge bg-dark">Submit a PDB file </label> <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Limit 10MB"><i class="bi bi-question-circle-fill"></i></a>
+      <label class="badge bg-dark">Submit a PDB file </label> <a class="link-dark ms-1" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Limit 10MB"><i class="bi bi-question-circle-fill"></i></a>
 
       <form action="<?php echo base_url('run'); ?>" method="post" enctype="multipart/form-data">
         <div class="input-group">
@@ -151,7 +151,7 @@
         </div>
     </div>
     <div class="col-12 col-md-6 border-start pb-3 mt-2">
-      <label class="badge bg-dark">or type a PDB ID or an UniProt/AlphaFoldDB ID </label><a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="You can enter a 4-character PDB code to download a file from the Protein Data Bank API (for a list of available PDB files, visit: https://www.rcsb.org). Optionally, you can enter a UniProt code to download an entry directly from the AlphaFoldDB API (for a list of available entries, visit: https://alphafold.ebi.ac.uk)."><i class="bi bi-question-circle-fill"></i></a>
+      <label class="badge bg-dark">or type a PDB ID or an UniProt/AlphaFoldDB ID </label><a class="link-dark ms-1" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="You can enter a 4-character PDB code to download a file from the Protein Data Bank API (for a list of available PDB files, visit: https://www.rcsb.org). Optionally, you can enter a UniProt code to download an entry directly from the AlphaFoldDB API (for a list of available entries, visit: https://alphafold.ebi.ac.uk)."><i class="bi bi-question-circle-fill"></i></a>
       <div class="input-group mb-3 w-50">
         <input type="text" id="pdb_via_api" class="form-control form-control-lg" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> 
       </div>
