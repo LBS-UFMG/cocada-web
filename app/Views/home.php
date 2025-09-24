@@ -18,11 +18,8 @@
       <p class="lead">COCaDA-web is a tool and a database that presents contacts in all structures available in the PDB database. COCaDA calculates seven types of contacts: hydrogen bonds, hydrophobic, aromatic, attractive, repulsive, salt bridges and disulfide bridges. </p>
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-1">
-
-        <a class="btn btn-primary btn-lg px-4 me-md-2 azul" href="#run">Run</button>
-          <a href="#examples" class="btn btn-outline-dark btn-lg px-4 me-md-2">Examples</a>
-
-
+        <a class="btn btn-primary btn-lg px-4 me-md-2 azul" href="#run">Run</a>
+        <a href="#examples" class="btn btn-outline-dark btn-lg px-4 me-md-2">Examples</a>
       </div>
     </div>
   </div>
