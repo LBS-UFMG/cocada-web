@@ -6,7 +6,7 @@
 <h1 class="pb-2 text-dark"><strong>Documentation</strong></h1>
 <hr>
 <h3 class="pt-4 pb-1">What is COCαDA?</h3>
-<p><strong>COCαDA</strong> (Contact Optimization by alpha-Carbon Distance Analysis) is a tool for calculating intra- and inter-molecular contacts in proteins. COCαDA optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files, containing functionalities for handling large files, filtering out specific residues and interactions, and calculating geometric properties such as centroid and normal vectors for aromatic residues.</p>
+<p><strong>COCαDA</strong> (initially an acronym for "Contact Optimization by alpha-Carbon Distance Analysis" and recently "COntact search pruning by Cα Distance Analysis") is a tool for calculating intra- and inter-molecular contacts in proteins. COCαDA optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files, containing functionalities for handling large files, filtering out specific residues and interactions, and calculating geometric properties such as centroid and normal vectors for aromatic residues.</p>
 
 <p>The contact types available are:</p>
 <ul>
