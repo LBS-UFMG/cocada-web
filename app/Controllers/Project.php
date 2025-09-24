@@ -61,7 +61,8 @@ class Project extends BaseController
 			$raiz = str_replace("/public/data/projects", "",$data_folder);
 
 			if (!file_exists($data_folder.'/'.$id.'/contacts.csv')) {
-				dd("Failed to run the project. Please try again by submitting a file in PDB format or contact the system administrator.");
+				$data['details'] = "Failed to run the project. Please try again by submitting a file in PDB format or contact the system administrator.";
+				return view('error', $data);
 			}
 
 			$contacts_file = fopen($data_folder.'/'.$id.'/contacts.csv','r');
@@ -98,7 +99,8 @@ class Project extends BaseController
 		$file = $this->request->getFile('pdbfile');
 
 		if($pdb_via_api == '' and $file->getName() == ''){
-			dd("ERROR! You cannot submit a project without sending a UniProt file or code.");
+			$data['details'] = "ERROR! You cannot submit a project without sending a UniProt file or code."; 
+			return view('error', $data);
 		}
 
 		$filter_chains = $this->request->getPost('filter_chains');
@@ -174,7 +176,7 @@ class Project extends BaseController
 
 			// Faz a requisição
 			$response = @file_get_contents($url);
-			if ($response === FALSE) { dd("Error accessing PDB API. Check if this code is valid by accessing https://www.rcsb.org and try again later."); }
+			if ($response === FALSE) { $data['details'] = "Error accessing PDB API. Check if this code is valid by accessing https://www.rcsb.org and try again later."; return view('error', $data); }
 
 			$save_dir = FCPATH . "data/projects/{$id}/";
 			$save_path = $save_dir . "data.cif";
@@ -200,7 +202,8 @@ class Project extends BaseController
 			file_put_contents($save_path, $response);
 		}
 		else if((strlen($pdb_via_api) < 4)and(strlen($pdb_via_api) > 0)){
-			dd("PDB ID or AlphaFoldDB ID invalid. Try again.");
+			$data['details'] = "PDB ID or AlphaFoldDB ID invalid. Try again.";
+			return view('error', $data); 
 		}
         // via arquivo
 		else if(!empty($file)){
@@ -208,7 +211,8 @@ class Project extends BaseController
 			if(($extensao=='pdb')or($extensao=='cif')){
 				$tamanho = $file->getSize();
 				if($tamanho > 10485760){
-					dd("Error! Max file size: 10MB.");
+					$data['details'] = "Error! Max file size: 10MB.";
+					return view('error', $data); 
 				}
 				else{
 					// Submit file
@@ -221,22 +225,17 @@ class Project extends BaseController
 				}
 			}
 			else{
-				dd("Error! Format not allowed. Submit a PDB or a CIF file.");
+				$data['details'] = "Error! Format not allowed. Submit a PDB or a CIF file."; return view('error', $data); 
 			}
 		}
 		else{
-			dd("Error: Empty file.");
+			$data['details'] = "Error: Empty file."; return view('error', $data);
 		}
 		
 		echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
+
 		# START cocada PIPELINE *******************************************
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
-		#$interpretador = "python3.8";
-		#$interpretador = "/usr/bin/python3.6"; 
-		#$interpretador = "/bin/python3";
-		#$versao = 'cocada_alfa'; # stable
-		$versao = 'COCaDA_web';
-		$versao = 'cocada_25.06';
 		$versao = 'COCaDA-CLI';
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
@@ -266,16 +265,12 @@ class Project extends BaseController
 	}
 
     private function generateRandomString($size){
-
 		$chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		$randomString = '';
-		
 		for($i = 0; $i < $size; $i = $i+1){
 			$randomString .= $chars[mt_rand(0,35)];
 		}
-
 		return $randomString;
-
 	}
     
 }
