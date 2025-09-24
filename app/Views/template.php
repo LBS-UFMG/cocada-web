@@ -47,7 +47,7 @@
                     <li class="nav-item"><a href="<?= base_url('/#run') ?>" class="nav-link link-body-emphasis px-2">Try now</a></li>
                 </ul>
                 <ul class="nav">
-                    <li class="nav-item"><a href="<?= base_url('/#cite') ?>" class="nav-link link-body-emphasis px-2">How to cite</a></li>
+                    <li class="nav-item"><a href="<?= base_url('/#cite') ?>" class="nav-link link-body-emphasis px-2">How to cite COCαDA-web</a></li>
                 </ul>
 
             </div>
