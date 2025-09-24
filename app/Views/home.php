@@ -420,6 +420,19 @@
       $("[name=code3]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code2]").focus() }}); 
       $("[name=code2]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code1]").focus() }}); 
 
+      // ativa todos os popovers
+      // fallback para tooltips do Bootstrap
+      const ttTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      ttTriggerList.forEach(function(el) {
+          if (el._tooltipInstance) {
+              try {
+                  el._tooltipInstance.dispose();
+              } catch (_) {}
+          }
+          const inst = bootstrap.Tooltip.getOrCreateInstance(el);
+          el._tooltipInstance = inst;
+      });
+
     });
     
   </script>
