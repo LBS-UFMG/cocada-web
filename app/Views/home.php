@@ -149,7 +149,7 @@
           <input type="file" class="form-control" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
         </div>
 
-      
+
 
     </div>
     <div class="col border-start pb-3">
@@ -270,20 +270,20 @@
             </div>
 
             <div class="col border-start p-4">
-              
+
               <h4>Filter chains</h4>
               <p>Select the chains you want to calculate contacts for.</p>
-                <input type="radio" value="all" name="filter_chains" checked> All <br>
-                <input type="radio" value="inter" name="filter_chains"> Only interchain contacts <br>
-                <!-- <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br> -->
-                <input type="radio" value="chains" name="filter_chains" id="rchains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains" disabled>
-                
+              <input type="radio" value="all" name="filter_chains" checked> All <br>
+              <input type="radio" value="inter" name="filter_chains"> Only interchain contacts <br>
+              <!-- <input type="radio" value="intra" name="filter_chains"> Only intrachain contacts<br> -->
+              <input type="radio" value="chains" name="filter_chains" id="rchains"> Only contacts in the chains: <input type="text" placeholder="A,B,C" name="chains" disabled>
+
               <h4 class="mt-5">pH</h4>
               <p>Change the pH value (default is 7.4):</p>
               <input id="ph" type="range" min="0" max="14" step="0.1" name="ph" value="7.4" class="form-range">
               <p id="nameph" class="text-center text-muted">7.4</p>
 
-              <input type="checkbox" value="ph_from_file" name="ph_from_file"> Use the pH value defined in the CIF/PDB file 
+              <input type="checkbox" value="ph_from_file" name="ph_from_file"> Use the pH value defined in the CIF/PDB file
 
               <script>
                 $(document).ready(function() {
@@ -315,74 +315,133 @@
 <div class="container mt-5 my-5 px-5 pb-5" id="examples">
   <h1 class="pt-5"><strong>Examples</strong></h1>
   <hr>
-  <p class="text-muted">Click on one of the following PDB-IDs to explore the corresponding entry:</p>
-  <div class="row">
-    <div class="col">
-      <label class="badge bg-light text-dark">Protein single-chain</label>
-      <a href="<?= base_url('/entry/1K0P') ?>" class="badge bg-primary azul">1K0P</a>
-      <a href="<?= base_url('/entry/1TPM') ?>" class="badge bg-primary azul">1TPM</a>
-      <a href="<?= base_url('/entry/2LZM') ?>" class="badge bg-primary azul">2LZM</a>
-      <a href="<?= base_url('/entry/4MDP') ?>" class="badge bg-primary azul">4MDP</a>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col">
-      <label class="badge bg-light text-dark">Protein multi-chain complex</label>
-      <a href="<?= base_url('/entry/1SHR') ?>" class="badge bg-primary azul">1SHR</a>
-    </div>
-  </div>
 
-  <div class="row">
+      <p class="text-muted">Click on one of the following PDB-IDs to explore the corresponding entry:</p>
+      <div class="row">
+        <div class="col">
+          <label class="badge bg-light text-dark">Protein single-chain</label>
+          <a href="<?= base_url('/entry/1K0P') ?>" class="badge bg-primary azul">1K0P</a>
+          <a href="<?= base_url('/entry/1TPM') ?>" class="badge bg-primary azul">1TPM</a>
+          <a href="<?= base_url('/entry/2LZM') ?>" class="badge bg-primary azul">2LZM</a>
+          <a href="<?= base_url('/entry/4MDP') ?>" class="badge bg-primary azul">4MDP</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="badge bg-light text-dark">Protein multi-chain complex</label>
+          <a href="<?= base_url('/entry/1SHR') ?>" class="badge bg-primary azul">1SHR</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="badge bg-light text-dark">Protein-peptide</label>
+          <a href="<?= base_url('/entry/1A1M') ?>" class="badge bg-primary azul">1A1M</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="badge bg-light text-dark">Protein-DNA</label>
+          <a href="<?= base_url('/entry/3L1P') ?>" class="badge bg-primary azul">3L1P</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="badge bg-light text-dark">Protein-RNA</label>
+          <a href="<?= base_url('/entry/4PMI') ?>" class="badge bg-primary azul">4PMI</a>
+        </div>
+      </div>
+
+    </div>
     <div class="col">
-      <label class="badge bg-light text-dark">Protein-peptide</label>
-      <a href="<?= base_url('/entry/1A1M') ?>" class="badge bg-primary azul">1A1M</a>
+      <p class="text-muted">Or access an entry by typing the 4-characters PDB code: <label class="badge bg-dark"><label class="orange">2LZM</label></label></p>
+      <div class="row g-2">
+        <div class="col-1">
+          <input type="text" id="code1" name="code1" class="form-control validacao" size="1" maxlength="1">
+        </div>
+        <div class="col-1">
+          <input type="text" id="code2" name="code2" class="form-control validacao" size="1" maxlength="1">
+        </div>
+        <div class="col-1">
+          <input type="text" id="code3" name="code3" class="form-control validacao" size="1" maxlength="1">
+        </div>
+        <div class="col-1">
+          <input type="text" id="code4" name="code4" class="form-control validacao" size="1" maxlength="1">
+        </div>
+        <div class="col-1">
+          <button type="button" id="go" class="btn btn-dark azul" name="go" value="Go to entry"><i class="bi bi-play-fill"></i></button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <label class="badge bg-light text-dark">Protein-DNA</label>
-      <a href="<?= base_url('/entry/3L1P') ?>" class="badge bg-primary azul">3L1P</a>
-    </div>
-  </div>
+  <script>
+    const go = document.getElementById('go');
 
-  <div class="row">
-    <div class="col">
-      <label class="badge bg-light text-dark">Protein-RNA</label>
-      <a href="<?= base_url('/entry/4PMI') ?>" class="badge bg-primary azul">4PMI</a>
-    </div>
-  </div>
-</div>
+    go.addEventListener('click', () => {
+      let c1 = document.getElementById('code1').value;
+      let c2 = document.getElementById('code2').value;
+      let c3 = document.getElementById('code3').value;
+      let c4 = document.getElementById('code4').value;
 
-<script>
-  const go = document.getElementById('go');
+      let code = c1+c2+c3+c4;
 
-  go.addEventListener('click', () => {
-    let url = document.getElementById('pdb_go').value;
-    url = url.toUpperCase();
-    if (url) {
-      if (url.length != 4) {
-        window.location.href = '<?= base_url("/entry/404") ?>';
-      }
-      window.location.href = '<?= base_url() ?>entry/' + url;
-    }
-  });
-
-  function redirectToURL2(event) {
-    // Verificar se a tecla pressionada foi Enter (código 13)
-    if (event.keyCode === 13) {
-      event.preventDefault(); // Prevenir o envio do formulário
-      let url = document.getElementById('pdb_go').value;
-      url = url.toUpperCase();
-      if (url) {
-        if (url.length != 4) {
+      code = code.toUpperCase();
+      if (code) {
+        if (code.length != 6) {
           window.location.href = '<?= base_url("/entry/404") ?>';
         }
-        window.location.href = '<?= base_url() ?>entry/' + url;
+        window.location.href = '<?= base_url() ?>entry/' + code;
       }
-    }
-  }
-</script>
+    });
 
-<?= $this->endSection() ?>
+    $(()=>{
+      
+      // pula para o proximo campo (keycode==8 => backspace)
+      $("[name=code1]").on('keyup',(e)=>{ if(e.keyCode!=8 ){$("[name=code2]").focus() }});
+      $("[name=code2]").on('keyup',()=>{ $("[name=code3]").focus() });
+      $("[name=code3]").on('keyup',()=>{ $("[name=code4]").focus() });
+      $("[name=code4]").on('keyup',()=>{ $("[name=go]").focus() });
+      
+      // ao apagar, volta para campo anterior
+      $("[name=code4]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code3]").focus() }}); 
+      $("[name=code3]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code2]").focus() }}); 
+      $("[name=code2]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code1]").focus() }}); 
+
+    });
+    // const go = document.getElementById('go');
+
+    // go.addEventListener('click', () => {
+    //   let url = document.getElementById('pdb_go').value;
+    //   url = url.toUpperCase();
+    //   if (url) {
+    //     if (url.length != 4) {
+    //       window.location.href = '<?= base_url("/entry/404") ?>';
+    //     }
+    //     window.location.href = '<?= base_url() ?>entry/' + url;
+    //   }
+    // });
+
+    // function redirectToURL2(event) {
+    //   // Verificar se a tecla pressionada foi Enter (código 13)
+    //   if (event.keyCode === 13) {
+    //     event.preventDefault(); // Prevenir o envio do formulário
+    //     let url = document.getElementById('pdb_go').value;
+    //     url = url.toUpperCase();
+    //     if (url) {
+    //       if (url.length != 4) {
+    //         window.location.href = '<?= base_url("/entry/404") ?>';
+    //       }
+    //       window.location.href = '<?= base_url() ?>entry/' + url;
+    //     }
+    //   }
+    // }
+  </script>
+
+  <?= $this->endSection() ?>

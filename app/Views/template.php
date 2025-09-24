@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <title>COCaDA – The Protein Contacts Database</title>
-    <?php $version = "2.5.819"; // 19-ago-2025 ?> 
+    <?php $version = "25.924"; // 24-sep-2025 ?> 
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,8 +35,7 @@
             <li class="nav-item"><a href="<?= base_url('/#run') ?>" class="nav-link link-body-emphasis px-2">Try now</a></li> 
         </ul>
         <ul class="nav">
-            <!-- <li class="nav-item"><a href="http://bioinfo.dcc.ufmg.br/coda"  -->
-            <!-- class="nav-link link-body-emphasis px-2">Explore <strong>CODA</strong> (COntacts DAtabase)</a></li> -->
+            <li class="nav-item"><a href="<?= base_url('/#cite') ?>" class="nav-link link-body-emphasis px-2">Cite</a></li>
         </ul>
         </div>
     </nav>
@@ -45,8 +44,8 @@
         <a href="<?= base_url() ?>" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
             <img src="<?= base_url('/img/cocada.svg') ?>" width="250">
         </a>
-        <form class="col-12 col-md-auto mb-3 mb-md-0" role="search">
-            <input type="search" class="form-control form-control-md mt-2" placeholder="Search..." aria-label="Search" onkeydown="redirectToURL(event)" id="urlInput">
+        <form class="col-12 col-md-auto mb-3 mb-md-0" role="search" action="<?= base_url('/explore') ?>">
+            <input type="search" class="form-control form-control-md mt-2" placeholder="Search..." aria-label="Search" id="urlInput"><!-- onkeydown="redirectToURL(event)" -->
         </form>
         </div>
     </header>
@@ -136,20 +135,20 @@
 
 
     <script>
-        function redirectToURL(event) {
-            // Verificar se a tecla pressionada foi Enter (código 13)
-            if (event.keyCode === 13) {
-                event.preventDefault(); // Prevenir o envio do formulário
-                let url = document.getElementById('urlInput').value;
-                url = url.toUpperCase();
-                if (url) {
-                    if(url.length != 4){
-                        window.location.href = '<?= base_url("/entry/404") ?>';
-                    }
-                    window.location.href = '<?= base_url() ?>entry/'+url;
-                }
-            }
-        }
+        // function redirectToURL(event) {
+        //     // Verificar se a tecla pressionada foi Enter (código 13)
+        //     if (event.keyCode === 13) {
+        //         event.preventDefault(); // Prevenir o envio do formulário
+        //         let url = document.getElementById('urlInput').value;
+        //         url = url.toUpperCase();
+        //         if (url) {
+        //             if(url.length != 4){
+        //                 window.location.href = '<?= base_url("/entry/404") ?>';
+        //             }
+        //             window.location.href = '<?= base_url() ?>entry/'+url;
+        //         }
+        //     }
+        // }
         
     </script>
 
