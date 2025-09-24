@@ -359,19 +359,19 @@
       <p class="text-muted" id="search_pdb" >Or access an entry by typing the 4-characters PDB code <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="E.g.: 2LZM. Using this option, COCaDA-web will use preprocessed data from its internal database. Default parameters will be used for this processing. See the documentation for details. To change the parameters used, use the 'Run COCaDA-web' option."><i class="bi bi-question-circle-fill"></i></a>:</p>
       <div class="row g-2">
         <div class="col-2 col-md-2">
-          <input type="text" id="code1" name="code1" class="form-control form-control-lg validacao p-4" size="1" maxlength="1">
+          <input type="text" id="code1" name="code1" class="form-control form-control-lg validacao px-3 py-4" size="1" maxlength="1">
         </div>
         <div class="col-2 col-md-2">
-          <input type="text" id="code2" name="code2" class="form-control form-control-lg validacao p-4" size="1" maxlength="1">
+          <input type="text" id="code2" name="code2" class="form-control form-control-lg validacao px-3 py-4" size="1" maxlength="1">
         </div>
         <div class="col-2 col-md-2">
-          <input type="text" id="code3" name="code3" class="form-control form-control-lg validacao p-4" size="1" maxlength="1">
+          <input type="text" id="code3" name="code3" class="form-control form-control-lg validacao px-3 py-4" size="1" maxlength="1">
         </div>
         <div class="col-2 col-md-2">
-          <input type="text" id="code4" name="code4" class="form-control form-control-lg validacao p-4" size="1" maxlength="1">
+          <input type="text" id="code4" name="code4" class="form-control form-control-lg validacao px-3 py-4" size="1" maxlength="1">
         </div>
         <div class="col-2 col-md-2">
-          <button type="button" id="go" class="btn btn-dark azul  p-4" name="go" value="Go to entry"><i class="bi bi-play-fill"></i></button>
+          <button type="button" id="go" class="btn btn-dark azul px-3 py-4" name="go" value="Go to entry"><i class="bi bi-play-fill"></i></button>
         </div>
       </div>
       <span class="badge bg-secondary mb-1">PDB search bar</span>
