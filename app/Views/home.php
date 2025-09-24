@@ -120,7 +120,7 @@
             <div class="col-md-12 p-4">
               <h4 class="" style="color:#6cbd16"><strong>How to cite:</strong></h4>
 
-              <label class="badge bg-success azul mt-2">Main article (2025)</label>
+              <label class="badge bg-success azul mt-2"><i class="bi bi-star-fill me-1"></i>Main article (2025)</label>
               <p class="small">Lemos RP, Mariano D, Silveira SDA and de Melo-Minardi RC (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
 
               <label class="badge bg-success azul mt-3">Conference paper (2024)</label>  
