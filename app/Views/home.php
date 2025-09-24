@@ -137,7 +137,7 @@
 <div class="container mt-5 border rounded p-5 bg-light" id="run">
 
   <h1><strong>Run COCαDA-web</strong></h1>
-  <p class="lead">Calculate interatomic contacts for a protein file using COCαDA-web interface</p>
+  <p class="lead">Calculate interatomic contacts for a protein file using the COCαDA-web interface</p>
   <p class="border rounded p-4 text-muted small">
     <strong>There are three ways to run COCaDA-web</strong> (1) Upload a file in PDB or CIF format; (2) enter the PDB/UniProt code to download data from PDB/AlphaFoldDB API; (3) use the search bar to access COCaDA-db pre-calculated structure contacts. COCaDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file.
   </p>
