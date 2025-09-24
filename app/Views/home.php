@@ -145,18 +145,18 @@
     There are three ways to run COCaDA-web: (1) Upload a file in PDB or CIF format; (2) enter the PDB/UniProt code to download data from PDB/AlphaFoldDB API; (3) use the search bar to access COCaDA-db pre-calculated structure contacts. COCaDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file.
   </p>
   <div class="row">
-    <div class="col">
+    <div class="col-12 col-md-6">
       <label class="badge bg-primary">Submit your PDB file (limit 10MB)</label>
 
       <form action="<?php echo base_url('run'); ?>" method="post" enctype="multipart/form-data">
         <div class="input-group">
-          <input type="file" class="form-control" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
+          <input type="file" class="form-control  form-control-lg" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
         </div>
     </div>
-    <div class="col border-start pb-3">
-      <label class="badge text-bg-light">or type a PDB ID or an UniProt ID (for AlphaFoldDB entry) <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="You can enter a 4-character PDB code to download a file from the Protein Data Bank API (for a list of available PDB files, visit: https://www.rcsb.org). Optionally, you can enter a UniProt code to download an entry directly from the AlphaFoldDB API (for a list of available entries, visit: https://alphafold.ebi.ac.uk)."><i class="bi bi-question-circle-fill"></i></a></label>
+    <div class="col-12 col-md-6 border-start pb-3">
+      <label class="badge text-bg-light">or type a PDB ID or an UniProt ID (for an AlphaFoldDB entry) <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="You can enter a 4-character PDB code to download a file from the Protein Data Bank API (for a list of available PDB files, visit: https://www.rcsb.org). Optionally, you can enter a UniProt code to download an entry directly from the AlphaFoldDB API (for a list of available entries, visit: https://alphafold.ebi.ac.uk)."><i class="bi bi-question-circle-fill"></i></a></label>
       <div class="input-group mb-3 w-50">
-        <input type="text" id="pdb_via_api" class="form-control" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> 
+        <input type="text" id="pdb_via_api" class="form-control form-control-lg" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> 
       </div>
     </div>
   </div>
@@ -311,12 +311,12 @@
 
 <!-- ************************ EXAMPLES ************************ -->
 
-<div class="container mt-5 my-5 px-5 pb-5" id="examples">
+<div class="container mt-5 my-5 px-4 pb-5" id="examples">
   <h1 class="pt-5"><strong>Examples</strong></h1>
   <hr>
 
   <div class="row">
-    <div class="col">
+    <div class="col-12 col-md-6">
 
       <p class="text-muted">Click on one of the following PDB-IDs to explore the corresponding entry <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="These preprocessed data were collected from the Protein Data Bank (https://www.rcsb.org). pH values ​​used by COCaDA were obtained from the corresponding PDB file. Default cutoff values ​​were used to define contact types. For more details, see the documentation."><i class="bi bi-question-circle-fill"></i></a>:</p>
       <div class="row">
@@ -358,7 +358,7 @@
       </div>
 
     </div>
-    <div class="col">
+    <div class="col-12 col-md-6">
       <p class="text-muted">Or access an entry by typing the 4-characters PDB code <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="E.g.: 2LZM. Using this option, COCaDA-web will use preprocessed data from its internal database. Default parameters will be used for this processing. See the documentation for details. To change the parameters used, use the 'Run COCaDA-web' option."><i class="bi bi-question-circle-fill"></i></a>:</p>
       <div class="row g-2">
         <div class="col-1">

@@ -28,7 +28,7 @@
 <body>
             
     <nav class="py-2 bg-body-tertiary menu link-light navbar-expand-md">
-        <div class="px-5 container-fluid d-flex flex-wrap">
+        <div class="px-4 container-fluid d-flex flex-wrap">
 
             <!-- Botão hamburger -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse"
@@ -49,12 +49,12 @@
                 <ul class="nav">
                     <li class="nav-item"><a href="<?= base_url('/#cite') ?>" class="nav-link link-body-emphasis px-2">How to cite</a></li>
                 </ul>
-                
+
             </div>
         </div>
     </nav>
     <header class="py-3 mb-4 border-bottom">
-        <div class="px-5 container-fluid d-flex flex-wrap justify-content-center">
+        <div class="px-4 container-fluid d-flex flex-wrap justify-content-center">
             <a href="<?= base_url() ?>" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
                 <img src="<?= base_url('/img/cocada.svg') ?>" width="250">
             </a>
