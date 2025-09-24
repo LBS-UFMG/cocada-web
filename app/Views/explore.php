@@ -28,6 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <p class="small text-muted text-center">Loading data. Please wait.</p>
                 </tbody>
             </table>
         </div>
