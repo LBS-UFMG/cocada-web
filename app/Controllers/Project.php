@@ -104,7 +104,7 @@ class Project extends BaseController
 			dd("ERROR! You cannot submit a project without sending a UniProt file or code.");
 		}
 
-		dd($file);
+		dd($file->getName());
 
 		$chains = $this->request->getPost('chains');
 		if(empty($chains)and($filter_chains!='chains')){
