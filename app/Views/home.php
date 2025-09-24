@@ -142,7 +142,7 @@
   <h1><strong>Run COCαDA-web</strong></h1>
   <hr>
   <p class="pb-4 text-muted">
-    There are two ways to run COCaDA-web: (1) Upload a file in PDB or CIF format; or (2) enter the 4-digit corresponding PDB code to access COCaDA-db pre-calculated structure contacts. COCaDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file.
+    There are three ways to run COCaDA-web: (1) Upload a file in PDB or CIF format; (2) enter the PDB/UniProt code to download data from PDB/AlphaFoldDB API; (3) use the search bar to access COCaDA-db pre-calculated structure contacts. COCaDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file.
   </p>
   <div class="row">
     <div class="col">
@@ -165,8 +165,8 @@
   <div class="accordion" id="adv_opt">
     <div class="accordion-item">
       <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Advanced options <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Click here only if you want to change the default parameters used by COCaDA for calculating contacts. If you want to run with the parameters recommended by the developers, just click the RUN button below."><i class="bi bi-question-circle-fill"></i></a>
+        <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Advanced options <a class="ms-2 link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Click here only if you want to change the default parameters used by COCaDA for calculating contacts. If you want to run with the parameters recommended by the developers, just click the RUN button below."><i class="bi bi-question-circle-fill"></i></a>
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
