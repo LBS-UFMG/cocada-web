@@ -371,7 +371,7 @@
           <input type="text" id="code4" name="code4" class="text-center form-control form-control-lg validacao px-3 py-4" size="1" maxlength="1">
         </div>
         <div class="col-2 col-md-2">
-          <button type="button" id="go" class="btn btn-dark azul p-4 h4" name="go" value="Go to entry"><i class="bi bi-play-fill"></i></button>
+          <button type="button" id="go" class="btn btn-dark azul p-4" name="go" value="Go to entry"><i class="bi bi-play-fill h4"></i></button>
         </div>
       </div>
       <span class="badge bg-secondary mb-1">PDB search bar</span>
