@@ -91,21 +91,17 @@ class Project extends BaseController
             return view($view, $data);
 		}
 	}
-
 	
     public function create(){
-		$filter_chains = $this->request->getPost('filter_chains');
-		
 		// origem: via arquivo ou api
 		$pdb_via_api = $this->request->getPost('pdb_via_api');
 		$file = $this->request->getFile('pdbfile');
 
-		if($pdb_via_api == '' and empty($file)){
+		if($pdb_via_api == '' and $file->getName() == ''){
 			dd("ERROR! You cannot submit a project without sending a UniProt file or code.");
 		}
 
-		dd($file->getName());
-
+		$filter_chains = $this->request->getPost('filter_chains');
 		$chains = $this->request->getPost('chains');
 		if(empty($chains)and($filter_chains!='chains')){
 			$region = '';
@@ -163,26 +159,26 @@ class Project extends BaseController
 		chmod("../../../public/data/projects/$id", 0777);
 
 
-		# ********************* Receiving post data *********************
+		# ********************* ORIGEM DOS DADOS *********************
 
 		$pdb = $this->request->getPost("pdb");
 		$data_folder = getcwd();
 		$raiz = str_replace("/public/data/projects", "",$data_folder);
 
-		# Saving project data
-		// $project = fopen($data_folder.'/'.$id.'/data.pdb','w');
-		// fwrite($project,$pdb); 
-		// fclose($project);
+		// via API
+		if(count($pdb_via_api) == 4){
+			// download via pdb
+			echo 'arquivo pdb';
+		}
+		else if(count($pdb_via_api) >= 4){
+			echo 'uniprot';
+		}
 
-
-        
+        // via arquivo
 		if(!empty($file)){
 			$extensao = strtolower(substr($file->getName(), -3, 3));
-
 			if(($extensao=='pdb')or($extensao=='cif')){
-
 				$tamanho = $file->getSize();
-
 				if($tamanho > 10485760){
 					dd("Error! Max file size: 10MB.");
 				}
@@ -204,9 +200,6 @@ class Project extends BaseController
 			dd("Error: Empty file.");
 		}
 		
-        # Security
-        #chmod("../../public/data/$id", 0644);
-				
 		echo "<div class='bg-info small text-center'><div class='container-fluid px-5'><strong>COCaDA CLI status: </strong>"; // message style box
 		# START cocada PIPELINE *******************************************
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
@@ -217,7 +210,6 @@ class Project extends BaseController
 		$versao = 'COCaDA_web';
 		$versao = 'cocada_25.06';
 		$versao = 'COCaDA-CLI';
-		chmod("../../../public/data/projects/$id", 0777);
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/$versao/cocada.py 
