@@ -28,9 +28,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <p class="small text-muted text-center">Loading data. Please wait.</p>
                 </tbody>
             </table>
+            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait.</p>
+
         </div>
     </div>
 
@@ -98,6 +99,9 @@
                 // "order": [
                 //     [0, 'asc']
                 // ] // ordena pela coluna 0
+                initComplete: function(settings, json) {
+                    $("#loading_table").hide();
+                }
             })
 
             if (initialSearch) {
