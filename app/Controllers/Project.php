@@ -190,6 +190,7 @@ class Project extends BaseController
 
 			// Faz a requisição
 			$response = file_get_contents($url);
+			dd($response);
 			if ($response === FALSE) { dd("Error accessing PDB API."); }
 
 			$save_dir = FCPATH . "data/projects/{$id}/";
