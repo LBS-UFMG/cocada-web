@@ -400,7 +400,7 @@
 
       code = code.toUpperCase();
       if (code) {
-        if (code.length != 6) {
+        if (code.length != 4) {
           window.location.href = '<?= base_url("/entry/404") ?>';
         }
         window.location.href = '<?= base_url() ?>entry/' + code;
