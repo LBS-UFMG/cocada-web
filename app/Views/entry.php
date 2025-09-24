@@ -79,7 +79,7 @@
 </div>
 
 
-<div class="container-fluid px-5">
+<div class="container-fluid px-4">
     <div class="row">
         <div class="col-md-9 col-12" ng-if="cttlok" id="col1">
             <center>
