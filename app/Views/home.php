@@ -119,10 +119,14 @@
           <div class="row">
             <div class="col-md-12 p-4">
               <h4 class="" style="color:#6cbd16"><strong>How to cite:</strong></h4>
+
+              <label class="badge bg-success azul">Main article (2025)</label>
+              <p class="small">Lemos RP, Mariano D, Silveira SDA and de Melo-Minardi RC (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
+
+              <label class="badge bg-success azul">Conference paper (2024)</label>  
               <p class="small" id="browse">LEMOS, Rafael P.; MARIANO, Diego; SILVEIRA, Sabrina A.; MELO-MINARDI, Raquel C. de. <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices.</strong> In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70, 2024. DOI: https://doi.org/10.5753/bsb.2024.245545
               </p>
 
-              <p class="small">Lemos RP, Mariano D, Silveira SDA and de Melo-Minardi RC (2025) COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
             </div>
           </div>
         </div>
