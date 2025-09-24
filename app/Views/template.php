@@ -45,7 +45,7 @@
             <img src="<?= base_url('/img/cocada.svg') ?>" width="250">
         </a>
         <form class="col-12 col-md-auto mb-3 mb-md-0" role="search" action="<?= base_url('/explore') ?>">
-            <input type="search" class="form-control form-control-md mt-2" placeholder="Search..." aria-label="Search" id="urlInput"><!-- onkeydown="redirectToURL(event)" -->
+            <input type="search" class="form-control form-control-md mt-2" placeholder="Search..." aria-label="Search" id="urlInput" name="q"><!-- onkeydown="redirectToURL(event)" -->
         </form>
         </div>
     </header>
