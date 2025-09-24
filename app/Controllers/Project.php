@@ -170,6 +170,7 @@ class Project extends BaseController
 			// download via pdb
 			// URL da API REST do RCSB PDB
 			$url = "https://files.rcsb.org/download/{$pdb_via_api}.cif";
+			$extensao = '.cif';
 
 			// Faz a requisição
 			$response = file_get_contents($url);
