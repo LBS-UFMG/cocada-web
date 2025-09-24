@@ -104,8 +104,8 @@
                     Diego Mariano / Rafael Lemos
                 </div>
             </div>
-            
-            <h4 class="text-muted mt-3">Please, cite COCαDA in your publication:</h4>
+            <hr>
+            <h4 class="text-muted mt-4">Please, cite COCαDA in your publication:</h4>
             <label class="badge bg-success mt-2"><i class="bi bi-star-fill me-1"></i>Main article (2025)</label>
               <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos RP, Mariano D, Silveira SDA and de Melo-Minardi RC (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
 
