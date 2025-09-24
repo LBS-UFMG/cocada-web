@@ -161,8 +161,8 @@
     <div class="col border-start pb-3">
       <label class="badge text-bg-light">or type a PDB ID</label>
       <div class="input-group mb-3 w-50">
-        <input type="text" id="pdb_go" class="form-control" placeholder="e.g., 2LZM" aria-label="PDB ID" aria-describedby="explore" onkeydown="redirectToURL2(event)">
-        <button class="btn btn-outline-secondary" type="button" id="go">Go</button>
+        <input type="text" id="pdb_go" class="form-control" placeholder="e.g., 2LZM" aria-label="PDB ID" aria-describedby="explore"> <!--onkeydown="redirectToURL2(event)">-->
+        <!-- <button class="btn btn-outline-secondary" type="button" id="go">Go</button> -->
       </div>
     </div>
   </div>
@@ -399,6 +399,7 @@
       let code = c1+c2+c3+c4;
 
       code = code.toUpperCase();
+      console.log(code)
       if (code) {
         if (code.length != 4) {
           window.location.href = '<?= base_url("/entry/404") ?>';
