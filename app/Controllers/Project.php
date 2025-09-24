@@ -168,7 +168,18 @@ class Project extends BaseController
 		// via API
 		if(strlen($pdb_via_api) == 4){
 			// download via pdb
-			echo 'arquivo pdb';
+			// URL da API REST do RCSB PDB
+			$url = "https://files.rcsb.org/download/{$pdb_via_api}.cif";
+
+			// Faz a requisição
+			$response = file_get_contents($url);
+			if ($response === FALSE) { dd("Error accessing PDB API."); }
+
+			$save_dir = FCPATH . "data/projects/{$id}/";
+			$save_path = $save_dir . "data.cif";
+
+			// grava no diretório
+			file_put_contents($save_path, $response);
 		}
 		else if(strlen($pdb_via_api) >= 4){
 			echo 'uniprot';
@@ -176,7 +187,6 @@ class Project extends BaseController
 		else if((strlen($pdb_via_api) < 4)and(strlen($pdb_via_api) > 0)){
 			dd("PDB ID invalid. Try again.");
 		}
-
         // via arquivo
 		else if(!empty($file)){
 			$extensao = strtolower(substr($file->getName(), -3, 3));
