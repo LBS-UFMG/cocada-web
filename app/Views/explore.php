@@ -41,55 +41,51 @@
 <?= $this->section('scripts') ?>
 <script>
     $(() => {
+        // Base URL gerada pelo servidor (útil para templates)
+        const BASE_URL = '<?= base_url() ?>';
 
+        // captura o parâmetro de busca da URL (?q= ou ?query=)
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialQuery = (urlParams.get('q') || urlParams.get('query') || '').trim();
 
         const lerDados = (arquivo) => {
-
-            // ler arquivo usando jQuery
             $.ajax({
                 url: arquivo,
+                dataType: 'text',
                 success: (dados) => {
-                    dados_formatados = formatarTabela(dados)
-
-                    plotar(dados_formatados)
+                    try {
+                        const dados_formatados = formatarTabela(dados);
+                        plotar(dados_formatados, initialQuery);
+                    } catch (err) {
+                        console.error('Erro ao processar dados:', err);
+                    }
+                },
+                error: (xhr, status, err) => {
+                    console.error('Erro na requisição AJAX:', status, err);
                 }
             });
-        }
+        };
 
         // formatar tabela --> INÍCIO 
         const formatarTabela = (dados) => {
-
             let dados_tabelados = [];
-
-            // separa as linhas
-            let linhas = dados.split("\n")
-
-            // para cada linha
-            for (let linha of linhas) {
-
-                // remove caracteres especiais 
-                linha = linha.replace("\r", "")
-
-                // separa as células
-                if(linha!=""){
+            let linhas = dados.split("\n") // separa as linhas
+            for (let linha of linhas) {  // para cada linha
+                linha = linha.replace("\r", "") // remove caracteres especiais 
+                if(linha!=""){ // separa as células
                     celulas = linha.split(",")
                 }
                 celulas[0] = `<strong><a href="<?=base_url()?>/entry/${celulas[0]}">${celulas[0]}</a></strong>`;
 
-                // salva células
-                dados_tabelados.push(celulas)
+                dados_tabelados.push(celulas) // salva células
             }
-
             return dados_tabelados
         }
         // formatar tabela --> FIM 
 
-
         // plotando a tabela
         const plotar = (dados) => {
-
             console.log(dados)
-
             // ativar datatable
             $("#table_explore").DataTable({
                 "data": dados,
@@ -98,12 +94,9 @@
                 // ] // ordena pela coluna 0
             })
         }
-
         lerDados("<?= base_url('data/pdb/list.csv') ?>");
-
     })
 
-    
 </script>
 <?= $this->endSection() ?>
 
