@@ -100,7 +100,7 @@ class Project extends BaseController
 		$pdb_via_api = $this->request->getPost('pdb_via_api');
 		$file = $this->request->getFile('pdbfile');
 
-		if($pdb_via_api=='' and empty($file)){
+		if($pdb_via_api == '' and empty($file)){
 			dd("ERROR! You cannot submit a project without sending a UniProt file or code.");
 		}
 
