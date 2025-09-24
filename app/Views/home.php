@@ -161,7 +161,7 @@
     <div class="col border-start pb-3">
       <label class="badge text-bg-light">or type a PDB ID or an UniProt ID (for AlphaFoldDB entry) <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="PDB - ID"><i class="bi bi-question-circle-fill"></i></a></label>
       <div class="input-group mb-3 w-50">
-        <input type="text" id="pdb_via_api" class="form-control" placeholder="e.g., 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> <!--onkeydown="redirectToURL2(event)">-->
+        <input type="text" id="pdb_via_api" class="form-control" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> <!--onkeydown="redirectToURL2(event)">-->
         <!-- <button class="btn btn-outline-secondary" type="button" id="go">Go</button> -->
       </div>
     </div>
