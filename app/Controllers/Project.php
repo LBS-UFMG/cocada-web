@@ -191,7 +191,7 @@ class Project extends BaseController
 			// Faz a requisição
 			$response = @file_get_contents($url);
 
-			if ($response === FALSE) { dd("Error accessing AlphaFoldDB API. Check if this code is valid by accessing https://alphafold.ebi.ac.uk and try again later."); }
+			if ($response === FALSE) { $data['details'] = "Error accessing AlphaFoldDB API. Check if this code is valid by accessing https://alphafold.ebi.ac.uk and try again later."; return view('error', $data); }
 
 			$save_dir = FCPATH . "data/projects/{$id}/";
 			$save_path = $save_dir . "data.pdb";
