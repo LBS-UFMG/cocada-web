@@ -183,10 +183,23 @@ class Project extends BaseController
 			file_put_contents($save_path, $response);
 		}
 		else if(strlen($pdb_via_api) >= 4){
-			echo 'uniprot';
+			// download via AlphaFoldDB
+			// URL da API REST do ALPHAFOLD
+			$url = "https://alphafold.ebi.ac.uk/files/AF-{$pdb_via_api}-F1-model_v4.pdb";
+			$extensao = 'pdb';
+
+			// Faz a requisição
+			$response = file_get_contents($url);
+			if ($response === FALSE) { dd("Error accessing PDB API."); }
+
+			$save_dir = FCPATH . "data/projects/{$id}/";
+			$save_path = $save_dir . "data.pdb";
+
+			// grava no diretório
+			file_put_contents($save_path, $response);
 		}
 		else if((strlen($pdb_via_api) < 4)and(strlen($pdb_via_api) > 0)){
-			dd("PDB ID invalid. Try again.");
+			dd("PDB ID or AlphaFoldDB ID invalid. Try again.");
 		}
         // via arquivo
 		else if(!empty($file)){
