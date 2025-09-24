@@ -166,16 +166,19 @@ class Project extends BaseController
 		$raiz = str_replace("/public/data/projects", "",$data_folder);
 
 		// via API
-		if(count($pdb_via_api) == 4){
+		if(strlen($pdb_via_api) == 4){
 			// download via pdb
 			echo 'arquivo pdb';
 		}
-		else if(count($pdb_via_api) >= 4){
+		else if(strlen($pdb_via_api) >= 4){
 			echo 'uniprot';
+		}
+		else if((strlen($pdb_via_api) < 4)and(strlen($pdb_via_api) > 0)){
+			dd("PDB ID invalid. Try again.");
 		}
 
         // via arquivo
-		if(!empty($file)){
+		else if(!empty($file)){
 			$extensao = strtolower(substr($file->getName(), -3, 3));
 			if(($extensao=='pdb')or($extensao=='cif')){
 				$tamanho = $file->getSize();
