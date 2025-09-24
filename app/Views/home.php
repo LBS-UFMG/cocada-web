@@ -300,7 +300,7 @@
     </div>
   </div>
 
-  <button class="btn btn-success azul btn-lg  w-100 mt-5" type="submit" id="run">Calculate contacts</button>
+  <button class="btn btn-success azul btn-lg  w-100 mt-5 p-3 mb-3" type="submit" id="run">Calculate contacts</button>
 
   </form>
 
