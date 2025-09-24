@@ -189,7 +189,7 @@ class Project extends BaseController
 			$extensao = 'pdb';
 
 			// Faz a requisição
-			$response = file_get_contents($url);
+			$response = @file_get_contents($url);
 			dd($response);
 			if ($response === FALSE) { dd("Error accessing PDB API."); }
 
