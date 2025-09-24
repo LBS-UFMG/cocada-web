@@ -63,7 +63,7 @@
                     <img src="<?= base_url('/img/cocada.svg') ?>" width="200px">
                     <p class="text-light small pt-3 col-9">COCαDA (Contact Optimization by alpha-Carbon Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files.</p>
 
-                    <p style="font-size: 0.6em;color:#ccc">©<?=date('Y')?> COCαDA v1.0 – Interface v<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <a class="text-white" href="https://github.com/LBS-UFMG/cocada">GitHub</a>
+                    <p style="font-size: 0.55em;color:#ccc">©<?=date('Y')?> COCαDA-CLI v1.0 – web v<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <strong>GitHub</strong>: <a class="text-white" href="https://github.com/LBS-UFMG/cocada">CLI</a> | <a class="text-white" href="https://github.com/LBS-UFMG/cocada-web">Web</a>
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -136,25 +136,6 @@
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 
     <script src="<?php echo base_url('js/3dmol.js'); ?>"></script>
-
-
-    <script>
-        // function redirectToURL(event) {
-        //     // Verificar se a tecla pressionada foi Enter (código 13)
-        //     if (event.keyCode === 13) {
-        //         event.preventDefault(); // Prevenir o envio do formulário
-        //         let url = document.getElementById('urlInput').value;
-        //         url = url.toUpperCase();
-        //         if (url) {
-        //             if(url.length != 4){
-        //                 window.location.href = '<?= base_url("/entry/404") ?>';
-        //             }
-        //             window.location.href = '<?= base_url() ?>entry/'+url;
-        //         }
-        //     }
-        // }
-        
-    </script>
 
     <?= $this->renderSection('scripts') ?> 
 
