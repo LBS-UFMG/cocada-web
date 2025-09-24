@@ -163,7 +163,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Advanced options <a class="ms-2 link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Click here only if you want to change the default parameters used by COCaDA for calculating contacts. If you want to run with the parameters recommended by the developers, just click the RUN button below."><i class="bi bi-question-circle-fill"></i></a>
+          Advanced options <a class="ms-2 link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Click here only if you want to change the default parameters used by COCaDA for calculating contacts. If you want to run with the parameters recommended by the developers, just click on the 'Calculate contacts' button below."><i class="bi bi-question-circle-fill"></i></a>
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#adv_opt">
@@ -300,7 +300,7 @@
     </div>
   </div>
 
-  <button class="btn btn-success azul btn-lg  w-100 mt-5" type="submit" id="run">Run</button>
+  <button class="btn btn-success azul btn-lg  w-100 mt-5" type="submit" id="run">Calculate contacts</button>
 
   </form>
 
