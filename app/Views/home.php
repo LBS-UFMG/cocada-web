@@ -149,20 +149,14 @@
       <label class="badge bg-primary">Submit your PDB file (limit 10MB)</label>
 
       <form action="<?php echo base_url('run'); ?>" method="post" enctype="multipart/form-data">
-        <!-- <textarea placeholder="Paste PDB/CIF file here" class="form-control" name="pdb"></textarea> -->
-
         <div class="input-group">
           <input type="file" class="form-control" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
         </div>
-
-
-
     </div>
     <div class="col border-start pb-3">
       <label class="badge text-bg-light">or type a PDB ID or an UniProt ID (for AlphaFoldDB entry) <a class="link-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="PDB - ID"><i class="bi bi-question-circle-fill"></i></a></label>
       <div class="input-group mb-3 w-50">
-        <input type="text" id="pdb_via_api" class="form-control" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> <!--onkeydown="redirectToURL2(event)">-->
-        <!-- <button class="btn btn-outline-secondary" type="button" id="go">Go</button> -->
+        <input type="text" id="pdb_via_api" class="form-control" placeholder="e.g.: 2LZM or P04637" aria-label="PDB ID" aria-describedby="explore" name="pdb_via_api"> 
       </div>
     </div>
   </div>
@@ -420,18 +414,11 @@
       $("[name=code3]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code2]").focus() }}); 
       $("[name=code2]").on('keyup', (e)=>{ if(e.keyCode==8){ $("[name=code1]").focus() }}); 
 
-      // ativa todos os popovers
       // fallback para tooltips do Bootstrap
-      const ttTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      ttTriggerList.forEach(function(el) {
-          if (el._tooltipInstance) {
-              try {
-                  el._tooltipInstance.dispose();
-              } catch (_) {}
-          }
-          const inst = bootstrap.Tooltip.getOrCreateInstance(el);
-          el._tooltipInstance = inst;
-      });
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
 
     });
     
