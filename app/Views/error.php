@@ -4,10 +4,10 @@
 
 <div class="container py-5 text-secondary">
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-12">
             <img src="<?= base_url('/img/cocadito2.png') ?>" width="300px" class="rounded">
         </div>
-        <div class="col">
+        <div class="col-md-9 col-12">
             <h1 style="font-size:100px;">Error</h1>
             <p>An error occurred while processing your request. Please try again later or contact the system administrators.</p>
 
