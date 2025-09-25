@@ -146,7 +146,7 @@
       <label class="badge bg-dark">Submit a PDB file </label><a class="link-dark ms-1" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Accepted extensions: PDB or CIF. Limit 10MB"><i class="bi bi-question-circle-fill"></i></a>
 
       <form action="<?php echo base_url('run'); ?>" method="post" enctype="multipart/form-data">
-        <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" /> -->
+        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
         <div class="input-group">
           <input type="file" class="form-control  form-control-lg" name="pdbfile" id="pdbfile" aria-describedby="run" aria-label="Upload">
         </div>
