@@ -2,14 +2,6 @@
 <?= $this->section('conteudo') ?>
 <!-- Conteúdo personalizado -->
 
-<div id="loading">
-    <div class="text-center">
-        <img src="<?=base_url('/img/cocadito-loading.png')?>" width="200px"><br>
-        <div class="spinner-border spinner-border-sm" role="status"></div>
-        <strong class="ms-2">Loading...</strong>
-    </div>
-</div>
-
 <div class="container-fluid py-5 px-5">
 
     <h1 class="pb-5 text-dark">Explore</h1>
@@ -30,7 +22,7 @@
                 <tbody>
                 </tbody>
             </table>
-            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait...<br><img src="<?=base_url('/img/loading.gif')?>" width="64px"></p>
+            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait...<br><img src="<?=base_url('/img/loading.gif')?>" width="32px" class="mt-2"></p>
 
         </div>
     </div>
@@ -123,8 +115,6 @@
 <?= $this->section('scripts') ?>
 
 <script>
-        $(()=>setTimeout(() => $('#loading').fadeOut(), 1000));
-
 // tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
