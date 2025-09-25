@@ -95,12 +95,12 @@ class Project extends BaseController
 	
     public function create(){
 
+		// bloqueia acessos indevidos => múltiplas requisições usando ferramentas automáticas
 		$referer = $this->request->getServer('HTTP_REFERER');
 		$baseURL = base_url();
-
 		if (empty($referer) || strpos($referer, $baseURL) !== 0) {
-			// Redireciona ou retorna erro
-			return redirect()->back()->with('error', 'Requisição inválida!');
+			$data['details'] = "Invalid request. Blocked by CSRF rules. COCaDA-web's usage policy does not allow systematic requests. Please use your browser to make your request.";
+			return view('error', $data);
 		}
 
 		// origem: via arquivo ou api
