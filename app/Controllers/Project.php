@@ -95,7 +95,7 @@ class Project extends BaseController
 	
     public function create(){
 		// origem: via arquivo ou api
-		$pdb_via_api = $this->request->getPost('pdb_via_api');
+		$pdb_via_api = trim($this->request->getPost('pdb_via_api'));
 		$file = $this->request->getFile('pdbfile');
 
 		if($pdb_via_api == '' and $file->getName() == ''){
