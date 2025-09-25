@@ -94,6 +94,15 @@ class Project extends BaseController
 	}
 	
     public function create(){
+
+		$referer = $this->request->getServer('HTTP_REFERER');
+		$baseURL = base_url();
+
+		if (empty($referer) || strpos($referer, $baseURL) !== 0) {
+			// Redireciona ou retorna erro
+			return redirect()->back()->with('error', 'Requisição inválida!');
+		}
+
 		// origem: via arquivo ou api
 		$pdb_via_api = trim($this->request->getPost('pdb_via_api')); 
 		$file = $this->request->getFile('pdbfile');
