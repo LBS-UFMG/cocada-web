@@ -22,7 +22,7 @@
                 <tbody>
                 </tbody>
             </table>
-            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait...<br><img src="<?=base_url('/img/loading.gif')?>" width="32px" class="mt-2"></p>
+            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait...<br><img src="<?=base_url('/img/loading.gif')?>" width="25px" class="mt-3"></p>
 
         </div>
     </div>
