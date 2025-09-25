@@ -95,16 +95,17 @@ class Project extends BaseController
 	
     public function create(){
 		// origem: via arquivo ou api
-		$pdb_via_api = trim($this->request->getPost('pdb_via_api'));
+		$pdb_via_api = trim($this->request->getPost('pdb_via_api')); 
 		$file = $this->request->getFile('pdbfile');
 
+		// se a api estiver vazia, retorna a página de erro
 		if($pdb_via_api == '' and $file->getName() == ''){
 			$data['details'] = "ERROR! You cannot submit a project without sending a UniProt file or code."; 
 			return view('error', $data);
 		}
 
-		$filter_chains = $this->request->getPost('filter_chains');
-		$chains = $this->request->getPost('chains');
+		$filter_chains = trim($this->request->getPost('filter_chains'));
+		$chains = trim($this->request->getPost('chains'));
 		if(empty($chains)and($filter_chains!='chains')){
 			$region = '';
 		}
