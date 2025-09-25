@@ -41,7 +41,7 @@ class Export extends BaseController
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
-        chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
+        //chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
 
         // BAIXAR O PDB
         $destino = "$data_folder/data/pdb/$id[0]/$id/data.cif";
@@ -64,7 +64,7 @@ class Export extends BaseController
 		system($comando, $error_log);
         //echo $comando;
 
-        chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
+        //chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
 
         echo '</div>';
         $data = [];
