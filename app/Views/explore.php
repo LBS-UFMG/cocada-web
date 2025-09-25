@@ -30,7 +30,7 @@
                 <tbody>
                 </tbody>
             </table>
-            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait...<br><img src="<?=base_url('/img/loading.gif')?>"></p>
+            <p class="small text-muted text-center" id="loading_table">Loading data. Please wait...<br><img src="<?=base_url('/img/loading.gif')?>" width="64px"></p>
 
         </div>
     </div>
