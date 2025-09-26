@@ -4,45 +4,34 @@ import csv
 import os
 import argparse
 
-# Define cores para os tipos de interação
+# Define colors for interaction types
 contact_colors = {
-    'HY': 'red',    # Hidrofóbico
-    'HB': 'blue',   # Ligação de hidrogênio
-    'AT': 'green',  # Atração
-    'RE': 'orange', # Repulsão
-    'SB': 'pink',   # Ponte salina
-    'DS': 'purple'  # Ligação dissulfeto
+    'HY': 'red',    # Hydrophobic
+    'HB': 'blue',   # Hydrogen bond
+    'AT': 'green',  # Attraction
+    'uAT': 'green',  # Possible Attraction
+    'RE': 'orange',  # Repulsion
+    'uRE': 'orange',   # Possible Repulsion
+    'SB': 'pink',    # Salt bridge
+    'uSB': 'pink', # Possible Salt bridge
+    'DS': 'purple',  # Disulfide bond
+    'AS': 'yellow'   # Aromatic stacking
 }
 
-# Força das interações para espessura visual
-contact_strength = {
-    'HY': 0.6,
-    'HB': 2.6,
-    'AT': 10.0,
-    'RE': 10.0,
-    'SB': 10.0,
-    'DS': 85.0
+# Thickness of lines between interacting atoms
+line_thickness = {
+    'HY': 1.0,
+    'HB': 2.0,
+    'AT': 3.0,
+    'uAT': 3.0,
+    'RE': 3.0,
+    'uRE': 3.0,
+    'SB': 3.0,
+    'uSB': 3.0,
+    'DS': 4.0,
+    'AS': 4.0
 }
 
-def get_thickness(strength):
-    min_force = min(contact_strength.values())
-    max_force = max(contact_strength.values())
-    min_thickness = 2.0
-    max_thickness = 20.0
-    
-    thickness = ((strength - min_force) / (max_force - min_force)) * (max_thickness - min_thickness) + min_thickness
-    return thickness
-
-# Gera tons de cinza uniformes e registra como cores PyMOL
-def generate_gray_shades(n):
-    shades = []
-    for i in range(n):
-        value = int(255 * (i / max(1, n - 1)))  # Espaçamento uniforme entre 0 e 255
-        rgb = [value / 255.0] * 3
-        color_name = f"gray_custom_{i}"
-        cmd.set_color(color_name, rgb)
-        shades.append(color_name)
-    return shades
 
 def load_contacts(protein_input, csv_file):
     cmd.reinitialize()
@@ -54,16 +43,16 @@ def load_contacts(protein_input, csv_file):
         cmd.load(protein_input, protein_id) # Load the PDB file
     else:
         cmd.fetch(protein_id, protein_id, type="cif") # Fetch the protein structure from the PDB
-    
-    cmd.show("cartoon", protein_id)
-    cmd.bg_color("white")  # Definir fundo branco
-    
-    # Armazenar interações e resíduos
+
+    cmd.show("cartoon", protein_id) 
+    cmd.remove("resn HOH") 
+    cmd.util.color_chains("all") 
+
+    # Store interactions and residues
     interactions = {key: [] for key in contact_colors.keys()}
     interacting_residues = {key: [] for key in contact_colors.keys()}
 
-    
-    chain_list = set() # Lista para armazenar cadeias únicas
+    chain_list = set() # List to store unique chains
 
     with open(csv_file, 'r') as f:
         reader = csv.reader(f)
@@ -91,18 +80,14 @@ def load_contacts(protein_input, csv_file):
             interactions[interaction_type].append((atom_selection1, atom_selection2, float(distance)))
             interacting_residues[interaction_type].append(resi_selection1)
             interacting_residues[interaction_type].append(resi_selection2)
+    
+    # Map each chain to a fixed “pale” color
+    chain_list = sorted(chain_list)
+    pale_colors = ["palegreen", "palecyan", "lightpink", "paleyellow",
+                   "wheat", "bluewhite", "lightblue", "lightorange"]
+    chain_to_pale = {chain: pale_colors[i % len(pale_colors)] for i, chain in enumerate(chain_list)}
 
-
-    # Gera tons de cinza contrastantes
-    chain_list = sorted(chain_list)  # Para ordem fixa
-    gray_shades = generate_gray_shades(len(chain_list))
-
-    chain_colors = {}
-    for i, chain in enumerate(chain_list):
-        chain_colors[chain] = gray_shades[i]
-        cmd.color(gray_shades[i], f"polymer.protein and chain {chain}")
-        
-    # Visualizar interações
+    # Visualize interactions
     for interaction_type, contacts in interactions.items():
         if not contacts:
             print(f"No contacts for {interaction_type}")
@@ -114,8 +99,7 @@ def load_contacts(protein_input, csv_file):
         cmd.distance(obj_name, "none", "none")
 
         for sel1, sel2, distance in contacts:
-            strength = contact_strength.get(interaction_type, 1.0)
-            thickness = get_thickness(strength)
+            thickness = line_thickness.get(interaction_type, 1.0)
             color = contact_colors.get(interaction_type, "yellow")
             cmd.distance(obj_name, sel1, sel2)
 
@@ -126,7 +110,7 @@ def load_contacts(protein_input, csv_file):
         cmd.group(group_name, obj_name, "add")
         cmd.group(group_name, "close")
 
-    # Destacar resíduos envolvidos
+    # Highlight involved residues with the corresponding pale color for each chain
     for interaction_type, residues in interacting_residues.items():
         residues = list(set(residues))
         if residues:
@@ -134,16 +118,16 @@ def load_contacts(protein_input, csv_file):
             cmd.select("temp", " or ".join(residues))
             cmd.create(obj_name, "temp")
             cmd.delete("temp")
-            cmd.show("sticks", obj_name)
+            # Apply pale color based on chain
+            for chain, pale_color in chain_to_pale.items():
+                cmd.color(pale_color, f"{obj_name} and chain {chain}")
+            cmd.show("sticks", obj_name) 
             cmd.hide("cartoon", obj_name)
-            cmd.util.cnc(obj_name, _self=cmd)
             cmd.group(f"group_{interaction_type}", obj_name, "add")
             cmd.disable(f"group_{interaction_type}")
 
     cmd.orient()
-
-    output = csv_file.replace(".csv","")
-    cmd.save(f"{output}.pse")
+    cmd.save(f"{protein_id}_visualization.pse")
 
 # ======================== Main ========================
 parser = argparse.ArgumentParser(description="Visualize protein-protein interactions in PyMOL.")
