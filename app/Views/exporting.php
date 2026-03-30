@@ -15,7 +15,7 @@
             <?php if (strlen($id) == 6) {
                 echo base_url("/data/projects/$id/contacts.pse");
             } else {
-                echo base_url("/data/pdb/$id[0]/$id/$id" . "_contacts.pse");
+                echo base_url("/data/pymol/$id[0]/$id/$id" . "_contacts.pse");
             } ?>
             '>Download the PSE file</a>.</p>
             <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">10</span></h1>
