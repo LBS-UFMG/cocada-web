@@ -36,7 +36,7 @@
                                     <li><a class="dropdown-item mt-2" href="<?= base_url() ?>data/projects/<?= $id ?>/contacts.csv">Contacts</a></li>
                                     <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/data.<?= $extensao ?>">PDB/CIF file</a></li>
                                     <hr>
-                                    <li><a class="dropdown-item" href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></li>
+                                    <!-- <li><a class="dropdown-item" href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></li> -->
                                 </ul>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
                 <div id="pdb" style="min-height: 400px; height:50vh; width:100%; min-width: 280px"></div>
-                <p style="text-align: right"><a href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></p>
+                <!-- <p style="text-align: right"><a href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></p> -->
             </div>
         </div>
     </div>
