@@ -33,6 +33,9 @@ class Export extends BaseController
 	}
 
     public function pdb_to_pymol($id = 'null'){
+        $data = [];
+        $data['id'] = $id;
+
         # Esta função é usada pelo controller entry -> id tem 4 dígitos
         echo "<div class='bg-info w-100 p-2 m-0 small'><strong>Exporting contacts of $id to PyMOL...</strong><br>";
 
@@ -40,6 +43,10 @@ class Export extends BaseController
 		$data_folder = getcwd();
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
+
+        if(!mkdir("$raiz/public/data/pymol/$id[0]", 0777, true)){
+            return view('exporting', $data);
+        }
         mkdir("$raiz/public/data/pymol/$id[0]");
         mkdir("$raiz/public/data/pymol/$id[0]/$id");
         chmod("$raiz/public/data/pymol/$id[0]/$id", 0777); // quebra de segurança
@@ -66,10 +73,8 @@ class Export extends BaseController
         //echo $comando;
 
         chmod("$raiz/public/data/pymol/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
-
         echo '</div>';
-        $data = [];
-        $data['id'] = $id;
+        
         return view('exporting', $data);
 	}
 }
