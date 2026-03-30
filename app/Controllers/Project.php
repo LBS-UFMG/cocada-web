@@ -255,7 +255,7 @@ class Project extends BaseController
 		-ph $ph 
 		-d $distances 
 		$inter $region  
-		-w 1 
+		-w 
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
