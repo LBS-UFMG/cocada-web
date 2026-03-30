@@ -43,12 +43,10 @@ class Export extends BaseController
 		$data_folder = getcwd();
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
+        
 
-        if(!mkdir("$raiz/public/data/pymol/$id[0]", 0777, true)){
-            return view('exporting', $data);
-        }
-        mkdir("$raiz/public/data/pymol/$id[0]");
-        mkdir("$raiz/public/data/pymol/$id[0]/$id");
+        system("mkdir $raiz/public/data/pymol/$id[0]");
+        system("mkdir $raiz/public/data/pymol/$id[0]/$id");
         chmod("$raiz/public/data/pymol/$id[0]/$id", 0777); // quebra de segurança
 
         // BAIXAR O PDB
