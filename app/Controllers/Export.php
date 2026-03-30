@@ -64,7 +64,7 @@ class Export extends BaseController
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
 		$data_folder/data/pymol/$id[0]/$id/data.cif
-		$data_folder/data/pymol/$id[0]/$id/$id"."_contacts.csv
+		$data_folder/data/pdb/$id[0]/$id/$id"."_contacts.csv
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
