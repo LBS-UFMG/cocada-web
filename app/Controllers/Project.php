@@ -220,8 +220,8 @@ class Project extends BaseController
 			$extensao = strtolower(substr($file->getName(), -3, 3));
 			if(($extensao=='pdb')or($extensao=='cif')){
 				$tamanho = $file->getSize();
-				if($tamanho > 10485760){
-					$data['details'] = "Error! Max file size: 10MB.";
+				if($tamanho > 50000000){
+					$data['details'] = "Error! Max file size: 50MB.";
 					return view('error', $data); 
 				}
 				else{
