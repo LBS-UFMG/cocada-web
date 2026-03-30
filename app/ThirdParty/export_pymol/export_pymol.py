@@ -142,8 +142,7 @@ def load_contacts(protein_input, csv_file):
 
     cmd.orient()
 
-    output = csv_file.replace(".csv","")
-    output = csv_file.replace("/pdb/","/pymol/")
+    output = csv_file.replace("/pdb/","/pymol/").replace(".csv","")
     cmd.save(f"{output}.pse")
 
 # ======================== Main ========================
