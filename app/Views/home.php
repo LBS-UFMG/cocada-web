@@ -309,12 +309,12 @@
     </div>
   </div>
 
-  <button class="btn btn-success azul btn-lg  w-100 mt-5 p-3 mb-3" type="submit" id="run">Calculate contacts</button>
+  <button class="btn btn-success azul btn-lg  w-100 mt-5 p-3 mb-3" type="submit" onclick="loading_clique" id="run">Calculate contacts</button>
   <script>
-$(document).on('click', '#run', () => {
+function loading_clique(){
   console.log('clicado')
   setTimeout(() => $('#loading').fadeOut(), 1000);
-});
+}
   </script>
   </form>
 
