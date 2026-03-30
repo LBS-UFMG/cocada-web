@@ -7,6 +7,14 @@
 
 <?= $this->section('conteudo') ?>
 
+<div id="loading">
+    <div class="text-center">
+        <img src="<?= base_url('/img/cocadito-loading.png') ?>" width="200px"><br>
+        <div class="spinner-border spinner-border-sm" role="status"></div>
+        <strong class="ms-2">Loading...</strong>
+    </div>
+</div>
+
 <div class="container col-xxl-10 px-2 py-0">
   <div class="row flex-lg-row-reverse align-items-center g-5 py-4">
     <div class="col-10 col-sm-8 col-md-6">
@@ -302,7 +310,13 @@
   </div>
 
   <button class="btn btn-success azul btn-lg  w-100 mt-5 p-3 mb-3" type="submit" id="run">Calculate contacts</button>
-
+  <script>
+  $('#run').on('click', () => {
+    setTimeout(() => {
+      $('#loading').fadeOut();
+    }, 1000);
+  });
+  </script>
   </form>
 
 </div>
