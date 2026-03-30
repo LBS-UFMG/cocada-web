@@ -7,7 +7,7 @@
 
 <?= $this->section('conteudo') ?>
 
-<div id="loading">
+<div id="loading" style="visibility: hidden;">
     <div class="text-center">
         <img src="<?= base_url('/img/cocadito-loading.png') ?>" width="200px"><br>
         <div class="spinner-border spinner-border-sm" role="status"></div>
