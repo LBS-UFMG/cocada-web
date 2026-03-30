@@ -63,7 +63,7 @@
     // Inicia a contagem quando a página for carregada
     window.onload = function() {
         // Cria link temporário para download
-        console.log("Página carregada");
+        console.log("loaded");
         const link = document.querySelector("#pse");
         link.click();
         iniciarContagem();
