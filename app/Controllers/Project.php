@@ -197,7 +197,7 @@ class Project extends BaseController
 		else if(strlen($pdb_via_api) >= 4){
 			// download via AlphaFoldDB
 			// URL da API REST do ALPHAFOLD
-			$url = "https://alphafold.ebi.ac.uk/files/AF-{$pdb_via_api}-F1-model_v4.pdb";
+			$url = "https://alphafold.ebi.ac.uk/files/AF-{$pdb_via_api}-F1-model_v6.pdb";
 			$extensao = 'pdb';
 
 			// Faz a requisição
