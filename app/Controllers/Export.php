@@ -41,10 +41,10 @@ class Export extends BaseController
 		$raiz = str_replace("/public", "",$data_folder);
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
 
-        chmod("$raiz/public/data/pdb/$id[0]/$id", 0777); // quebra de segurança
+        chmod("$raiz/public/data/pymol/$id[0]/$id", 0777); // quebra de segurança
 
         // BAIXAR O PDB
-        $destino = "$data_folder/data/pdb/$id[0]/$id/data.cif";
+        $destino = "$data_folder/data/pymol/$id[0]/$id/data.cif";
         $url = "https://files.rcsb.org/download/$id.cif";
         $conteudo = file_get_contents($url);
 
@@ -57,14 +57,14 @@ class Export extends BaseController
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/export_pymol/export_pymol.py
-		$data_folder/data/pdb/$id[0]/$id/data.cif
-		$data_folder/data/pdb/$id[0]/$id/$id"."_contacts.csv
+		$data_folder/data/pymol/$id[0]/$id/data.cif
+		$data_folder/data/pymol/$id[0]/$id/$id"."_contacts.csv
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
         //echo $comando;
 
-        chmod("$raiz/public/data/pdb/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
+        chmod("$raiz/public/data/pymol/$id[0]/$id", 0755); // protege a pasta de acessos indevidos
 
         echo '</div>';
         $data = [];
