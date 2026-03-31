@@ -13,9 +13,9 @@
       <img src="<?= base_url('/img/home.png') ?>" class="d-block mx-lg-auto img-fluid" width="450" loading="lazy">
     </div>
     <div class="col-md-6">
-      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">The Interatomic Contact Database & Tool</h1>
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">An Interactive Web Server for Exploratory Analysis of Interatomic Contacts in Proteins.</h1>
 
-      <p class="lead">COCaDA-web is a tool and a database that presents contacts in all structures available in the PDB database. COCaDA calculates seven types of contacts: hydrogen bonds, hydrophobic, aromatic, attractive, repulsive, salt bridges and disulfide bridges. </p>
+      <p class="lead">COCαDA-web is a user-friendly Web Server for interatomic contact calculation in proteins, as well as a database comprising precomputed contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which improves search space pruning using alpha-carbon (Cα) distance matrices. </p>
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-1">
         <a class="btn btn-primary btn-lg px-4 me-md-2 azul" href="#run">Run</a>
@@ -139,7 +139,11 @@
   <h1><strong>Run COCαDA-web</strong></h1>
   <p class="lead">Calculate interatomic contacts for a protein file using the COCαDA-web interface</p>
   <p class="border rounded p-4 text-muted small">
-    <strong>There are three ways to run COCαDA-web</strong>: (i) Upload a file in PDB or CIF format (below - left); (ii) enter the PDB/UniProt code to download data from PDB/AlphaFoldDB API (below - right); (iii) use the <a class="link-dark" href="<?=base_url('/#search_pdb')?>">search bar</a> (Examples section - right) to access COCαDA-db pre-calculated structure contacts. COCαDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file.
+    <strong>There are three ways to run COCαDA-web</strong>: 
+    (i) Upload a file in PDB or CIF format (below - left); 
+    (ii) enter the PDB/UniProt code to query data from PDB/AlphaFoldDB API (below - right); 
+    (iii) use the <a class="link-dark" href="<?=base_url('/#search_pdb')?>">search bar</a> (Examples section - right) to access COCαDA-db pre-calculated contacts from the PDB. 
+    COCαDA-db only supports PDB structures with up to 10,000 amino acid residues. To access structures with more than 10,000 residues, please upload your file or consider using the COCαDA command-line version.
   </p>
   <div class="row">
     <div class="col-12 col-md-6 mt-2">

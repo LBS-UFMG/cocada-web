@@ -75,9 +75,9 @@
             <div class="row">
                 <div class="col-12 col-md-6 ps-5">
                     <img src="<?= base_url('/img/cocada.svg') ?>" width="200px">
-                    <p class="text-light small pt-3 col-9">COCαDA (COntact search pruning by Cα Distance Analysis) optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files.</p>
+                    <p class="text-light small pt-3 col-9">COCαDA-web is a user-friendly Web Server for interatomic contact calculation in proteins, as well as a database comprising precomputed contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which improves search space pruning using alpha-carbon (Cα) distance matrices..</p>
 
-                    <p style="font-size: 0.6em;color:#ccc">©<?= date('Y') ?> COCαDA-CLI v1.0 – web v<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <strong>GitHub</strong>: <a class="text-white" href="https://github.com/LBS-UFMG/cocada">CLI</a> | <a class="text-white" href="https://github.com/LBS-UFMG/cocada-web">Web</a>
+                    <p style="font-size: 0.6em;color:#ccc">©<?= date('Y') ?> COCαDA-CLI v1.6 – web v<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <strong>GitHub</strong>: <a class="text-white" href="https://github.com/LBS-UFMG/cocada">CLI</a> | <a class="text-white" href="https://github.com/LBS-UFMG/cocada-web">Web</a>
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -104,7 +104,7 @@
                 <div class="modal-body small">
                     <div class="row">
                         <p class="text-muted">
-                            <strong>COCαDA (COntact search pruning by Cα Distance Analysis)</strong> optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files, containing functionalities for handling large files, filtering out specific residues and interactions, and calculating geometric properties such as centroid and normal vectors for aromatic residues.
+                            <strong>COCαDA-web is a user-friendly Web Server for interatomic contact calculation in proteins, as well as a database comprising precomputed contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which improves search space pruning using alpha-carbon (Cα) distance matrices.
 
                         </p>
                     </div>
@@ -119,12 +119,12 @@
                         </div>
                     </div>
                     <hr>
-                    <h4 class="text-muted mt-4">Please, cite COCαDA in your publication:</h4>
+                    <h4 class="text-muted mt-4">If you use COCαDA in your research, please cite it:</h4>
                     <label class="badge bg-success mt-2"><i class="bi bi-star-fill me-1"></i>Main article (2025)</label>
-                    <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos RP, Mariano D, Silveira SDA and de Melo-Minardi RC (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
+                    <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
 
                     <span><label class="badge bg-success mt-2">Conference paper (2024):</label></span>
-                    <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">LEMOS, Rafael P.; MARIANO, Diego; SILVEIRA, Sabrina A.; MELO-MINARDI, Raquel C. de. <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices</strong>. In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70, 2024. doi: <a href="https://doi.org/10.5753/bsb.2024.245545">10.5753/bsb.2024.245545</a>
+                    <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2024) <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices</strong>. In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70. doi: <a href="https://doi.org/10.5753/bsb.2024.245545">10.5753/bsb.2024.245545</a>
                     </p>
                 </div>
                 <div class="modal-footer">

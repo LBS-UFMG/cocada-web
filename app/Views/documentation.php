@@ -5,8 +5,11 @@
 
 <h1 class="pb-2 text-dark"><strong>Documentation</strong></h1>
 <hr>
+<h3 class="pt-4 pb-1">What is COCαDA-web?</h4>
+<p><strong>COCαDA-web</strong> is a user-friendly web interface for using the COCαDA command line tool. COCαDA-web also contains a database of pre-calculated contacts for all structures available in the PDB (Protein Data Bank), which is updated weekly.</p>
+
 <h3 class="pt-4 pb-1">What is COCαDA?</h3>
-<p><strong>COCαDA</strong> (initially an acronym for "Contact Optimization by alpha-Carbon Distance Analysis" and recently "COntact search pruning by Cα Distance Analysis") is a tool for calculating intra- and inter-molecular contacts in proteins. COCαDA optimizes the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The code includes a customized parser for both PDB and CIF files, containing functionalities for handling large files, filtering out specific residues and interactions, and calculating geometric properties such as centroid and normal vectors for aromatic residues.</p>
+<p><strong>COCαDA</strong> (COntact search pruning by Cα Distance Analysis) accelerates the calculation of atomic interactions in proteins, by using a set of fine-tuned Cα distances between every pair of aminoacid residues. The tool includes a customized parser for both PDB and CIF files, with support for large files, residue and atom filtering, and geometric analysis (e.g., centroids and normal vectors for aromatic residues). Users can also define their own contact distance cutoffs, and define pH-specific values for electrostatic interactions. </p>
 
 <p>The contact types available are:</p>
 <ul>
@@ -18,13 +21,9 @@
 <li>Salt Bridge</li>
 <li>Aromatic Stacking</li>
 </ul>
-
-<h4 class="pt-4 pb-1">What is COCαDA-web?</h4>
-<p><strong>COCαDA-web</strong> is a user-friendly web interface for using the COCαDA command line tool. COCαDA-web contains a database of pre-calculated contacts for all structures available in the PDB (Protein Data Bank).</p>
-<br>
 <hr>
 
-<h4 class="pt-4 pb-1" id="cutoff_values">Contact rules</h4>
+<h3 class="pt-4 pb-1" id="cutoff_values">Contact rules</h4>
 <table class="table table-condensed table-hover table-striped">
   <caption><strong>Distance criteria for defining contacts:</strong> dist = Euclidean distance between the atom pair.</caption>
   <thead>
@@ -78,9 +77,15 @@
       <td>Centroids of two aromatic rings in <br>parallel or perpendicular orientation</td>
       <td>AS</td>
     </tr>
+    <tr>
+      <td>Uncertain Electrostatic</td>
+      <td>Same as AT, RE, SB</td>
+      <td>Check the description <a target="_blank" href="<?= base_url('/documentation/#uncertain') ?>">here</a></td>
+      <td>uAT, uRE, uSB</td>
+    </tr>
   </tbody>
 </table>
-
+<hr>
 
 <h3 class="pt-5 pb-1">How to use COCαDA-web</h3>
 
@@ -131,6 +136,7 @@
 
 <br>
 <hr>
+
 
 <h2 class="pt-5 pb-1">Types of Bonds and Interactions used in COCαDA-web</h2>
 
@@ -183,25 +189,82 @@
   <img src="<?=base_url('/img')?>/docs/stacking.png">
 </p>
 
-<br>
+
+<h4 class="pt-4 pb-1" id="uncertain">Uncertain Electrostatic Contacts</h4>
+<p>The pH customization feature allows for a more nuanced analysis of electrostatic interactions. We defined pH-sensitive atoms as those located in the side chains of ionizable residues, which can exist in either protonated or deprotonated states (Nelson2012). The protonation state of each sensitive atom is assessed by comparing the user-specified pH value to the residue's characteristic side-chain pKa. To account for the equilibrium between ionic forms, protonation states were classified as ambiguous if |pH - pKa| ≤ 2.0. This threshold, derived from the Henderson-Hasselbalch equation (Henderson1908), ensures that residues with a non-negligible (at least 1%) population of both protonated and deprotonated species are identified (Olsson2011).</p>
+
+<p>This ambiguity directly impacts the assignment of electrostatic contacts. When a pH-sensitive atom is in an ambiguous protonation state, any electrostatic contact it forms, namely attractive, repulsive, or salt bridges, is classified as "uncertain" (designated uAT, uRE, and uSB, respectively). In addition to these charge-based interactions, the thiol group of cysteine residues (C:SG) is treated with special consideration, as its capacity to act as either a hydrogen-bond donor or acceptor is also considered pH-dependent (Marino2010).</p>
+
+<h5 class="pt-4 pb-1" id="uncertain_atoms">Ionizable residues with their corresponding side-chain pKa values and pH-sensitive atoms</h4>
+<table class="table table-condensed table-hover table-striped">
+  <caption>Side-chain pKa values and pH-sensitive atoms are derived from Nelson2021. The pKa values are typical estimates and can vary significantly depending on the local protein environment.</caption>
+  <thead>
+    <tr>
+      <th>Residue</th>
+      <th>Side-chain pKa</th>
+      <th>pH-sensitive atoms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Aspartic Acid</td>
+      <td>~3.9</td>
+      <td>OD1, OD2</td>
+    </tr>
+    <tr>
+      <td>Glutamic Acid</td>
+      <td>~4.3</td>
+      <td>OE1, OE2</td>
+    </tr>
+    <tr>
+      <td>Histidine</td>
+      <td>~6.0</td>
+      <td>ND1, NE2</td>
+    </tr>
+    <tr>
+      <td>Cysteine</td>
+      <td>~8.3</td>
+      <td>SG</td>
+    </tr>
+    <tr>
+      <td>Tyrosine</td>
+      <td>~10.1</td>
+      <td>OH</td>
+    </tr>
+    <tr>
+      <td>Lysine</td>
+      <td>~10.5</td>
+      <td>NZ</td>
+    </tr>
+    <tr>
+      <td>Arginine</td>
+      <td>~12.5</td>
+      <td>NE, NH1, NH2, CZ</td>
+    </tr>
+  </tbody>
+</table>
+
 <hr>
 
 <h3 class="pt-4 pb-1">References</h3>
 
 <div class="text-muted small">
-<p>Agostini, A., Meneghin, E., Gewehr, L., Pedron, D., Palm, D. M., Carbo- nera, D., Paulsen, H., Jaenicke, E., and Collini, E. (2019). <strong>How water-mediated hydrogen bonds affect chlorophyll a/b selectivity in Water-Soluble chlorophyll protein.</strong> Sci. Rep., 9(1):18255.</p>
-<p>Camilloni, C., Bonetti, D., Morrone, A., Giri, R., Dobson, C. M., Brunori, M., Gianni, S., e Vendruscolo, M. (2016). <strong>Towards a structural biology of the hydrophobic effect in protein folding.</strong> Sci. Rep., 6(1).</p>
+<p> Agostini, A., Meneghin, E., Gewehr, L., Pedron, D., Palm, D. M., Carbo- nera, D., Paulsen, H., Jaenicke, E., and Collini, E. (2019). <strong>How water-mediated hydrogen bonds affect chlorophyll a/b selectivity in Water-Soluble chlorophyll protein.</strong> Sci. Rep., 9(1):18255.</p>
+<p> Camilloni, C., Bonetti, D., Morrone, A., Giri, R., Dobson, C. M., Brunori, M., Gianni, S., e Vendruscolo, M. (2016). <strong>Towards a structural biology of the hydrophobic effect in protein folding.</strong> Sci. Rep., 6(1).</p>
 <p> Donald, J. E., Kulp, D. W., e DeGrado, W. F. (2011). <strong>Salt bridges: geometrically specific, designable interactions.</strong> Proteins, 79(3):898–915.</p>
 <p> Dunn, M. F. (2010). <strong>Protein-Ligand Interactions: General Description.</strong> John Wiley & Sons, Ltd, Chichester, UK.</p>
 <p> Hatahet, F., Nguyen, V. D., Salo, K. E. H., and Ruddock, L. W. (2010). <strong>Disruption of reducing pathways is not essential for efficient disulfide bond formation in the cytoplasm of e. coli.</strong> Microb. Cell Fact., 9(1):67.</p>
+<p> Henderson, L. J. (1908). <strong>Concerning the relationship between the strength of acids and their capacity to displace other acids in an aqueous solution.</strong> Am. J. Physiol., 21(1):173–179.</p>
 <p> Hunter, T. (2012). <strong>Why nature chose phosphate to modify proteins.</strong> Philos. Trans. R. Soc. Lond. B Biol. Sci., 367(1602):2513–2516.</p>
 <p> Kauzmann, W. (1959). <strong>Some factors in the interpretation of protein denaturation.</strong> In Advances in Protein Chemistry, Advances in protein chemistry, pages 1–63. Elsevier.</p>
 <p> Kessel, A. and Ben-Tal, N. (2018). <strong>Introduction to proteins: Structure, function, and motion.</strong> Chapman & Hall/CRC, Philadelphia, PA.</p>
 <p> Kumar, S. e Nussinov, R. (1999). <strong>Salt bridge stability in monomeric proteins.</strong> J. Mol. Biol., 293(5):1241–1255.</p>
 <p> Levy, Y. and Onuchic, J. N. (2006). <strong>Water mediation in protein folding and molecular recognition.</strong> Annu. Rev. Biophys. Biomol. Struct., 35(1):389–415.</p>
-<p>Martinez, C. R. and Iverson, B. L. (2012). <strong>Rethinking the term “pi-stacking”.</strong> Chem. Sci., 3(7):2191.</p>
-<p>McGaughey, G. B., Gagn´e, M., and Rapp´e, A. K. (1998). <strong>Π-stacking interactions.</strong> J. Biol. Chem., 273(25):15458–15463</p>
+<p> Martinez, C. R. and Iverson, B. L. (2012). <strong>Rethinking the term “pi-stacking”.</strong> Chem. Sci., 3(7):2191.</p>
+<p> McGaughey, G. B., Gagn´e, M., and Rapp´e, A. K. (1998). <strong>Π-stacking interactions.</strong> J. Biol. Chem., 273(25):15458–15463</p>
+<p> Marino, S. M. and Gladyshev, V. N. (2010). <strong>Cysteine function governs its conservation and degeneration and restricts its utilization on protein surfaces.</strong> J. Mol. Biol., 404(5):902–916.</p>
 <p> Nelson, D. L. and Cox, M. M. (2012). <strong>Lehninger principles of biochemistry.</strong> W.H. Freeman, New York, NY, 6 edition.</p>
+<p> Olson, M. H., Søndergaard, C. R., Rostkowski, M., and Jensen, J. H. (2011). <strong>PROPKA3: Consistent treatment of internal and surface residues in empirical pKa predictions.</strong> J. Chem. Theory Comput., 7(2):525–537.</p>
 <p> Pace, C. N., Fu, H., Fryar, K. L., Landua, J., Trevino, S. R., Shirley, B. A., Hendricks, M. M., Iimura, S., Gajiwala, K., Scholtz, J. M., and Grimsley, G. R. (2011). <strong>Contribution of hydrophobic interactions to protein stability.</strong> J. Mol. Biol., 408(3):514–528.</p>
 <p> Saenger, W. and Jeffrey, G. A. (1994). <strong>Hydrogen bonding in biological structures.</strong> Springer, Berlin, Germany.</p>
 <p> Sevier, C. S. and Kaiser, C. A. (2002). <strong>Formation and transfer of disulphide bonds in living cells.</strong> Nat. Rev. Mol. Cell Biol., 3(11):836–847.</p>

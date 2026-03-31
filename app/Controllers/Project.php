@@ -246,7 +246,7 @@ class Project extends BaseController
 
 		# START cocada PIPELINE *******************************************
 		$interpretador = "/home/liase/miniconda3/bin/python"; 
-		$versao = 'COCaDA-CLI';
+		$versao = 'COCaDA';
 
 		#echo "$interpretador $raiz/app/ThirdParty/$versao/main.py -f $data_folder/$id/data.$extensao -o $data_folder/$id";
 		$comando = "$interpretador $raiz/app/ThirdParty/$versao/cocada.py 
@@ -255,7 +255,7 @@ class Project extends BaseController
 		-ph $ph 
 		-d $distances 
 		$inter $region  
-		-w 
+		-w 1
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
