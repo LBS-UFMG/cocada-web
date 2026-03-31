@@ -259,7 +259,8 @@ class Project extends BaseController
 		2>&1";
 		$comando = str_replace("\n","",$comando);
 		system($comando, $error_log);
-		// 	echo $error_log;
+		echo $error_log;
+		dd($comando);
 
 		# renomeia o arquivo com a lista de contatos
 		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
