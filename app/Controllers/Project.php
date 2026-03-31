@@ -258,6 +258,7 @@ class Project extends BaseController
 		-w 1
 		2>&1";
 		$comando = str_replace("\n","",$comando);
+		echo $comando;
 		system($comando, $error_log);
 		echo $error_log;
 		dd($comando);
