@@ -87,6 +87,9 @@ def load_contacts(protein_input, csv_file):
     pale_colors = ["palegreen", "palecyan", "lightpink", "paleyellow",
                    "wheat", "bluewhite", "lightblue", "lightorange"]
     chain_to_pale = {chain: pale_colors[i % len(pale_colors)] for i, chain in enumerate(chain_list)}
+    # Apply pale color based on chain
+    for chain, pale_color in chain_to_pale.items():
+        cmd.color(pale_color, f"{protein_id} and chain {chain}")
 
     # Visualize interactions
     for interaction_type, contacts in interactions.items():
@@ -119,9 +122,7 @@ def load_contacts(protein_input, csv_file):
             cmd.select("temp", " or ".join(residues))
             cmd.create(obj_name, "temp")
             cmd.delete("temp")
-            # Apply pale color based on chain
-            for chain, pale_color in chain_to_pale.items():
-                cmd.color(pale_color, f"{protein_id} and chain {chain}")
+
             cmd.show("sticks", obj_name) 
             cmd.hide("cartoon", obj_name)
             cmd.group(f"group_{interaction_type}", obj_name, "add")
