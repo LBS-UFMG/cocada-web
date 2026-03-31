@@ -270,8 +270,8 @@ class Project extends BaseController
 		echo '</div></div>'; // end message style box
 		chmod("../../../public/data/projects/$id", 0755);
 		
-		return redirect()->to(base_url('/project/' . $id));
-		#return view('running', $data);
+		#return redirect()->to(base_url('/project/' . $id));
+		return view('running', $data);
 
 	}
 
