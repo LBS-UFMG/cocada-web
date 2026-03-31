@@ -1,4 +1,4 @@
-[submodule "app/ThirdParty/COCaDA-CLI"]
-	path = app/ThirdParty/COCaDA-CLI
-	url = https://github.com/rplemos/COCaDA_web.git
-	branch = main
+
+[submodule "app/ThirdParty/COCaDA"]
+	path = app/ThirdParty/COCaDA
+	url = https://github.com/LBS-UFMG/COCaDA.git
