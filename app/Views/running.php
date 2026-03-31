@@ -28,7 +28,7 @@
 
     // Função para o contador
     function iniciarContagem() {
-        let tempoRestante = 0; // 5 segundos
+        let tempoRestante = 10; // 5 segundos
         const contadorElemento = document.getElementById("contador");
 
         const intervalo = setInterval(() => {
