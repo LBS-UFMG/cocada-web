@@ -129,8 +129,8 @@
                     <hr>
                     <h4 class="text-muted mt-4">Did you know?</h4>
                     <p class="text-muted">
-                        <strong>Cocada is a traditional Brazilian coconut confectionery, especially common in the north-east part of the country. That's where our name, logo and mascot come from!<br>
-                        Cocadas are oven-baked and made only from coconut and sugar. Another common variation is made with brown sugar and slightly burned coconut, which is called "black cocada".</strong>
+                        Cocada is a traditional Brazilian coconut confectionery, especially common in the north-east part of the country. <strong>That's where our name, logo and mascot come from!</strong><br>
+                        Cocadas are oven-baked and made only from coconut and sugar. Another common variation is made with brown sugar and slightly burned coconut, which is called "black cocada".
                     </p>
                 </div>
                 <div class="modal-footer">
