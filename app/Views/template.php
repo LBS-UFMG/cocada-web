@@ -126,6 +126,12 @@
                     <span><label class="badge bg-success mt-2">Conference paper (2024):</label></span>
                     <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2024) <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices</strong>. In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70. doi: <a href="https://doi.org/10.5753/bsb.2024.245545">10.5753/bsb.2024.245545</a>
                     </p>
+                    <hr>
+                    <h4 class="text-muted mt-4">Did you know?</h4>
+                    <p class="text-muted">
+                        <strong>Cocada is a traditional Brazilian coconut confectionery, especially common in the north-east part of the country. That's where our name, logo and mascot come from!
+                        Cocadas are oven-baked and made only from coconut and sugar. Another common variation is made with brown sugar and slightly burned coconut, which is called "black cocada".</strong>
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <img height="50" class="me-3" src="<?php echo base_url('/img/dcc_b.svg'); ?>">
