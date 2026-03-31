@@ -258,11 +258,11 @@ class Project extends BaseController
 		-w 1
 		2>&1";
 		$comando = str_replace("\n","",$comando);
-		echo $comando;
+		#echo $comando;
 		system($comando, $error_log);
-		echo $error_log;
-		dd($comando);
-		exit();
+		#echo $error_log;
+		#dd($comando);
+		#exit();
 
 		# renomeia o arquivo com a lista de contatos
 		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
@@ -273,8 +273,8 @@ class Project extends BaseController
 		echo '</div></div>'; // end message style box
 		chmod("../../../public/data/projects/$id", 0755);
 		
-		#return redirect()->to(base_url('/project/' . $id));
-		return view('running', $data);
+		return redirect()->to(base_url('/project/' . $id));
+		#return view('running', $data);
 
 	}
 
