@@ -261,6 +261,7 @@ class Project extends BaseController
 		system($comando, $error_log);
 		echo $error_log;
 		dd($comando);
+		exit();
 
 		# renomeia o arquivo com a lista de contatos
 		#system("mv $data_folder/$id/*.txt $data_folder/$id/contacts.csv");
