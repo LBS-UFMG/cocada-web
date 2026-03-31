@@ -45,6 +45,7 @@ def load_contacts(protein_input, csv_file):
         cmd.fetch(protein_id, protein_id, type="cif") # Fetch the protein structure from the PDB
 
     cmd.show("cartoon", protein_id) 
+    cmd.bg_color("white")
     cmd.remove("resn HOH") 
     cmd.util.color_chains("all") 
 
@@ -120,7 +121,7 @@ def load_contacts(protein_input, csv_file):
             cmd.delete("temp")
             # Apply pale color based on chain
             for chain, pale_color in chain_to_pale.items():
-                cmd.color(pale_color, f"{obj_name} and chain {chain}")
+                cmd.color(pale_color, f"{protein_id} and chain {chain}")
             cmd.show("sticks", obj_name) 
             cmd.hide("cartoon", obj_name)
             cmd.group(f"group_{interaction_type}", obj_name, "add")
