@@ -13,7 +13,7 @@
       <img src="<?= base_url('/img/home.png') ?>" class="d-block mx-lg-auto img-fluid" width="450" loading="lazy">
     </div>
     <div class="col-md-6">
-      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">An Interactive Web Server for Exploratory Analysis of Interatomic Contacts in Proteins</h1>
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">A Web Server for Interactive Analysis of Protein Interatomic Contacts</h1>
 
       <p class="lead">COCαDA-web is a user-friendly Web Server for interatomic contact calculation in proteins, as well as a database comprising precomputed contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which improves search space pruning using alpha-carbon (Cα) distance matrices. </p>
 
