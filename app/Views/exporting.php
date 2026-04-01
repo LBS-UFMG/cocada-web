@@ -19,6 +19,7 @@
             } ?>
             '>Download the PSE file</a>.</p>
             <!-- <p>You will be redirected to the project page in <br><span id="contador" style="font-size: 50px;">5</span></h1> -->
+             <p class="small text-muted">Once the download starts, you can close this window.</p>
 
                 <hr>
             <h2>PyMOL color scheme</h2>
