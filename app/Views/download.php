@@ -24,10 +24,10 @@
             </tr>
 
             <tr>
-                <td><b>COCADA-CLI v1.0</b></td>
-                <td>20KB</td>
-                <td>COCADA command line tool (Python source code).</td>
-                <td><a href="https://github.com/LBS-UFMG/COCaDA/archive/refs/tags/v1.0.zip" target="_blank">github.com/LBS-UFMG/cocada</a></td>
+                <td><b>COCaDA v1.6</b></td>
+                <td>26KB</td>
+                <td>COCaDA command line tool (Python source code).</td>
+                <td><a href="https://github.com/LBS-UFMG/COCaDA/archive/refs/tags/v1.6.zip" target="_blank">github.com/LBS-UFMG/cocada</a></td>
             </tr>
         </tbody>
     </table>
