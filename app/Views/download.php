@@ -17,10 +17,10 @@
         </thead>
         <tbody>
             <tr>
-                <td><b>cocada_2025_01_22.zip</b></td>
+                <td><b>cocada-web_20260401.zip</b></td>
                 <td>4.6GB</td>
-                <td>List of contacts in CSV files sorted by structure.</td>
-                <td><a href="https://doi.org/10.5281/zenodo.14834858" target="_blank">10.5281/zenodo.14834858</a></td>
+                <td>List of contacts in CSV files sorted by structure (update: April 1, 2026).</td>
+                <td><a href="https://doi.org/10.5281/zenodo.19377426" target="_blank">10.5281/zenodo.19377426</a></td>
             </tr>
 
             <tr>
