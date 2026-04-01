@@ -48,56 +48,65 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
 
-# Documentação PT-BR
+# Web tool
 
-## Colocando em produção (Apache Server)
-No terminal, acesse o diretório raiz do Apache: 
-    cd /var/www/html
+## Putting it into production (Apache Server)
+In the terminal, access the Apache root directory:
 
-Clone o repositório: 
-    git clone https://github.com/LBS-UFMG/rnapedia.git
+`cd /var/www/html`
 
-Acesse o novo diretório criado:
-    cd rnapedia
+Clone the repository:
 
-Instale as bibliotecas usando composer:
-    composer install
+`git clone https://github.com/LBS-UFMG/cocada-web.git`
 
-Mude o dono do diretório para o apache:
-    sudo chown -R www-data:www-data *
+Access the newly created directory:
 
-Caso necessário, apague o cache na pasta /writable/cache
-    cd writable/cache
-    rm -rf *
+`cd cocada-web`
 
-Agora vamos configurar o ambiente. Volte para a raiz do projeto e faça uma cópia de env:
-    cd /var/www/html/rnapedia
-    cp env .env
+Install the libraries using composer:
 
-Agora edite o arquivo .env:
-    nano .env
+`composer install`
 
-Remova o comentário das linhas:
-    CI_ENVIRONMENT = production
-    app.baseURL = 'http://bioinfo.dcc.ufmg.br/rnapedia/index.php'
+Change the directory owner to Apache:
+`sudo chown -R www-data:www-data *`
 
-ctrl+o e ctrl+x
+If necessary, delete the cache in the /writable/cache folder:
+`cd writable/cache`
 
+`rm -rf *`
 
+Now let's configure the environment. Go back to the project root and make a copy of the `.env` file:
 
-Confira se o site está configurado no Apache
-    sudo nano /etc/apache2/sites-available/000-default.conf
+`cd /var/www/html/cocada-web`
 
-Agora veja se a existe a seguinte linha (pressione ctrl+w e digite 'rnapedia'):
-    Alias /rnapedia /var/www/html/rnapedia/public
+`cp env .env`
 
-Se não existir, adicione a linha e salve o arquivo com ctrl+o. Pressione ctrl+x para sair.
+Now edit the `.env` file:
 
-Depois reinicie o apache com o comando:
-    sudo service apache2 restart
+`nano .env`
 
+Remove the comments from the lines:
 
-## Sobre os dados
+`CI_ENVIRONMENT = production`
 
-A pasta `/public/data` não é sincronizada pelo GitHub. Nela há duas pastas: `pdb` e `projects`. A pasta `pdb` contém os arquivos de contatos calculados pelo COCADA-CLI. A pasta `projects` contém dados calculados pela interface web.
+`app.baseURL = 'http://bioinfo.dcc.ufmg.br/cocada-web/public'`
 
+Press Ctrl+O and Ctrl+X
+
+Check if the site is configured in Apache:
+
+`sudo nano /etc/apache2/sites-available/000-default-le-ssl.conf`
+
+Now check if the following line exists (press Ctrl+W and type 'cocada-web'):
+
+`Alias ​​/rnapedia /var/www/html/cocada-web/public`
+
+If it doesn't exist, add the line and save the file with Ctrl+O. Press Ctrl+X to exit.
+
+Then restart Apache with the command:
+
+`sudo service apache2 restart`
+
+## About the data
+
+The `/public/data` folder is not synchronized by GitHub. It contains two folders: `pdb` and `projects`. The `pdb` folder contains the contact files calculated by COCADA-CLI. The `projects` folder contains data calculated by the web interface.
