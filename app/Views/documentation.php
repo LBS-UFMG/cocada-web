@@ -89,47 +89,36 @@
 
 <h3 class="pt-5 pb-1">How to use COCαDA-web</h3>
 
-<h4 class="pt-2 pb-1" id="landing_page1">Landing Page</h4>
-
-<p>On the upper part of landing page of COCαDA-web, the user can see the navigation bar (1) and the search bar (2). Below, a short description of the tool is given, with the options to run it or see examples (3). There are also database statistics (4), with the total number of contacts, intra- and inter-chain contacts, and the number of processed PDB structures. At the end of the upper part, the user can see the reference for the tool (5).</p>
-
+<h4 class="pt-2 pb-1" id="landing_page1">Home Page</h4>
+<p>(1) Navigation and search bars. (2) Short description of the tool, with buttons to run it or see examples. (3) Statistics for the precomputed contacts from the PDB, with total, inter-, and inter-chain numbers, and the number of current processed structures (up to 10,000 residues). The statistics are updated each week automatically. (4) Citation guidelines for the COCαDA tool.</p>
 <p align="center">
-  <img src="<?=base_url('/img')?>/docs/landing1.png" class="w-50">
+  <img src="<?=base_url('/img')?>/docs/home1.png" class="w-50">
 </p>
 
-
-<p>Scrolling down the landing page, or clicking on the "try now" button on the navigation bar and the "run" button on the upper part, the user can see the bottom part of the landing page. There are two ways to use COCαDA-web: through the submission of local <code>.pdb</code> or <code>.cif</code> files (1), or through the PDB ID of the protein (2). Also, there are some examples for different groups of proteins (3), and the current version of the tool (4).</p>
-
+<p>(5) Instructions on the three different ways to use COCαDA-web, which are: user-submitted PDB/mmCIF file (6); PDB/Uniprot ID (7); searching for pre-computed proteins from the PDB (1). (8) Advanced options for COCαDA-web, including user-specified cutoff values for each different type of contact; filtering by specific chains or only inter-chain contacts; and defining the pH value to be used for electrostatic contacts. (9) Examples section, containing different sets of proteins from the PDB. (10) Short description of the Web Server and current version for COCαDA and COCαDA-web.</p>
 <p align="center">
-  <img src="<?=base_url('/img')?>/docs/landing2.png" class="w-50" id="landing_page2">
+  <img src="<?=base_url('/img')?>/docs/home2.png" class="w-50" id="landing_page2">
 </p>
+
 
 <h4 class="pt-4 pb-1" id="explore_page">Explore Page</h4>
-
-<p>The explore page can be accessed using the "explore" button on the navigation bar, and exhibits a dynamic list of all entries of the database. The user can search specific entries (1), and all columns of the list can be sorted by ascending and descending order. The columns are: PDB ID's (2), description of the proteins (3), their sizes in residues (4), and the number of contacts in their structures (5). The total number of contacts and the results pagination can be seen at the bottom (6).</p>
-
+<p>The explore page contains all proteins in the PDB up to 10,000 residues. (1) Search and filtering bar, which works for all the columns in the table. (2) PDB ID column. (3) Description column, containing the protein name derived from the PDB. (4) Protein size, number of contacts, and pH. For the pH column, the value shown was obtained directly from the PDB, when available, defaulting to 7.4 when not defined in the deposition. (5) Number of proteins in the current filter and pagination of the results.
 <p align="center">
   <img src="<?=base_url('/img')?>/docs/explore.png" class="w-50">
 </p>
 
 <h4 class="pt-4 pb-1" id="results_page">Results Page</h4>
-
-<p>The results page for a given protein can be accessed either via clicking an entry on the explore page, or by submitting a local .pdb or .cif file. Using as example the PDB ID 101M, the user can download the results in .csv format (1), see the protein contact map (2), its description (3), the number of contacts of each type (4), and the total number of contacts (5). The results can filtered by contact type (6) or by a specific contact (7).</p>
-
-<p>The list of contacts (8) showcases the full information for each individual contact in the protein, and each column can can be sorted by ascending and descending order. The columns are: contact name; protein chain of the first atom; residue of the first atom; name of the first atom; protein chain of the second atom; residue of the second atom; name of the second atom; distance between the atom pair, in angstroms; localization of the contact (intra-chain or inter-chain); and contact type.</p>
-
-<p>A dynamic and interactive visualization of the protein can be seen on the right-hand side of the page (9), reflecting the selected contacts on the results list. On the bottom of the page (10), the user can see the total of contacts present in the current filter, as well as the pagination of the results.</p>
-
+<p>(1) Download options for the results, which include the contact list in CSV format, the submitted PDB/mmCIF file, and the Pymol session with annotated contacts in PSE format. (2) Button to show the protein contact map in a pop-up window. (3) Protein description, obtained from the PDB. (4) Full information for the protein, including the number of residues, number of contacts of each individual type, and pH used for calculation.</p>
+<p>(5) Total number of contacts identified for the protein. (6) Options for filtering the results. (7) Full list of contacts, with the columns being: contact name; protein chain of the first atom; residue of the first atom; name of the first atom; protein chain of the second atom; residue of the second atom; name of the second atom; distance between the atom pair, in angstroms; localization of the contact (intra-chain or inter-chain); contact type; show the individual contact in the visualization.</p>
+<p>(8) Interactive visualization of the protein. (9) Number of contacts in the current filter and pagination of the results. HY = hydrophobic; HB = hydrogen bond; AT = attractive; RE = repulsive; SB = salt bridge; AS = aromatic stacking; uAT = uncertain attractive; uRE = uncertain repulsive; uSB = uncertain salt bridge. </p>
 <p align="center">
   <img src="<?=base_url('/img')?>/docs/results.png" class="w-50">
 </p>
 
 <h4 class="pt-4 pb-1" id="contact_map">Contact Map</h4>
-
 <p>Next to the download button on the results page, the user can view the protein contact map in an interactive pop-up window. Since this is a two-dimensional representation of a protein's contacts, each axis of the map represents a polypeptide chain, both of which can be dynamically adjusted (1 for the X-axis and 2 for the Y-axis). In this way, inter-chain contacts can be visualized by selecting different chains in the menus, and the maps can also be saved in ".png" format (3).</p>
-
-<p>In the interactive view of the selected pair of chains (4), the colors of each contact represent the predominant type for each pair of residues shown, according to the legend at the bottom (6). Additionally, each point on the map can be examined in detail using the cursor (5), where complete information about all contacts made by the selected pair of residues is displayed.</p>
-
+<p>(4) Interactive view of the selected pair of chains, with each point being a pair of residues, and the colors representing the predominant type of contact for the pair. (5) By hovering the mouse over any of the points, the user can see the detailed information for all the contacts made by the residue pair.</p>
+<p>(6) Color scheme for the contact types. HY = hydrophobic; HB = hydrogen bond; AT = attractive; RE = repulsive; SB = salt bridge; AS = aromatic stacking; uAT = uncertain attractive; uRE = uncertain repulsive; uSB = uncertain salt bridge.§</p>
 <p align="center">
   <img src="<?=base_url('/img')?>/docs/contactmap.png" class="w-50">
 </p>
