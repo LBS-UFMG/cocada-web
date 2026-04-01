@@ -9,11 +9,11 @@ contact_colors = {
     'HY': 'red',    # Hydrophobic
     'HB': 'blue',   # Hydrogen bond
     'AT': 'green',  # Attraction
-    'uAT': 'green',  # Possible Attraction
+    'uAT': 'lightgreen',  # Possible Attraction
     'RE': 'orange',  # Repulsion
-    'uRE': 'orange',   # Possible Repulsion
+    'uRE': 'lightorange',   # Possible Repulsion
     'SB': 'pink',    # Salt bridge
-    'uSB': 'pink', # Possible Salt bridge
+    'uSB': 'lightpink', # Possible Salt bridge
     'DS': 'purple',  # Disulfide bond
     'AS': 'yellow'   # Aromatic stacking
 }
@@ -84,8 +84,8 @@ def load_contacts(protein_input, csv_file):
     
     # Map each chain to a fixed “pale” color
     chain_list = sorted(chain_list)
-    pale_colors = ["palegreen", "palecyan", "lightpink", "paleyellow",
-                   "wheat", "bluewhite", "lightblue", "lightorange"]
+    pale_colors = ["green", "cyan", "pink", "yellow",
+                   "salmon", "gray90", "slate", "orange"]
     chain_to_pale = {chain: pale_colors[i % len(pale_colors)] for i, chain in enumerate(chain_list)}
     # Apply pale color based on chain
     for chain, pale_color in chain_to_pale.items():
@@ -114,7 +114,7 @@ def load_contacts(protein_input, csv_file):
         cmd.group(group_name, obj_name, "add")
         cmd.group(group_name, "close")
 
-    # Highlight involved residues with the corresponding pale color for each chain
+    # Highlight involved residues with the corresponding color for each chain
     for interaction_type, residues in interacting_residues.items():
         residues = list(set(residues))
         if residues:
