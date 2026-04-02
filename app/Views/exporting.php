@@ -10,7 +10,6 @@
         <div class="col">
 
             <h1>Exporting</h1>
-            <p>Making a Cocada... wait... ready!</p>
             <p>If the download does not start automatically, click here to <a id="pse" href='
             <?php if (strlen($id) == 6) {
                 echo base_url("/data/projects/$id/contacts.pse");
@@ -24,12 +23,16 @@
                 <hr>
             <h2>PyMOL color scheme</h2>
             <code>
-                'HY': 'red', # Hydrophobic
-                'HB': 'blue', # Hydrogen Bond
-                'AT': 'green', # Attractive
-                'RE': 'orange', # Repulsive
-                'SB': 'pink', # Salt Bridge
-                'DS': 'purple' # Disulfide Bond
+                'HY': 'red',
+                'HB': 'blue',
+                'AT': 'green',
+                'uAT': 'lightgreen',
+                'RE': 'orange',
+                'uRE': 'lightorange',
+                'SB': 'pink',
+                'uSB': 'lightpink',
+                'DS': 'purple',
+                'AS': 'yellow'
             </code>
         </div>
     </div>
