@@ -37,7 +37,7 @@ class Export extends BaseController
         $data['id'] = $id;
 
         # Esta função é usada pelo controller entry -> id tem 4 dígitos
-        echo "<div class='bg-info w-100 p-2 m-0 small'><strong>Exporting contacts of $id to PyMOL...</strong><br>";
+        echo "<div class='bg-info w-100 m-0 small' style='visibility: hidden; height: 0'><strong>Exporting contacts of $id to PyMOL...</strong><br>";
 
         # START cocada PIPELINE *******************************************
 		$data_folder = getcwd();
