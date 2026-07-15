@@ -81,15 +81,15 @@
 
 <div class="container-fluid px-4">
     <div class="row">
-        <div class="col-md-9 col-12" ng-if="cttlok" id="col1">
+        <div class="col-md-8 col-12" ng-if="cttlok" id="col1">
             <center>
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                     <span class="btn btn-outline-dark" id="basic-addon1">
-                        <span class="d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter results: </b></span>
+                        <span class="d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter contacts: </b></span>
                         <span class="d-md-none"><i class="bi bi-funnel-fill"></i></span>
                     </span>
                     <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">
-                        <span class="d-none d-md-inline">Show all contacts</span>
+                        <span class="d-none d-md-inline">All</span>
                         <span class="d-md-none">All</span>
                     </button>             
                     <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>          
@@ -208,7 +208,7 @@
         </div>
 
 
-        <div class="col-md-3" id="col2">
+        <div class="col-md-4" id="col2">
 
             <style>
                 .affix {
@@ -223,7 +223,7 @@
                 }
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
-                <div id="pdb" style="min-height: 400px; height: 50vh; min-width:280px; width: 100%"></div>
+                <div id="pdb" style="min-height: 500px; height: 50vh; min-width:280px; width: 100%"></div>
                 <p style="color:#ccc; text-align: right" class="small">
                     <a href="<?= base_url("/export/pdb-to-pymol/$id") ?>" class="me-2" target="_blank">Export to PyMOL</a> | <button class="btn btn-link btn-sm pt-0" onclick="reset()">Clear</button>
                 </p>
@@ -235,7 +235,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="contactMap" tabindex="-1" aria-labelledby="contactMap" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-3 text-center w-100" id="contactMapTitle"><strong>Contact map for <?= $id ?></strong></h1>
@@ -263,19 +263,30 @@
                 </div>
 
                 <style>
-                    canvas {
-                        max-width: calc(100vh - 150px) !important;
+                    #pdb_modal canvas {
+                        position: relative !important;
                     }
                 </style>
-                <div class="row">
+                <div class="row mt-3">
 
-                    <div class="col">
-                        <canvas id="scatterChart" class="p-4"></canvas>
-                        <div id="legend" class="pb-3"></div>
+                    <!-- Mapa de contatos (Chart.js) -->
+                    <div class="col-lg-6 col-12">
+                        <div style="position: relative; height: calc(100vh - 220px);">
+                            <canvas id="scatterChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Visualização 3D do par selecionado -->
+                    <div class="col-lg-6 col-12">
+                        <p class="text-muted small mb-1">Click a point on the map to display the contact pair here.</p>
+                        <div id="pdb_modal" style="height: calc(100vh - 260px); min-height: 400px; width: 100%; position: relative;"></div>
+                        <p style="color:#ccc; text-align: right" class="small">
+                            <button class="btn btn-link btn-sm pt-0" onclick="resetViewer(modalViewer)">Clear</button>
+                        </p>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer bg-white">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
@@ -346,20 +357,55 @@
     }
 
     // 3DMOL **********************************************************************
+    /* Converte o nome do resíduo de 3 letras (ALA) para 1 letra (A) */
+    function three2one(resn) {
+        var map = {
+            ALA: 'A', ARG: 'R', ASN: 'N', ASP: 'D', CYS: 'C',
+            GLN: 'Q', GLU: 'E', GLY: 'G', HIS: 'H', ILE: 'I',
+            LEU: 'L', LYS: 'K', MET: 'M', PHE: 'F', PRO: 'P',
+            SER: 'S', THR: 'T', TRP: 'W', TYR: 'Y', VAL: 'V'
+        };
+        var code = map[String(resn).toUpperCase().trim()];
+        return code ? code : resn; // desconhecido: mantém o nome original
+    }
+
+    /* Cor do átomo conforme o elemento (esquema rasmol usado no viewer) */
+    function atomColor(atom) {
+        var colors = ($3Dmol.elementColors && $3Dmol.elementColors.rasmol) ||
+            $3Dmol.rasmolElementColors || {};
+        var c = colors[atom.elem];
+        return (c === undefined) ? 0xcccccc : c; // desconhecido: cinza claro
+    }
+
     /* Select ID */
     function selectID(glviewer, residues, type, chain1, chain2, a1, a2) {
+
+        // Labels e shapes ficam guardados no próprio viewer, para que cada
+        // viewer (o principal e o do modal) gerencie os seus de forma independente
+        (glviewer._contactLabels || []).forEach(function(l) {
+            glviewer.removeLabel(l);
+        });
+        (glviewer._contactShapes || []).forEach(function(s) {
+            glviewer.removeShape(s);
+        });
+        glviewer._contactLabels = [];
+        glviewer._contactShapes = [];
+        var contactLabels = glviewer._contactLabels;
+        var contactShapes = glviewer._contactShapes;
 
         residues = residues.split("/");
 
         var res1 = residues[0].substr(1);
         var res2 = residues[1].substr(1);
 
+        // Estrutura inteira semi-transparente para destacar os resíduos selecionados
         glviewer.setStyle({}, {
             line: {
-                color: 'grey'
+                color: '#cccccc' // cinza claro: simula transparência (o estilo line não suporta opacity)
             },
             cartoon: {
-                color: 'white'
+                color: 'white',
+                opacity: 0.3
             }
         }); /* Cartoon multi-color */
         glviewer.setStyle({
@@ -404,16 +450,71 @@
 
             //console.log(atom2,'aqui')
 
-            // Adicionar a linha tracejada entre os átomos
-            glviewer.addLine({
+            // Linha tracejada (grossa) entre os átomos em contato
+            contactShapes.push(glviewer.addCylinder({
                 dashed: true,
                 start: { x: atom1.x, y: atom1.y, z: atom1.z },
                 end: { x: atom2.x, y: atom2.y, z: atom2.z },
-                color: "red",
-                dashLength: 0.2, // Comprimento dos traços
-                linewidth:5, // Define a grossura da linha
-                gapLength:0.1
-            });
+                radius: 0.12,   // grossura da linha tracejada
+                fromCap: 1,
+                toCap: 1,
+                color: "orange"
+            }));
+
+            // Esferas sobre os átomos em contato, na cor do átomo
+            contactShapes.push(glviewer.addSphere({
+                center: { x: atom1.x, y: atom1.y, z: atom1.z },
+                radius: 0.4,
+                color: atomColor(atom1)
+            }));
+            contactShapes.push(glviewer.addSphere({
+                center: { x: atom2.x, y: atom2.y, z: atom2.z },
+                radius: 0.4,
+                color: atomColor(atom2)
+            }));
+
+            // Labels dos resíduos em contato (ex.: A128 (OH) = alanina 128, átomo OH)
+            var labelStyle = {
+                fontSize: 12,
+                fontColor: "white",
+                backgroundColor: "black",
+                backgroundOpacity: 0.8,
+                inFront: true,
+                borderThickness: 0.5,
+                borderColor: "white"
+            };
+
+            contactLabels.push(glviewer.addLabel(
+                three2one(atom1.resn) + atom1.resi + " (" + atom1.atom + ")",
+                Object.assign({ position: { x: atom1.x, y: atom1.y, z: atom1.z } }, labelStyle)
+            ));
+
+            contactLabels.push(glviewer.addLabel(
+                three2one(atom2.resn) + atom2.resi + " (" + atom2.atom + ")",
+                Object.assign({ position: { x: atom2.x, y: atom2.y, z: atom2.z } }, labelStyle)
+            ));
+
+            // Label da distância de contato, no centro da linha
+            var dx = atom1.x - atom2.x;
+            var dy = atom1.y - atom2.y;
+            var dz = atom1.z - atom2.z;
+            var dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+            contactLabels.push(glviewer.addLabel(
+                dist.toFixed(2) + " Å", // Å
+                {
+                    position: {
+                        x: (atom1.x + atom2.x) / 2,
+                        y: (atom1.y + atom2.y) / 2,
+                        z: (atom1.z + atom2.z) / 2
+                    },
+                    fontSize: 11,
+                    fontColor: "white",
+                    backgroundColor: "orange",
+                    backgroundOpacity: 0.85,
+                    inFront: true
+                }
+            ));
         }
         // fim linha tracejada
 
@@ -477,9 +578,42 @@
         };
     }
 
+    // Reseta um viewer específico ao estado inicial (estrutura inteira, sem seleção)
+    function resetViewer(viewer) {
+        if (!viewer) {
+            return;
+        }
+
+        // Remove labels e shapes do contato selecionado nesse viewer
+        (viewer._contactLabels || []).forEach(function(l) {
+            viewer.removeLabel(l);
+        });
+        (viewer._contactShapes || []).forEach(function(s) {
+            viewer.removeShape(s);
+        });
+        viewer._contactLabels = [];
+        viewer._contactShapes = [];
+
+        // Volta ao estilo inicial: estrutura inteira, sem transparência nem seleção
+        viewer.setStyle({}, {
+            line: {
+                color: 'grey'
+            },
+            cartoon: {
+                color: 'white'
+            }
+        });
+
+        viewer.zoomTo();
+        viewer.render();
+    }
+
+    // Botão Clear do viewer principal
     function reset(){
         console.log("Reiniciando visualização")
-        location.reload();
+        if (typeof glviewer !== 'undefined' && glviewer) {
+            resetViewer(glviewer);
+        }
     }
 
     $(document).ready(function() {
@@ -579,8 +713,10 @@
     // MAPA DE CONTATOS
     let allChains = new Set();
     let allDataPoints = [];
+    let datasetsMap = {}; // pontos agrupados por categoria (tipo de contato)
     let scatterChart;
     let colorMap = {};
+    let modalViewer = null; // viewer 3Dmol dentro do modal
     const cat10Colors = [
         '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
         '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
@@ -606,10 +742,11 @@
     function updateChart() {
         const selectedX = document.getElementById('chainX').value;
         const selectedY = document.getElementById('chainY').value;
-        const filteredData = allDataPoints.filter(p => p.c1 === selectedX && p.c2 === selectedY);
 
-        scatterChart.data.datasets[0].data = filteredData;
-        scatterChart.data.datasets[0].pointBackgroundColor = filteredData.map(p => p.backgroundColor);
+        // Cada dataset corresponde a uma categoria; refiltra pela cadeia escolhida
+        scatterChart.data.datasets.forEach(ds => {
+            ds.data = (datasetsMap[ds.label] || []).filter(p => p.c1 === selectedX && p.c2 === selectedY);
+        });
         scatterChart.options.scales.x.title.text = `Chain ${selectedX}`;
         scatterChart.options.scales.y.title.text = `Chain ${selectedY}`;
         scatterChart.update();
@@ -623,13 +760,55 @@
         link.click();
     }
 
+    // Exibe, no viewer 3D do modal, o par de contatos do ponto clicado no mapa.
+    // Reutiliza selectID (mesmos padrões visuais do viewer principal).
+    function showContactInModal(p) {
+        if (!modalViewer) {
+            return;
+        }
+        // aa1/aa2 são o código de 1 letra do resíduo; selectID espera "X<num>/Y<num>"
+        const residues = `${p.aa1}${p.x}/${p.aa2}${p.y}`;
+        const type = (p.c1 === p.c2) ? 'INTRA' : 'INTER';
+        selectID(modalViewer, residues, type, p.c1, p.c2, p.at1, p.at2);
+    }
+
+    // Cria o viewer 3D dentro do modal na primeira vez que ele é aberto.
+    // (Precisa ser criado com o modal visível para o canvas ter dimensões corretas.)
+    document.getElementById('contactMap').addEventListener('shown.bs.modal', function() {
+        if (!modalViewer) {
+            modalViewer = $3Dmol.createViewer('pdb_modal', {
+                defaultcolors: $3Dmol.rasmolElementColors
+            });
+            modalViewer.setBackgroundColor(0xffffff);
+        }
+
+        // Carrega o modelo assim que o PDB estiver disponível (lazy: pode ainda
+        // estar baixando na primeira abertura do modal)
+        if (!modalViewer._modelLoaded && typeof moldata !== 'undefined' && moldata) {
+            modalViewer.addModel(moldata, 'pqr');
+            modalViewer.setStyle({}, {
+                line: { color: 'grey' },
+                cartoon: { color: 'white' }
+            });
+            modalViewer.zoomTo();
+            modalViewer.render();
+            modalViewer._modelLoaded = true;
+        }
+
+        // Ajusta o tamanho do canvas do 3Dmol e do gráfico agora que estão visíveis
+        modalViewer.resize();
+        modalViewer.render();
+        if (scatterChart) {
+            scatterChart.resize();
+        }
+    });
+
     fetch('<?php echo base_url(); ?>data/pdb/<?= substr($id, 0, 1) ?>/<?= $id ?>/<?= $id ?>_contacts.csv')
         .then(response => response.text())
         .then(text => {
             const lines = text.split('\n').map(line => line.trim()).filter(line => line);
             lines.shift(); // Ignorar a primeira linha
             let colorIndex = 0;
-            let legendHTML = "<strong>Caption:</strong>";
 
             lines.forEach(line => {
                 const values = line.split(',');
@@ -650,39 +829,68 @@
 
                     if (!colorMap[category]) {
                         colorMap[category] = cat10Colors[colorIndex % cat10Colors.length];
-                        legendHTML += `<div style='display: flex; align-items: center; gap: 5px;'>
-                    <div style='width: 20px; height: 20px; background-color: ${colorMap[category]};'></div>${category}</div>`;
                         colorIndex++;
                     }
 
-                    allDataPoints.push({
+                    const point = {
                         x,
                         y,
                         c1,
                         c2,
+                        aa1,
+                        aa2,
+                        at1,
+                        at2,
+                        category,
                         backgroundColor: colorMap[category],
                         label
-                    });
+                    };
+
+                    allDataPoints.push(point);
+
+                    // Agrupa por categoria para gerar um dataset por tipo de contato
+                    if (!datasetsMap[category]) {
+                        datasetsMap[category] = [];
+                    }
+                    datasetsMap[category].push(point);
                 }
             });
 
-            document.getElementById('legend').innerHTML = legendHTML;
             populateChainSelectors();
+
+            // Um dataset por categoria: assim a legenda nativa do Chart.js
+            // permite ocultar/mostrar os pontos de cada tipo ao clicar nela
+            const datasets = Object.keys(datasetsMap).map(category => ({
+                label: category,
+                data: datasetsMap[category].filter(p => p.c1 === 'A' && p.c2 === 'A'),
+                backgroundColor: colorMap[category],
+                borderWidth: 0,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+            }));
 
             const ctx = document.getElementById('scatterChart').getContext('2d');
             scatterChart = new Chart(ctx, {
                 type: 'scatter',
                 data: {
-                    datasets: [{
-                        label: 'Dispersão CSV',
-                        data: allDataPoints.filter(p => p.c1 === 'A' && p.c2 === 'A'),
-                        pointBackgroundColor: allDataPoints.map(p => p.backgroundColor),
-                        borderWidth: 0,
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
-                    }]
+                    datasets: datasets
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // Clique em um ponto: exibe o par de contatos no viewer 3D do modal
+                    onClick: function(event, elements) {
+                        if (elements.length > 0) {
+                            const el = elements[0];
+                            const point = scatterChart.data.datasets[el.datasetIndex].data[el.index];
+                            showContactInModal(point);
+                        }
+                    },
+                    onHover: function(event, elements) {
+                        if (event.native && event.native.target) {
+                            event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+                        }
+                    },
                     plugins: {
                         tooltip: {
                             callbacks: {
@@ -692,7 +900,11 @@
                             }
                         },
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true
+                            }
                         }
                     },
                     scales: {

@@ -3,7 +3,7 @@
 
 <head>
     <title>COCaDA – The Protein Contacts Database</title>
-    <?php $version = "25.924"; // 24-sep-2025 
+    <?php $version = "26.715"; // 15-jul-2026
     ?>
 
     <meta charset="utf-8">
@@ -77,7 +77,7 @@
                     <img src="<?= base_url('/img/cocada.svg') ?>" width="200px">
                     <p class="text-light small pt-3 col-9">COCαDA-web is a user-friendly Web Server for interatomic contact calculation in proteins, as well as a database comprising precomputed contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which improves search space pruning using alpha-carbon (Cα) distance matrices..</p>
 
-                    <p style="font-size: 0.6em;color:#ccc">©<?= date('Y') ?> COCαDA-CLI v1.6 – web v<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <strong>GitHub</strong>: <a class="text-white" href="https://github.com/LBS-UFMG/cocada">CLI</a> | <a class="text-white" href="https://github.com/LBS-UFMG/cocada-web">Web</a>
+                    <p style="font-size: 0.6em;color:#ccc">©<?= date('Y') ?> COCαDA-web v1.<?= $version ?> | Laboratory of Bioinformatics and Systems, UFMG (Brazil) | <strong>GitHub</strong>: <a class="text-white" href="https://github.com/LBS-UFMG/cocada">CLI</a> | <a class="text-white" href="https://github.com/LBS-UFMG/cocada-web">Web</a>
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -95,13 +95,13 @@
     <div class="modal fade" tabindex="-1" id="about" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-success">
+                <div class="modal-header bg-dark">
                     <div class="text-center">
                         <img width="150" class="me-3" src="<?php echo base_url('/img/cocada.svg'); ?>">
                     </div>
                     <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body small">
+                <div class="modal-body small" id="modal-sobre" style="font-weight: 100 !important">
                     <div class="row">
                         <p class="text-muted">
                             <strong>COCαDA-web is a user-friendly Web Server for interatomic contact calculation in proteins, as well as a database comprising precomputed contacts from the PDB. COCαDA-web uses the COCαDA algorithm, which improves search space pruning using alpha-carbon (Cα) distance matrices.
@@ -109,7 +109,7 @@
                         </p>
                     </div>
                     <div class="row text-secondary">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
 
                             <strong># Created by:</strong><br>
                             Rafael Lemos / Diego Mariano / Sabrina A. Silveira / Raquel C. de Melo-Minardi<br><br>
@@ -120,11 +120,11 @@
                     </div>
                     <hr>
                     <h4 class="text-muted mt-4">If you use COCαDA in your research, please cite it:</h4>
-                    <label class="badge bg-success mt-2"><i class="bi bi-star-fill me-1"></i>Main article (2025)</label>
-                    <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
+                    <label class="badge bg-warning mt-2"><i class="bi bi-star-fill me-1"></i>Main article (2025)</label>
+                    <p class="small border-start border-warning mx-3 col-11 text-light p-3" style="background-color: #6cbd16; color: #fff !important">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2025) <strong>COCαDA - a fast and scalable algorithm for interatomic contact detection in proteins using Cα distance matrices</strong>. Front. Bioinform. 5:1630078. doi: <a href="https://doi.org/10.3389/fbinf.2025.1630078">10.3389/fbinf.2025.1630078</a></p>
 
-                    <span><label class="badge bg-success mt-2">Conference paper (2024):</label></span>
-                    <p class="small text-muted border-start border-success mx-3 col-11 bg-light p-2">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2024) <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices</strong>. In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70. doi: <a href="https://doi.org/10.5753/bsb.2024.245545">10.5753/bsb.2024.245545</a>
+                    <span><label class="badge bg-dark mt-2">Conference paper (2024):</label></span>
+                    <p class="small text-muted border-start border-dark mx-3 col-11 bg-light p-3">Lemos R.P., Mariano D., Silveira S.A. and de Melo-Minardi R.C. (2024) <strong>COCαDA - Large-Scale Protein Interatomic Contact Cutoff Optimization by Cα Distance Matrices</strong>. In: Proceedings of the XVII Brazilian Symposium on Bioinformatics (BSB), 17, p. 59-70. doi: <a href="https://doi.org/10.5753/bsb.2024.245545">10.5753/bsb.2024.245545</a>
                     </p>
                     <hr>
                     <h4 class="text-muted mt-4">Did you know?</h4>
@@ -137,7 +137,7 @@
                     <img height="50" class="me-3" src="<?php echo base_url('/img/dcc_b.svg'); ?>">
                     <img height="50" class="me-3" src="<?php echo base_url('/img/ufmg_b.svg'); ?>">
 
-                    <button type="button" class="btn btn-success py-4 px-5" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark py-4 px-5" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
