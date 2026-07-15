@@ -272,6 +272,12 @@
                     <!-- Mapa de contatos (Chart.js) -->
                     <div class="col-lg-6 col-12">
                         <div style="position: relative; height: calc(100vh - 220px);">
+                            <!-- Botão Back sobreposto, ao lado da legenda (topo do gráfico) -->
+                            <button id="backButton" class="btn btn-sm btn-outline-secondary"
+                                onclick="resetChartZoom()"
+                                style="position: absolute; top: 0; right: 0; z-index: 5;">
+                                <i class="bi bi-arrow-counterclockwise"></i> Back
+                            </button>
                             <canvas id="scatterChart"></canvas>
                         </div>
                     </div>
@@ -703,6 +709,9 @@
 <?= $this->section('scripts') ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Plugin oficial de zoom/pan do Chart.js (Hammer.js habilita gestos de toque) -->
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
 
 <script>
     // tooltips
@@ -758,6 +767,22 @@
         link.href = canvas.toDataURL('image/png');
         link.download = 'contacts_<?= $id ?>.png';
         link.click();
+    }
+
+    // Volta o mapa de contatos ao enquadramento original (desfaz o zoom)
+    function resetChartZoom() {
+        if (scatterChart) {
+            scatterChart.resetZoom();
+        }
+    }
+
+    // Converte uma cor hexadecimal (#rrggbb) para rgba com a opacidade indicada
+    function hexToRgba(hex, alpha) {
+        const h = hex.replace('#', '');
+        const r = parseInt(h.substring(0, 2), 16);
+        const g = parseInt(h.substring(2, 4), 16);
+        const b = parseInt(h.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
     // Exibe, no viewer 3D do modal, o par de contatos do ponto clicado no mapa.
@@ -902,8 +927,41 @@
                         legend: {
                             display: true,
                             position: 'top',
+                            // onClick padrão do Chart.js: oculta os pontos da categoria
+                            // no gráfico e risca o texto correspondente na legenda
                             labels: {
-                                usePointStyle: true
+                                usePointStyle: true,
+                                // Quando a categoria está oculta, deixa apenas a
+                                // bolinha da legenda semi-transparente
+                                generateLabels: function(chart) {
+                                    const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                                    labels.forEach(function(label) {
+                                        if (label.hidden) {
+                                            const c = hexToRgba(colorMap[label.text], 0.3);
+                                            label.fillStyle = c;
+                                            label.strokeStyle = c;
+                                        }
+                                    });
+                                    return labels;
+                                }
+                            }
+                        },
+                        // Zoom por seleção de região (arrastar), roda do mouse e pinça
+                        zoom: {
+                            zoom: {
+                                drag: {
+                                    enabled: true,
+                                    backgroundColor: 'rgba(0, 123, 255, 0.15)',
+                                    borderColor: 'rgba(0, 123, 255, 0.6)',
+                                    borderWidth: 1
+                                },
+                                wheel: {
+                                    enabled: true
+                                },
+                                pinch: {
+                                    enabled: true
+                                },
+                                mode: 'xy'
                             }
                         }
                     },
@@ -915,6 +973,9 @@
                             },
                             beginAtZero: false,
                             min: 1,
+                            ticks: {
+                                precision: 0 // apenas números inteiros (nº de resíduo)
+                            }
                         },
                         y: {
                             title: {
@@ -923,6 +984,9 @@
                             },
                             beginAtZero: false,
                             min: 1,
+                            ticks: {
+                                precision: 0 // apenas números inteiros (nº de resíduo)
+                            }
                         }
                     }
                 }
