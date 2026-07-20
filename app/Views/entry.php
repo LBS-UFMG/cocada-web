@@ -276,7 +276,7 @@
                             <button id="backButton" class="btn btn-sm btn-outline-secondary"
                                 onclick="resetChartZoom()"
                                 style="position: absolute; top: 0; right: 0; z-index: 5;">
-                                <i class="bi bi-arrow-counterclockwise"></i> Back
+                                <i class="bi bi-arrow-counterclockwise"></i> Reset Zoom
                             </button>
                             <canvas id="scatterChart"></canvas>
                         </div>

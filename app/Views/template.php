@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>COCaDA – The Protein Contacts Database</title>
+    <title>COCaDA-web - Interatomic Contacts in Proteins</title>
     <?php $version = "26.715"; // 15-jul-2026
     ?>
 
