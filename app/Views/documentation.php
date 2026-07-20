@@ -115,12 +115,10 @@
 </p>
 
 <h4 class="pt-4 pb-1" id="contact_map">Contact Map</h4>
-<p>Next to the download button on the results page, the user can view the protein contact map in an interactive pop-up window (Figure A). Since this is a two-dimensional representation of a protein's contacts, each axis of the map represents a polypeptide chain, both of which can be dynamically adjusted (<strong>1</strong> for the X-axis and <strong>2</strong> for the Y-axis). In this way, inter-chain contacts can be visualized by selecting different chains in the menus, and the maps can also be saved in ".png" format <strong>(3)</strong>. 
-<p><strong>(4)</strong> Color scheme for the contact types, which can be individually toggled in the visualization (Figure B). AT = attractive; RE = repulsive; SB = salt bridge; AS = aromatic stacking; uAT = uncertain attractive; uRE = uncertain repulsive; uSB = uncertain salt bridge.</p> 
-<p><strong>(5)</strong> Interactive view of the selected pair of chains, with each point being a pair of residues, and the colors representing the predominant type of contact for the pair. Any region of the contact map can be zoomed in to facilitate exploration of larger proteins (Figure C).</p>
-<p><strong>(6)</strong> By hovering the mouse over any of the points, the user can see the detailed information for all the contacts made by the residue pair. <strong>(7)</strong> Integrated 3D visualization of the protein structure, highlighting the selected contact in the map.</p>
+<p>Next to the download button on the results page, the user can view the protein contact map in an interactive pop-up window (Figure A). Since this is a two-dimensional representation of a protein's contacts, each axis of the map represents a polypeptide chain, both of which can be dynamically adjusted (<strong>1</strong> for the X-axis and <strong>2</strong> for the Y-axis). In this way, inter-chain contacts can be visualized by selecting different chains in the menus, and the maps can also be saved in ".png" format <strong>(3)</strong>. <strong>(4)</strong> Color scheme for the contact types, which can be individually toggled in the visualization <strong>(Figure B)</strong>. <strong>(5)</strong> Interactive view of the selected pair of chains, with each point being a pair of residues, and the colors representing the predominant type of contact for the pair. Any region of the contact map can be zoomed in to facilitate exploration of larger proteins <strong>(Figure C)</strong>. <strong>(6)</strong> By hovering the mouse over any of the points, the user can see the detailed information for all the contacts made by the residue pair. <strong>(7)</strong> Integrated 3D visualization of the protein structure, highlighting the selected contact in the map.</p>
+<p>AT = attractive; RE = repulsive; SB = salt bridge; AS = aromatic stacking; uAT = uncertain attractive; uRE = uncertain repulsive; uSB = uncertain salt bridge.</p>
 <p align="center">
-  <img src="<?=base_url('/img')?>/docs/contactmap.png" class="w-50">
+  <img src="<?=base_url('/img')?>/docs/contactmap_new.png" class="w-50">
 </p>
 
 <br>
