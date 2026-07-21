@@ -16,7 +16,7 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col-md-9 col-12 pt-2">
-                <h2 class="title_h2 pt-4">
+                <h2 class="title_h2">
                     <span class="badge text-bg-danger d-inline-block mb-1" style="font-size: 0.7rem; font-weight: 600;">Biological Assembly</span><br>
                     <strong><?php echo $id; ?></strong>
                     <div class="dropdown d-inline ms-2" title="Export files">
