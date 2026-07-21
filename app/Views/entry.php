@@ -92,25 +92,36 @@
     <div class="row">
         <div class="col-md-8 col-12" ng-if="cttlok" id="col1">
             <center>
-                <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                    <span class="btn btn-outline-dark" id="basic-addon1">
-                        <span class="d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter contacts: </b></span>
-                        <span class="d-md-none"><i class="bi bi-funnel-fill"></i></span>
-                    </span>
-                    <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">
-                        <span class="d-none d-md-inline">All</span>
-                        <span class="d-md-none">All</span>
-                    </button>             
-                    <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>          
-                    <button type="button" id="at" class="btn btn-info border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT</button>       
-                    <button type="button" id="re" class="btn btn-danger border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE</button>          
-                    <button type="button" id="hy" class="btn btn-warning border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY</button>              
-                    <button type="button" id="ar" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic">AR</button>          
-                    <button type="button" id="sb" class="btn btn-primary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB</button>           
-                    <button type="button" id="ds" class="btn btn-light border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS</button>
-                    <button type="button" id="un" class="btn btn-white border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN</button>
-                    <button type="button" id="intra" class="btn btn-dark border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Intrachain contacts (same chain)">INTRA</button>
-                    <button type="button" id="inter" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Interchain contacts (different chains)">INTER</button>
+                <style>
+                    /* Botões de filtro de contatos (estilo limpo com contagem) */
+                    .contact-filters { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; }
+                    .btn-filter {
+                        border: 1px solid #adb5bd; background: #fff; color: #212529;
+                        font-size: 0.75rem; padding: 4px 10px; border-radius: 4px;
+                        font-weight: 600; line-height: 1.2; cursor: pointer; transition: background-color .15s;
+                    }
+                    .btn-filter:hover { background: #f1f3f5; }
+                    .btn-filter.active { background: #212529; color: #fff; border-color: #212529; }
+                    .badge-cnt {
+                        background: rgba(0,0,0,.12); padding: 0 5px; border-radius: 3px;
+                        margin-left: 5px; font-size: 0.7rem; color: inherit;
+                    }
+                    .btn-filter.active .badge-cnt { background: rgba(255,255,255,.25); color: #fff; }
+                </style>
+
+                <div class="contact-filters">
+                    <span class="me-1 small text-muted d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter:</b></span>
+                    <button type="button" id="show_all" class="btn-filter btn-all active" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="All contacts">All <span class="badge-cnt"><?= number_format((int) $total_results) ?></span></button>
+                    <button type="button" id="hb" class="btn-filter" style="border-bottom: 3px solid #198754" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB <span class="badge-cnt"><?= number_format((int) $info[4]) ?></span></button>
+                    <button type="button" id="at" class="btn-filter" style="border-bottom: 3px solid #0dcaf0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT <span class="badge-cnt"><?= number_format((int) $info[6]) ?></span></button>
+                    <button type="button" id="re" class="btn-filter" style="border-bottom: 3px solid #dc3545" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE <span class="badge-cnt"><?= number_format((int) $info[7]) ?></span></button>
+                    <button type="button" id="hy" class="btn-filter" style="border-bottom: 3px solid #ffc107" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY <span class="badge-cnt"><?= number_format((int) $info[5]) ?></span></button>
+                    <button type="button" id="ar" class="btn-filter" style="border-bottom: 3px solid #6c757d" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic Stacking">AR <span class="badge-cnt"><?= number_format((int) $info[10]) ?></span></button>
+                    <button type="button" id="sb" class="btn-filter" style="border-bottom: 3px solid #0d6efd" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB <span class="badge-cnt"><?= number_format((int) $info[8]) ?></span></button>
+                    <button type="button" id="ds" class="btn-filter" style="border-bottom: 3px solid #212529" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS <span class="badge-cnt"><?= number_format((int) $info[9]) ?></span></button>
+                    <button type="button" id="un" class="btn-filter" style="border-bottom: 3px solid #ced4da" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN <span class="badge-cnt"><?= number_format((int) $info[11] + (int) $info[12] + (int) $info[13]) ?></span></button>
+                    <button type="button" id="intra" class="btn-filter" style="border-bottom: 3px solid #495057" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Intrachain contacts (same chain)">INTRA <span class="badge-cnt" id="cnt_intra">0</span></button>
+                    <button type="button" id="inter" class="btn-filter" style="border-bottom: 3px solid #adb5bd" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Interchain contacts (different chains)">INTER <span class="badge-cnt" id="cnt_inter">0</span></button>
                 </div>
 
                 <div class="form-check form-switch d-inline-flex align-items-center align-middle ms-3">
@@ -350,7 +361,25 @@
                 }
             ]
         });
-        
+
+        // Contagens INTRA/INTER (a partir da coluna "Local", índice 8)
+        (function() {
+            var nIntra = 0, nInter = 0;
+            table.column(8).data().each(function(v) {
+                var s = String(v);
+                if (s.indexOf('INTRA') > -1) { nIntra++; }
+                else if (s.indexOf('INTER') > -1) { nInter++; }
+            });
+            $('#cnt_intra').text(nIntra.toLocaleString());
+            $('#cnt_inter').text(nInter.toLocaleString());
+        })();
+
+        // Destaca (estado ativo) o botão de filtro clicado
+        $('.btn-filter').on('click', function() {
+            $('.btn-filter').removeClass('active');
+            $(this).addClass('active');
+        });
+
         $('#side_chain').click(function() {
             if ($("#side_chain").prop("checked")) {
                 table
