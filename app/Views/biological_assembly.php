@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-9 col-12 pt-2">
                 <h2 class="title_h2 pt-4">
-                    <span class="badge text-bg-danger d-inline-block mb-1"><i class="bi bi-diagram-3-fill me-1"></i>Biological Assembly</span><br>
+                    <span class="badge text-bg-danger d-inline-block mb-1" style="font-size: 0.7rem; font-weight: 600;">Biological Assembly</span><br>
                     <strong><?php echo $id; ?></strong>
                     <div class="dropdown d-inline ms-2" title="Export files">
                         <div class="dropdown d-inline">
