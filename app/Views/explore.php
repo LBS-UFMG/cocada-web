@@ -4,7 +4,12 @@
 
 <div class="container-fluid py-5 px-5">
 
-    <h1 class="pb-5 text-dark">Explore</h1>
+    <div class="d-flex flex-wrap align-items-center justify-content-between pb-5">
+        <h1 class="text-dark mb-0">Explore</h1>
+        <a href="<?= base_url('advanced-search') ?>" class="btn btn-outline-primary">
+            <i class="bi bi-sliders"></i> Advanced search
+        </a>
+    </div>
 
     <div id="explore">
         <div class="container-fluid">
@@ -35,80 +40,41 @@
 <?= $this->section('scripts') ?>
 <script>
     $(() => {
-        // Base URL gerada pelo servidor (útil para templates)
         const BASE_URL = '<?= base_url() ?>';
 
         // captura o parâmetro de busca da URL (?q= ou ?query=)
         const urlParams = new URLSearchParams(window.location.search);
         const initialQuery = (urlParams.get('q') || urlParams.get('query') || '').trim();
 
-        const lerDados = (arquivo) => {
-            $.ajax({
-                url: arquivo,
-                dataType: 'text',
-                success: (dados) => {
-                    try {
-                        const dados_formatados = formatarTabela(dados);
-                        plotar(dados_formatados, initialQuery);
-                    } catch (err) {
-                        console.error('Erro ao processar dados:', err);
+        // DataTables server-side: o PHP lê o list.csv e devolve só a página pedida
+        // (busca/ordenação/paginação são feitas no servidor, sem banco de dados).
+        $('#table_explore').DataTable({
+            serverSide: true,
+            processing: true,
+            searchDelay: 400,
+            pageLength: 10,
+            order: [[0, 'asc']],
+            search: { search: initialQuery }, // aplica o ?q= já na primeira carga
+            ajax: {
+                url: BASE_URL + 'explore/data'
+            },
+            columnDefs: [
+                {
+                    // PDB ID -> link para a página da entry
+                    targets: 0,
+                    render: function(data, type) {
+                        if (type === 'display') {
+                            return `<strong><a href="${BASE_URL}entry/${data}">${data}</a></strong>`;
+                        }
+                        return data;
                     }
-                },
-                error: (xhr, status, err) => {
-                    console.error('Erro na requisição AJAX:', status, err);
                 }
-            });
-        };
-
-        // formatar tabela --> INÍCIO 
-        const formatarTabela = (dados) => {
-            let dados_tabelados = [];
-            let linhas = dados.split("\n") // separa as linhas
-            for (let linha of linhas) {  // para cada linha
-                linha = linha.replace("\r", "") // remove caracteres especiais 
-                if(linha!=""){ // separa as células
-                    celulas = linha.split(",")
-                }
-                celulas[0] = `<strong><a href="<?=base_url()?>/entry/${celulas[0]}">${celulas[0]}</a></strong>`;
-
-                dados_tabelados.push(celulas) // salva células
+            ],
+            initComplete: function() {
+                $('#loading_table').hide();
             }
-            return dados_tabelados
-        }
-        // formatar tabela --> FIM 
-
-        // plotando a tabela
-        const plotar = (dados, initialSearch = '') => {
-            // destrói se já existir DataTable
-            if ($.fn.DataTable.isDataTable('#table_explore')) {
-                $('#table_explore').DataTable().clear().destroy();
-                $('#table_explore tbody').empty();
-            }
-            
-            // ativar datatable
-            const table = $("#table_explore").DataTable({
-                "data": dados,
-                // "order": [
-                //     [0, 'asc']
-                // ] // ordena pela coluna 0
-                initComplete: function(settings, json) {
-                    $("#loading_table").hide();
-                }
-            })
-
-            if (initialSearch) {
-                // define valor no input de busca (interface)
-                const filterInput = $('#table_explore_filter input');
-                if (filterInput.length) filterInput.val(initialSearch);
-
-                // aplica a busca e redesenha
-                table.search(initialSearch).draw();
-            }
-
-        }
-        lerDados("<?= base_url('data/pdb/list.csv') ?>");
-    })
-
+        });
+    });
 </script>
 <?= $this->endSection() ?>
 

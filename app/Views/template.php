@@ -3,7 +3,7 @@
 
 <head>
     <title>COCaDA-web - Interatomic Contacts in Proteins</title>
-    <?php $version = "26.715"; // 15-jul-2026
+    <?php $version = "26.721"; // 21-jul-2026
     ?>
 
     <meta charset="utf-8">

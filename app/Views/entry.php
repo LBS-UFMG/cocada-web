@@ -37,6 +37,15 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactMap">
                         Show contact map <i class="bi bi-image"></i>
                     </button>
+
+                    <?php
+                    // Último campo do *_info.csv indica se há biological assembly (yes/no)
+                    $biological_assembly = isset($info) && is_array($info) ? trim(end($info)) : 'no';
+                    if (strtolower($biological_assembly) === 'yes'): ?>
+                        <a href="<?= base_url("/assembly/$id") ?>" class="btn btn-danger">
+                            View biological assembly <i class="bi bi-diagram-3-fill"></i>
+                        </a>
+                    <?php endif; ?>
                 </h2>
                 <div class="col">
                     <p><strong>Description: </strong><?= $info[1] ?></p>
@@ -100,10 +109,15 @@
                     <button type="button" id="sb" class="btn btn-primary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB</button>           
                     <button type="button" id="ds" class="btn btn-light border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS</button>
                     <button type="button" id="un" class="btn btn-white border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN</button>
+                    <button type="button" id="intra" class="btn btn-dark border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Intrachain contacts (same chain)">INTRA</button>
+                    <button type="button" id="inter" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Interchain contacts (different chains)">INTER</button>
                 </div>
 
-                <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
-                
+                <div class="form-check form-switch d-inline-flex align-items-center align-middle ms-3">
+                    <input class="form-check-input mt-0" type="checkbox" id="side_chain">
+                    <label class="form-check-label small text-muted ms-2" for="side_chain">Only side chain contacts</label>
+                </div>
+
             </center>
 
             <div class="table-responsive">
@@ -223,10 +237,19 @@
                 }
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
+                <div class="d-flex align-items-center flex-wrap gap-2 mb-2 small">
+                    <div class="form-check form-switch me-auto">
+                        <input class="form-check-input" type="checkbox" id="show_lines">
+                        <label class="form-check-label" for="show_lines">Show lines</label>
+                    </div>
+                    <a href="<?= base_url("/export/pdb-to-pymol/$id") ?>" class="btn btn-sm btn-outline-secondary" target="_blank">
+                        <i class="bi bi-box-arrow-up-right"></i> Export to PyMOL
+                    </a>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="reset()">
+                        <i class="bi bi-arrow-counterclockwise"></i> Clear
+                    </button>
+                </div>
                 <div id="pdb" style="min-height: 500px; height: 50vh; min-width:280px; width: 100%"></div>
-                <p style="color:#ccc; text-align: right" class="small">
-                    <a href="<?= base_url("/export/pdb-to-pymol/$id") ?>" class="me-2" target="_blank">Export to PyMOL</a> | <button class="btn btn-link btn-sm pt-0" onclick="reset()">Clear</button>
-                </p>
             </div>
         </div>
     </div>
@@ -309,7 +332,23 @@
 
     $(document).ready(function() {
         var table = $('#mut').DataTable({
-            "paging": true
+            "paging": true,
+            // Ordenação padrão: Chain1 (col. 1, alfabética) e depois R1 (col. 2, numérica), ascendentes
+            "order": [[1, "asc"], [2, "asc"]],
+            // R1 (col. 2) e R2 (col. 5) guardam "X<número>" (ex.: A128).
+            // Ordena pelo número, ignorando o código de 1 letra do aminoácido.
+            "columnDefs": [
+                {
+                    "targets": [2, 5],
+                    "render": function(data, type) {
+                        if (type === 'sort' || type === 'type') {
+                            var m = String(data).match(/-?\d+/);
+                            return m ? parseInt(m[0], 10) : 0;
+                        }
+                        return data;
+                    }
+                }
+            ]
         });
         
         $('#side_chain').click(function() {
@@ -348,8 +387,17 @@
         $('#un').click(function() {
             table.columns(9).search("u", true, false).draw();
         });
+        // INTRA/INTER filtram a coluna "Local" (índice 8)
+        $('#intra').click(function() {
+            table.columns(8).search("INTRA", true, false).draw();
+        });
+        $('#inter').click(function() {
+            table.columns(8).search("INTER", true, false).draw();
+        });
         $('#show_all').click(function() {
-            table.columns(9).search(".*", true, false).draw();
+            // Limpa tanto o filtro de tipo (col. 9) quanto o de Local (col. 8)
+            table.columns(9).search(".*", true, false)
+                .columns(8).search(".*", true, false).draw();
         });
 
 
@@ -383,97 +431,124 @@
         return (c === undefined) ? 0xcccccc : c; // desconhecido: cinza claro
     }
 
-    /* Select ID */
-    function selectID(glviewer, residues, type, chain1, chain2, a1, a2) {
+    // Estado do checkbox "Show lines": controla se a representação em LINHAS da
+    // estrutura (o estilo `line` do 3Dmol) é exibida. Oculta por padrão, pois
+    // costuma poluir a visualização (cartoon + sticks já bastam).
+    var showLines = false;
+
+    // Parte `line` do estilo, conforme o toggle. Quando oculta, usa hidden:true.
+    function lineStylePart(color) {
+        return showLines ? { color: color } : { hidden: true };
+    }
+
+    // Aplica o estilo da estrutura inteira (estado inicial / após Clear):
+    // cartoon branco e, opcionalmente, linhas. Guarda um callback para reaplicar
+    // o mesmo estilo quando o toggle "Show lines" mudar.
+    function styleWhole(viewer) {
+        viewer.setStyle({}, {
+            line: lineStylePart('grey'),
+            cartoon: { color: 'white' }
+        });
+        viewer._reapplyStyle = function() { styleWhole(viewer); };
+    }
+
+    // Aplica o estilo de destaque de um par: estrutura semi-transparente (+ linhas
+    // opcionais) e sticks nos dois resíduos. Também guarda o callback de reaplicação.
+    function styleHighlight(viewer, res1, chain1, res2, chain2) {
+        viewer.setStyle({}, {
+            line: lineStylePart('#cccccc'),
+            cartoon: { color: 'white', opacity: 0.3 }
+        });
+        viewer.setStyle({ resi: res1, chain: chain1 }, {
+            cartoon: { opacity: 0.7 },
+            stick: { colorscheme: 'whiteCarbon' }
+        });
+        viewer.setStyle({ resi: res2, chain: chain2 }, {
+            cartoon: { opacity: 0.7 },
+            stick: { colorscheme: 'whiteCarbon' }
+        });
+        viewer._reapplyStyle = function() { styleHighlight(viewer, res1, chain1, res2, chain2); };
+    }
+
+    // Toggle "Show lines": reaplica o estilo atual de cada viewer respeitando o
+    // novo valor de showLines, preservando o destaque/seleção corrente.
+    function toggleLines(show) {
+        showLines = show;
+        [typeof glviewer !== 'undefined' ? glviewer : null, modalViewer].forEach(function(v) {
+            if (v && v._reapplyStyle) {
+                v._reapplyStyle();
+                v.render();
+            }
+        });
+    }
+
+    // Destaca um par de resíduos: estrutura semi-transparente, sticks nos
+    // dois resíduos e zoom. Limpa labels/shapes anteriores do viewer.
+    function highlightPair(viewer, res1, chain1, res2, chain2, type) {
 
         // Labels e shapes ficam guardados no próprio viewer, para que cada
         // viewer (o principal e o do modal) gerencie os seus de forma independente
-        (glviewer._contactLabels || []).forEach(function(l) {
-            glviewer.removeLabel(l);
+        (viewer._contactLabels || []).forEach(function(l) {
+            viewer.removeLabel(l);
         });
-        (glviewer._contactShapes || []).forEach(function(s) {
-            glviewer.removeShape(s);
+        (viewer._contactShapes || []).forEach(function(s) {
+            viewer.removeShape(s);
         });
-        glviewer._contactLabels = [];
-        glviewer._contactShapes = [];
-        var contactLabels = glviewer._contactLabels;
-        var contactShapes = glviewer._contactShapes;
+        viewer._contactLabels = [];
+        viewer._contactShapes = [];
 
-        residues = residues.split("/");
-
-        var res1 = residues[0].substr(1);
-        var res2 = residues[1].substr(1);
-
-        // Estrutura inteira semi-transparente para destacar os resíduos selecionados
-        glviewer.setStyle({}, {
-            line: {
-                color: '#cccccc' // cinza claro: simula transparência (o estilo line não suporta opacity)
-            },
-            cartoon: {
-                color: 'white',
-                opacity: 0.3
-            }
-        }); /* Cartoon multi-color */
-        glviewer.setStyle({
-            resi: res1, chain: chain1
-        }, {
-            cartoon: {opacity:0.7},
-            stick: {
-                colorscheme: 'whiteCarbon'
-            }
-        });
-
-        glviewer.setStyle({
-            resi: res2, chain: chain2
-        }, {
-            cartoon: {opacity:0.7},
-            stick: {
-                colorscheme: 'whiteCarbon'
-            }
-        });
+        // Estilo de destaque (cartoon 0.3 + sticks nos resíduos + linhas opcionais)
+        styleHighlight(viewer, res1, chain1, res2, chain2);
 
         if(type.includes('INTRA')){
-            glviewer.zoomTo({
+            viewer.zoomTo({
                 resi: [res1, res2],
                 chain: chain1
             });
         }
         else if(type.includes('INTER')){
-            glviewer.zoomTo({
+            viewer.zoomTo({
                 resi: res1,
                 chain: chain1
             });
         }
+    }
 
-        // linha tracejada
-        let atm1 = glviewer.selectedAtoms({ resi: res1, atom: a1, chain: chain1 }); // Resíduo 10, átomo O
-        let atm2 = glviewer.selectedAtoms({ resi: res2, atom: a2, chain: chain2 }); // Resíduo 20, átomo N
+    // Desenha UMA linha de contato (átomo a1 -> átomo a2): linha tracejada,
+    // esferas nos átomos, labels dos resíduos e a distância no centro.
+    // `color` define a cor da linha e do label de distância (padrão laranja).
+    function drawContact(viewer, res1, chain1, a1, res2, chain2, a2, color) {
+
+        color = color || "orange";
+        var contactLabels = viewer._contactLabels || (viewer._contactLabels = []);
+        var contactShapes = viewer._contactShapes || (viewer._contactShapes = []);
+
+        let atm1 = viewer.selectedAtoms({ resi: res1, atom: a1, chain: chain1 });
+        let atm2 = viewer.selectedAtoms({ resi: res2, atom: a2, chain: chain2 });
 
         // Garantir que os átomos foram encontrados antes de desenhar a linha
         if (atm1.length > 0 && atm2.length > 0) {
             var atom1 = atm1[0]; // Primeiro átomo correspondente
             var atom2 = atm2[0]; // Primeiro átomo correspondente
 
-            //console.log(atom2,'aqui')
-
             // Linha tracejada (grossa) entre os átomos em contato
-            contactShapes.push(glviewer.addCylinder({
+            contactShapes.push(viewer.addCylinder({
                 dashed: true,
                 start: { x: atom1.x, y: atom1.y, z: atom1.z },
                 end: { x: atom2.x, y: atom2.y, z: atom2.z },
                 radius: 0.12,   // grossura da linha tracejada
                 fromCap: 1,
                 toCap: 1,
-                color: "orange"
+                color: color
             }));
 
             // Esferas sobre os átomos em contato, na cor do átomo
-            contactShapes.push(glviewer.addSphere({
+            contactShapes.push(viewer.addSphere({
                 center: { x: atom1.x, y: atom1.y, z: atom1.z },
                 radius: 0.4,
                 color: atomColor(atom1)
             }));
-            contactShapes.push(glviewer.addSphere({
+            contactShapes.push(viewer.addSphere({
                 center: { x: atom2.x, y: atom2.y, z: atom2.z },
                 radius: 0.4,
                 color: atomColor(atom2)
@@ -490,12 +565,12 @@
                 borderColor: "white"
             };
 
-            contactLabels.push(glviewer.addLabel(
+            contactLabels.push(viewer.addLabel(
                 three2one(atom1.resn) + atom1.resi + " (" + atom1.atom + ")",
                 Object.assign({ position: { x: atom1.x, y: atom1.y, z: atom1.z } }, labelStyle)
             ));
 
-            contactLabels.push(glviewer.addLabel(
+            contactLabels.push(viewer.addLabel(
                 three2one(atom2.resn) + atom2.resi + " (" + atom2.atom + ")",
                 Object.assign({ position: { x: atom2.x, y: atom2.y, z: atom2.z } }, labelStyle)
             ));
@@ -506,8 +581,8 @@
             var dz = atom1.z - atom2.z;
             var dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-            contactLabels.push(glviewer.addLabel(
-                dist.toFixed(2) + " Å", // Å
+            contactLabels.push(viewer.addLabel(
+                dist.toFixed(2) + " Å",
                 {
                     position: {
                         x: (atom1.x + atom2.x) / 2,
@@ -516,18 +591,27 @@
                     },
                     fontSize: 11,
                     fontColor: "white",
-                    backgroundColor: "orange",
+                    backgroundColor: color,
                     backgroundOpacity: 0.85,
                     inFront: true
                 }
             ));
         }
-        // fim linha tracejada
-
-        glviewer.render();
-
     }
 
+    /* Select ID (usado pela tabela): destaca o par e desenha um único contato */
+    function selectID(glviewer, residues, type, chain1, chain2, a1, a2) {
+
+        residues = residues.split("/");
+
+        var res1 = residues[0].substr(1);
+        var res2 = residues[1].substr(1);
+
+        highlightPair(glviewer, res1, chain1, res2, chain2, type);
+        drawContact(glviewer, res1, chain1, a1, res2, chain2, a2);
+
+        glviewer.render();
+    }
 
     function selectPDB(id) {
 
@@ -590,25 +674,26 @@
             return;
         }
 
-        // Remove labels e shapes do contato selecionado nesse viewer
-        (viewer._contactLabels || []).forEach(function(l) {
-            viewer.removeLabel(l);
-        });
+        // Remove shapes do contato selecionado nesse viewer
         (viewer._contactShapes || []).forEach(function(s) {
             viewer.removeShape(s);
         });
         viewer._contactLabels = [];
         viewer._contactShapes = [];
 
-        // Volta ao estilo inicial: estrutura inteira, sem transparência nem seleção
-        viewer.setStyle({}, {
-            line: {
-                color: 'grey'
-            },
-            cartoon: {
-                color: 'white'
-            }
+        // Remove TODOS os labels: tanto os do contato quanto os rótulos criados
+        // ao clicar em átomos (atomcallback guarda em atom.clickLabel)
+        viewer.removeAllLabels();
+
+        // Zera o estado de clique dos átomos, para que um novo clique volte a
+        // criar o rótulo corretamente (senão o átomo continuaria "clicado")
+        viewer.selectedAtoms({}).forEach(function(atom) {
+            delete atom.clickLabel;
+            atom.clicked = false;
         });
+
+        // Volta ao estilo inicial: estrutura inteira (linhas conforme o toggle)
+        styleWhole(viewer);
 
         viewer.zoomTo();
         viewer.render();
@@ -644,15 +729,8 @@
 
             receptorModel = m = glviewer.addModel(data, "pqr");
 
-            /* Type of visualization */
-            glviewer.setStyle({}, {
-                line: {
-                    color: 'grey'
-                },
-                cartoon: {
-                    color: 'white'
-                }
-            }); /* Cartoon multi-color */
+            /* Type of visualization: cartoon + linhas (ocultas por padrão) */
+            styleWhole(glviewer);
 
             /*glviewer.addSurface($3Dmol.SurfaceType, {opacity:0.3});  Surface */
 
@@ -791,11 +869,37 @@
         if (!modalViewer) {
             return;
         }
-        // aa1/aa2 são o código de 1 letra do resíduo; selectID espera "X<num>/Y<num>"
-        const residues = `${p.aa1}${p.x}/${p.aa2}${p.y}`;
+
+        const res1 = String(p.x);
+        const res2 = String(p.y);
         const type = (p.c1 === p.c2) ? 'INTRA' : 'INTER';
-        selectID(modalViewer, residues, type, p.c1, p.c2, p.at1, p.at2);
+
+        // Destaca o par de resíduos uma única vez (limpa contatos anteriores)
+        highlightPair(modalViewer, res1, p.c1, res2, p.c2, type);
+
+        // Um ponto do mapa pode sobrepor vários contatos (átomos/tipos diferentes)
+        // entre o mesmo par de resíduos: desenha uma linha para cada um deles,
+        // colorida conforme o tipo de contato (mesmas cores da legenda do mapa).
+        const pairContacts = allDataPoints.filter(function(q) {
+            return q.c1 === p.c1 && q.c2 === p.c2 && q.x === p.x && q.y === p.y;
+        });
+
+        pairContacts.forEach(function(q) {
+            drawContact(
+                modalViewer,
+                String(q.x), q.c1, q.at1,
+                String(q.y), q.c2, q.at2,
+                colorMap[q.category] || 'orange'
+            );
+        });
+
+        modalViewer.render();
     }
+
+    // Checkbox "Show lines": mostra/oculta as linhas de contato nos dois viewers
+    $('#show_lines').on('change', function() {
+        toggleLines(this.checked);
+    });
 
     // Cria o viewer 3D dentro do modal na primeira vez que ele é aberto.
     // (Precisa ser criado com o modal visível para o canvas ter dimensões corretas.)
@@ -811,10 +915,7 @@
         // estar baixando na primeira abertura do modal)
         if (!modalViewer._modelLoaded && typeof moldata !== 'undefined' && moldata) {
             modalViewer.addModel(moldata, 'pqr');
-            modalViewer.setStyle({}, {
-                line: { color: 'grey' },
-                cartoon: { color: 'white' }
-            });
+            styleWhole(modalViewer);
             modalViewer.zoomTo();
             modalViewer.render();
             modalViewer._modelLoaded = true;
