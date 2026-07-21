@@ -48,53 +48,18 @@
                     <?php endif; ?>
                 </h2>
                 <div class="col">
-                    <p><strong>Description: </strong><?= $info[1] ?></p>
+                    <p class="mb-2">
+                        <strong>Description: </strong><?= $info[1] ?>
+                        <span class="mx-2 text-muted">|</span>
+                        <strong>Residues: </strong><?= number_format((int) $info[2]) ?>
+                        <span class="mx-2 text-muted">|</span>
+                        <strong>pH: </strong><?= $info[14] ?>
+                        <label class="badge bg-dark rounded ms-1 align-middle" style="cursor: help;" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain | INTRA: same chain | INTER: different chains">?</label>
+                    </p>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <strong>Residues: </strong><?= $info[2] ?>
-
-                            <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"><?=$info[4]?></span>
-                            <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"><?=$info[6]?></span>
-                            <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"><?=$info[7]?></span>
-                            <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"><?=$info[5]?></span>
-                            <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"><?=$info[10]?></span>
-                            <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"><?=$info[8]?></span>
-                            <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"><?=$info[9]?></span>
-                            <span class="mx-2"> | </span><strong>uAT: </strong><span id="uat"><?=$info[11]?></span>
-                            <span class="mx-2"> | </span><strong>uRE: </strong><span id="ure"><?=$info[12]?></span>
-                            <span class="mx-2"> | </span><strong>uSB: </strong><span id="usb"><?=$info[13]?></span>
-                            <span class="mx-2"> | </span><strong>pH: </strong><span id="ph"><?=$info[14]?></span>
-                            <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain">?</label></sup>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-3 col-xs-12" style="height: 180px; background-color: #00bc9e; color:#fff">
-                <p style="text-align: center; font-size: 90px; padding-top:10px">
-                    <strong id="mutations_found_title"><?php echo $total_results; ?></strong>
-                </p>
-
-                <p style="font-size: 12px; text-align:center; margin-top: -20px">
-                    contacts found
-                    <a href="#" data-toggle="modal" data-target="#help" style="color:#fff"><span class="glyphicon glyphicon-info-sign"></span></a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="container-fluid px-4">
-    <div class="row">
-        <div class="col-md-8 col-12" ng-if="cttlok" id="col1">
-            <center>
                 <style>
                     /* Botões de filtro de contatos (estilo limpo com contagem) */
-                    .contact-filters { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; }
+                    .contact-filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
                     .btn-filter {
                         border: 1px solid #adb5bd; background: #fff; color: #212529;
                         font-size: 0.75rem; padding: 4px 10px; border-radius: 4px;
@@ -109,8 +74,9 @@
                     .btn-filter.active .badge-cnt { background: rgba(255,255,255,.25); color: #fff; }
                 </style>
 
-                <div class="contact-filters">
-                    <span class="me-1 small text-muted d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter:</b></span>
+                <!-- Filtros de contato (alinhados à esquerda) -->
+                <div class="contact-filters mb-2">
+                    <span class="me-1 small text-muted"><b><i class="bi bi-funnel-fill"></i> Filter:</b></span>
                     <button type="button" id="show_all" class="btn-filter btn-all active" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="All contacts">All <span class="badge-cnt"><?= number_format((int) $total_results) ?></span></button>
                     <button type="button" id="hb" class="btn-filter" style="border-bottom: 3px solid #198754" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB <span class="badge-cnt"><?= number_format((int) $info[4]) ?></span></button>
                     <button type="button" id="at" class="btn-filter" style="border-bottom: 3px solid #0dcaf0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT <span class="badge-cnt"><?= number_format((int) $info[6]) ?></span></button>
@@ -120,17 +86,37 @@
                     <button type="button" id="sb" class="btn-filter" style="border-bottom: 3px solid #0d6efd" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB <span class="badge-cnt"><?= number_format((int) $info[8]) ?></span></button>
                     <button type="button" id="ds" class="btn-filter" style="border-bottom: 3px solid #212529" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS <span class="badge-cnt"><?= number_format((int) $info[9]) ?></span></button>
                     <button type="button" id="un" class="btn-filter" style="border-bottom: 3px solid #ced4da" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN <span class="badge-cnt"><?= number_format((int) $info[11] + (int) $info[12] + (int) $info[13]) ?></span></button>
+                    <span class="vr mx-1"></span>
                     <button type="button" id="intra" class="btn-filter" style="border-bottom: 3px solid #495057" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Intrachain contacts (same chain)">INTRA <span class="badge-cnt" id="cnt_intra">0</span></button>
                     <button type="button" id="inter" class="btn-filter" style="border-bottom: 3px solid #adb5bd" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Interchain contacts (different chains)">INTER <span class="badge-cnt" id="cnt_inter">0</span></button>
                 </div>
 
-                <div class="form-check form-switch d-inline-flex align-items-center align-middle ms-3">
-                    <input class="form-check-input mt-0" type="checkbox" id="side_chain">
-                    <label class="form-check-label small text-muted ms-2" for="side_chain">Only side chain contacts</label>
+                <!-- Somente contatos de cadeia lateral -->
+                <div class="form-check form-switch pb-3">
+                    <input class="form-check-input" type="checkbox" id="side_chain">
+                    <label class="form-check-label small text-muted" for="side_chain">Only side chain contacts</label>
                 </div>
 
-            </center>
+            </div>
 
+            <div class="col-md-3 col-xs-12 d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 180px; background-color: #00bc9e; color:#fff">
+                <p style="font-size: 90px; line-height: 1; margin: 0">
+                    <strong id="mutations_found_title"><?php echo $total_results; ?></strong>
+                </p>
+
+                <p style="font-size: 12px; margin: 6px 0 0 0">
+                    contacts found
+                    <a href="#" data-toggle="modal" data-target="#help" style="color:#fff"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-md-8 col-12" ng-if="cttlok" id="col1">
             <div class="table-responsive">
                 <table class="display" id="mut">
                     <thead>
