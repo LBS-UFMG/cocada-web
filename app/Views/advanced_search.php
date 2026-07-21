@@ -140,7 +140,7 @@
     <!-- TABELA -->
     <div id="advanced">
         <div class="table-responsive">
-            <table id="table_advanced" class="table table-striped table-hover" style="width:100%;">
+            <table id="table_advanced" class="table table-striped table-hover small" style="width:100%;">
                 <thead>
                     <tr class="tableheader">
                         <th class="dt-center">PDB ID</th>
