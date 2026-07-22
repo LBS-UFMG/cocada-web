@@ -117,7 +117,7 @@
 <p><strong>(1)</strong> Download options for the results, which include the contact list in CSV format, the submitted PDB/mmCIF file, and the Pymol session with annotated contacts in PSE format. <strong>(2)</strong> Protein contact map, which opens in a pop-up window. <strong>(3)</strong> Button to view the Biological Assembly 1 contacts for the current protein. This button is only present in entries where the default asymmetric unit differs from the biological assembly. <strong>(4)</strong> Overview of the results, including the protein's description, number of residues, and pH used for calculation. <strong>(5)</strong> Total number of contacts. <strong>(6)</strong> Number of contacts of each individual type, which can be used to filter the contact table, alongside additional filtering options. <strong>(7)</strong> Search bar for the contact table. <strong>(8)</strong> Full table of contacts. <strong>(9)</strong> Interactive visualization of the protein. <strong>(10)</strong> Number of contacts in the current filter and pagination of the results.</p>
 <p>HY = hydrophobic; HB = hydrogen bond; AT = attractive; RE = repulsive; SB = salt bridge; AS = aromatic stacking; uAT = uncertain attractive; uRE = uncertain repulsive; uSB = uncertain salt bridge. </p>
 <p align="center">
-  <img src="<?=base_url('/img')?>/docs/results.png" class="w-50">
+  <img src="<?=base_url('/img')?>/docs/results_ba.png" class="w-50">
 </p>
 
 <h4 class="pt-4 pb-1" id="contact_map">Contact Map</h4>
