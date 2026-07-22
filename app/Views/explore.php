@@ -17,11 +17,10 @@
                 <thead>
                     <tr class="tableheader">
                         <th class="dt-center">PDB ID <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="PDB - ID">?</a></sup></th>
-                        
                         <th class="dt-center">Description <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Description of the pdb file">?</a></sup></th>
-                        <th>Protein size</th>
+                        <th class="dt-center">Protein Size <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Size of the protein in residues">?</a></sup></th>
                         <th class="dt-center">Contacts <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Number of contacts calculated by COCaDA">?</a></sup></th>
-                        <th>pH</th>
+                        <th class="dt-center">pH <sup><a class="badge bg-dark" href="#" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-title="Deposited pH value (default = 7.4)">?</a></sup></th>
                     </tr>
                 </thead>
                 <tbody>

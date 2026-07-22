@@ -40,7 +40,7 @@
     <p class="text-muted">
         Search the full COCα​DA-web dataset by structure properties. Combine text search,
         the biological assembly flag and numeric ranges for residues, contacts, pH and each
-        contact type. Results are paginated on the server (no database).
+        contact type.
     </p>
 
     <!-- PAINEL DE BUSCA AVANÇADA -->
@@ -157,8 +157,9 @@
                         <th data-bs-toggle="tooltip" data-bs-title="uncertain Attractive">uAT</th>
                         <th data-bs-toggle="tooltip" data-bs-title="uncertain Repulsive">uRE</th>
                         <th data-bs-toggle="tooltip" data-bs-title="uncertain Salt Bridge">uSB</th>
+                        <th data-bs-toggle="tooltip" data-bs-title="Deposited pH value (default = 7.4)">pH</th>
                         <th>pH</th>
-                        <th class="dt-center">Biological assembly</th>
+                        <th data-bs-toggle="tooltip" data-bs-title="Biological Assembly 1 different from Asymmetric Unit">BA</th>
                         <th class="dt-center">PDB</th>
                         <th class="dt-center">Contacts file</th>
                     </tr>
