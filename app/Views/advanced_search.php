@@ -158,7 +158,6 @@
                         <th data-bs-toggle="tooltip" data-bs-title="uncertain Repulsive">uRE</th>
                         <th data-bs-toggle="tooltip" data-bs-title="uncertain Salt Bridge">uSB</th>
                         <th data-bs-toggle="tooltip" data-bs-title="Deposited pH value (default = 7.4)">pH</th>
-                        <th>pH</th>
                         <th data-bs-toggle="tooltip" data-bs-title="Biological Assembly 1 different from Asymmetric Unit">BA</th>
                         <th class="dt-center">PDB</th>
                         <th class="dt-center">Contacts file</th>
