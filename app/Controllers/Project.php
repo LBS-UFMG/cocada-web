@@ -113,6 +113,14 @@ class Project extends BaseController
 			return view('error', $data);
 		}
 
+		// Código PDB de 4 caracteres: os contatos já estão pré-computados no
+		// COCaDA-db. Redireciona para a página da entrada (dados pré-computados)
+		// em vez de baixar da API do RCSB e criar um novo projeto — que geraria
+		// um ID interno de 6 caracteres (ex.: "168RTO"), desconectado do COCaDA-db.
+		if(strlen($pdb_via_api) == 4){
+			return redirect()->to(base_url('entry/' . strtoupper($pdb_via_api)));
+		}
+
 		$filter_chains = trim($this->request->getPost('filter_chains'));
 		$chains = trim($this->request->getPost('chains'));
 		if(empty($chains)and($filter_chains!='chains')){

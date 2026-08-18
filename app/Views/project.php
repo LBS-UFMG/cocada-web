@@ -12,68 +12,90 @@
         <strong class="ms-2">Loading...</strong>
     </div>
 </div>
-
 <div style="background-color:#e4e4e4; min-height:180px; margin: -25px -10px 20px -10px;">
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-4">
         <div class="row">
-            <div class="col-md-9 col-12">
-                <br><br>
-                <h2 class="title_h2">
-
-                    <div class="btn-toolbar" role="toolbar">
-
-                        <strong><?php echo $id; ?></strong>
-
-                        <div class="dropdown" title="Export files">
-
-                            <div class="dropdown">
-                                <button class="btn ms-2 btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Download
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><b class="ms-3">Download files<br></b></li>
-                                    <hr>
-                                    <li><a class="dropdown-item mt-2" href="<?= base_url() ?>data/projects/<?= $id ?>/contacts.csv">Contacts</a></li>
-                                    <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/data.<?= $extensao ?>">PDB/CIF file</a></li>
-                                    <hr>
-                                    <!-- <li><a class="dropdown-item" href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></li> -->
-                                </ul>
-                            </div>
+            <div class="col-md-9 col-12 pt-2">
+                <h2 class="title_h2 pt-4">
+                    <strong><?php echo $id; ?></strong>
+                    <div class="dropdown d-inline ms-2" title="Export files">
+                        <div class="dropdown d-inline">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Download
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><b class="ms-3">Download</b></li>
+                                <hr>
+                                <li><a class="dropdown-item mt-2" href="<?= base_url() ?>data/projects/<?= $id ?>/contacts.csv">Contacts</a></li>
+                                <li><a class="dropdown-item" href="<?= base_url() ?>data/projects/<?= $id ?>/data.<?= $extensao ?>">PDB/CIF file</a></li>
+                            </ul>
                         </div>
-
-                        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#contactMap">
-                            Show contact map <i class="bi bi-image"></i>
-                        </button>
-
-                        <button onclick="copyLink()" class="btn ms-2 btn-outline-secondary" title="Copy URL project"><i class="bi bi-copy"></i></button>
                     </div>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactMap">
+                        Show contact map <i class="bi bi-image"></i>
+                    </button>
+
+                    <button onclick="copyLink()" class="btn btn-outline-secondary" title="Copy project URL"><i class="bi bi-copy"></i></button>
                 </h2>
-                <p>
-                    <strong>Residues: </strong><?= $info[2] ?>
+                <div class="col">
+                    <p class="mb-2">
+                        <strong>Description: </strong><?= $info[1] ?>
+                        <span class="mx-2 text-muted">|</span>
+                        <strong>Residues: </strong><?= number_format((int) $info[2]) ?>
+                        <span class="mx-2 text-muted">|</span>
+                        <strong>pH: </strong><?= $info[14] ?>
+                        <label class="badge bg-dark rounded ms-1 align-middle" style="cursor: help;" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain | INTRA: same chain | INTER: different chains">?</label>
+                    </p>
+                </div>
+                <style>
+                    /* Botões de filtro de contatos (estilo limpo com contagem) */
+                    .contact-filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+                    .btn-filter {
+                        border: 1px solid #adb5bd; background: #fff; color: #212529;
+                        font-size: 0.75rem; padding: 4px 10px; border-radius: 4px;
+                        font-weight: 600; line-height: 1.2; cursor: pointer; transition: background-color .15s;
+                    }
+                    .btn-filter:hover { background: #f1f3f5; }
+                    .btn-filter.active { background: #212529; color: #fff; border-color: #212529; }
+                    .badge-cnt {
+                        background: rgba(0,0,0,.12); padding: 0 5px; border-radius: 3px;
+                        margin-left: 5px; font-size: 0.7rem; color: inherit;
+                    }
+                    .btn-filter.active .badge-cnt { background: rgba(255,255,255,.25); color: #fff; }
+                </style>
 
-                    <span class="mx-2"> | </span><strong>HB: </strong><span id="hbc"><?= $info[4] ?></span>
-                    <span class="mx-2"> | </span><strong>AT: </strong><span id="atc"><?= $info[6] ?></span>
-                    <span class="mx-2"> | </span><strong>RE: </strong><span id="rec"><?= $info[7] ?></span>
-                    <span class="mx-2"> | </span><strong>HY: </strong><span id="hyc"><?= $info[5] ?></span>
-                    <span class="mx-2"> | </span><strong>AS: </strong><span id="arc"><?= $info[10] ?></span>
-                    <span class="mx-2"> | </span><strong>SB: </strong><span id="sbc"><?= $info[8] ?></span>
-                    <span class="mx-2"> | </span><strong>DS: </strong><span id="dsc"><?= $info[9] ?></span>
-                    <span class="mx-2"> | </span><strong>uAT: </strong><span id="uat"><?= $info[11] ?></span>
-                    <span class="mx-2"> | </span><strong>uRE: </strong><span id="ure"><?= $info[12] ?></span>
-                    <span class="mx-2"> | </span><strong>uSB: </strong><span id="usb"><?= $info[13] ?></span>
-                    <span class="mx-2"> | </span><strong>pH: </strong><span id="ph"><?= $info[14] ?></span>
-                    <sup class="ms-2"><label class="badge bg-dark rounded" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="HB: Hydrogen Bonds | AT: Attractive  | RE: Repulsive | HY: Hydrophobic | AS: Aromatic Stacking | SB: Salt Bridge | DS: Disulfide Bond | u: uncertain">?</label></sup>
+                <!-- Filtros de contato (alinhados à esquerda) -->
+                <div class="contact-filters mb-2">
+                    <span class="me-1 small text-muted"><b><i class="bi bi-funnel-fill"></i> Filter:</b></span>
+                    <button type="button" id="show_all" class="btn-filter btn-all active" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="All contacts">All <span class="badge-cnt"><?= number_format((int) $total_results) ?></span></button>
+                    <button type="button" id="hb" class="btn-filter" style="border-bottom: 3px solid #198754" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB <span class="badge-cnt"><?= number_format((int) $info[4]) ?></span></button>
+                    <button type="button" id="at" class="btn-filter" style="border-bottom: 3px solid #0dcaf0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT <span class="badge-cnt"><?= number_format((int) $info[6]) ?></span></button>
+                    <button type="button" id="re" class="btn-filter" style="border-bottom: 3px solid #dc3545" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE <span class="badge-cnt"><?= number_format((int) $info[7]) ?></span></button>
+                    <button type="button" id="hy" class="btn-filter" style="border-bottom: 3px solid #ffc107" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY <span class="badge-cnt"><?= number_format((int) $info[5]) ?></span></button>
+                    <button type="button" id="ar" class="btn-filter" style="border-bottom: 3px solid #6c757d" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic Stacking">AR <span class="badge-cnt"><?= number_format((int) $info[10]) ?></span></button>
+                    <button type="button" id="sb" class="btn-filter" style="border-bottom: 3px solid #0d6efd" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB <span class="badge-cnt"><?= number_format((int) $info[8]) ?></span></button>
+                    <button type="button" id="ds" class="btn-filter" style="border-bottom: 3px solid #212529" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS <span class="badge-cnt"><?= number_format((int) $info[9]) ?></span></button>
+                    <button type="button" id="un" class="btn-filter" style="border-bottom: 3px solid #ced4da" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN <span class="badge-cnt"><?= number_format((int) $info[11] + (int) $info[12] + (int) $info[13]) ?></span></button>
+                    <span class="vr mx-1"></span>
+                    <button type="button" id="intra" class="btn-filter" style="border-bottom: 3px solid #495057" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Intrachain contacts (same chain)">INTRA <span class="badge-cnt" id="cnt_intra">0</span></button>
+                    <button type="button" id="inter" class="btn-filter" style="border-bottom: 3px solid #adb5bd" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Interchain contacts (different chains)">INTER <span class="badge-cnt" id="cnt_inter">0</span></button>
+                </div>
 
-                </p>
+                <!-- Somente contatos de cadeia lateral -->
+                <div class="form-check form-switch pb-3">
+                    <input class="form-check-input" type="checkbox" id="side_chain">
+                    <label class="form-check-label small text-muted" for="side_chain">Only side chain contacts</label>
+                </div>
 
             </div>
 
-            <div class="col-md-3 col-xs-12" style="height: 180px; background-color: #00bc9e; color:#fff">
-                <p style="text-align: center; font-size: 90px; padding-top:10px">
+            <div class="col-md-3 col-xs-12 d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 180px; background-color: #00bc9e; color:#fff">
+                <p style="font-size: 90px; line-height: 1; margin: 0">
                     <strong id="mutations_found_title"><?php echo $total_results; ?></strong>
                 </p>
 
-                <p style="font-size: 12px; text-align:center; margin-top: -20px">
+                <p style="font-size: 12px; margin: 6px 0 0 0">
                     contacts found
                     <a href="#" data-toggle="modal" data-target="#help" style="color:#fff"><span class="glyphicon glyphicon-info-sign"></span></a>
                 </p>
@@ -83,34 +105,9 @@
 </div>
 
 
-<div class="container-fluid">
+<div class="container-fluid px-4">
     <div class="row">
-        <div class="col-md-9 col-12" ng-if="cttlok">
-
-            <center>
-                <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                    <span class="btn btn-outline-dark" id="basic-addon1">
-                        <span class="d-none d-md-inline"><b><i class="bi bi-funnel-fill"></i> Filter results: </b></span>
-                        <span class="d-md-none"><i class="bi bi-funnel-fill"></i></span>
-                    </span>
-                    <button type="button" id="show_all" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Default">
-                        <span class="d-none d-md-inline">Show all contacts</span>
-                        <span class="d-md-none">All</span>
-                    </button>  
-                    <button type="button" id="hb" class="btn btn-success border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrogen Bonds">HB</button>
-                    <button type="button" id="at" class="btn btn-info border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Attractive">AT</button>
-                    <button type="button" id="re" class="btn btn-danger border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repulsive">RE</button>
-                    <button type="button" id="hy" class="btn btn-warning border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hydrophobic">HY</button>
-                    <button type="button" id="ar" class="btn btn-secondary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aromatic">AR</button>
-                    <button type="button" id="sb" class="btn btn-primary border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Salt Bridge">SB</button>
-                    <button type="button" id="ds" class="btn btn-light border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Disulfide Bond">DS</button>
-                    <button type="button" id="un" class="btn btn-white border border-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Uncertain contact (depends on pH; can be attractive, repulsive, or salt bridge)">UN</button>
-                </div>
-
-                <span class="small text-muted"><input type="checkbox" id="side_chain" class="btn btn-light border ms-1"> Only side chain contacts</span>
-
-            </center>
-
+        <div class="col-md-8 col-12" ng-if="cttlok" id="col1">
             <div class="table-responsive">
                 <table class="display" id="mut">
                     <thead>
@@ -129,32 +126,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($contacts as $contact) { ?>
-                            <?php $m = explode(',', $contact);
+                        <?php foreach ($contacts as $contact) {  ?>
+                            <?php
+                            $m = explode(',', $contact);
                             $len_mut = count($m);
                             if (($len_mut < 5) or ($m[0] == 'Chain1')) {
                                 continue;
-                            } ?>
-                            <tr onclick="selectID(glviewer,this.children[0].innerHTML,1,this.children[1].innerHTML, this.children[3].innerHTML, this.children[6].innerHTML)" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
+                            }
+                            ?>
+                            <tr onclick="selectID(
+                            glviewer,
+                            this.children[0].innerHTML, // residues,
+                            this.children[8].innerHTML, // type, => inter ou intra
+                            this.children[1].innerHTML,  // chain 1,
+                            this.children[4].innerHTML,  // chain 2,
+                            this.children[3].innerHTML,  // a1,
+                            this.children[6].innerHTML  // a2
+                            )" id="<?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?>">
                                 <td><?php echo $m[2] . $m[1] . '/' . $m[6] . $m[5]; ?></td>
-                                <td><?php echo $m[0]; // chain 1 
+                                <td><?php echo $m[0]; // chain 1
                                     ?></td>
                                 <td><?php echo $m[2];
-                                    echo $m[1]; // res 1 
+                                    echo $m[1]; // res 1
                                     ?></td>
-                                <td><?php echo $m[3]; // atom 1 
+                                <td><?php echo $m[3]; // atom 1
                                     ?></td>
-                                <td><?php echo $m[4]; // chain 2 
+                                <td><?php echo $m[4]; // chain 2
                                     ?></td>
                                 <td><?php echo $m[6];
-                                    echo $m[5]; // res2 
+                                    echo $m[5]; // res2
                                     ?></td>
-                                <td><?php echo $m[7]; // atom2 
+                                <td><?php echo $m[7]; // atom2
                                     ?></td>
-                                <td><?php echo $m[8]; // dist 
+                                <td><?php echo $m[8]; // dist
                                     ?></td>
                                 <td>
-                                    <?php // local = INTRA ou PPI
+                                    <?php // local = INTRA ou INTER
                                     if ($m[0] == $m[4]) {
                                         echo "<span class='badge text-bg-dark'>INTRA</span>";
                                     } else {
@@ -181,17 +188,20 @@
                                             echo "<span class='badge text-bg-primary'>SB</span>";
                                             break;
                                         case "DS":
-                                            echo "<span class='badge text-bg-light'>DS</span>";
+                                            echo "<span class='badge text-bg-dark text-white'>DS</span>";
                                             break;
                                         default:
                                             echo "<span class='badge text-bg-light'>$m[9]</span>";
                                             break;
                                     }
 
-                                    ?></td>
+                                    ?>
+                                </td>
                                 <td class="text-center">
                                     <a href="javascript:void(0);"><i class="bi bi-eye-fill"></i></a>
                                 </td>
+
+
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -200,7 +210,7 @@
         </div>
 
 
-        <div class="col-md-3">
+        <div class="col-md-4" id="col2">
 
             <style>
                 .affix {
@@ -215,8 +225,16 @@
                 }
             </style>
             <div data-spy="affix" id="affix" data-offset-top="240" data-offset-bottom="250">
-                <div id="pdb" style="min-height: 400px; height:50vh; width:100%; min-width: 280px"></div>
-                <!-- <p style="text-align: right"><a href="<?= base_url("/export/pymol/$id") ?>">Export to PyMOL</a></p> -->
+                <div class="d-flex align-items-center flex-wrap gap-2 mb-2 small">
+                    <div class="form-check form-switch me-auto">
+                        <input class="form-check-input" type="checkbox" id="show_lines">
+                        <label class="form-check-label" for="show_lines">Show lines</label>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="reset()">
+                        <i class="bi bi-arrow-counterclockwise"></i> Clear
+                    </button>
+                </div>
+                <div id="pdb" style="min-height: 500px; height: 50vh; min-width:280px; width: 100%"></div>
             </div>
         </div>
     </div>
@@ -225,7 +243,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="contactMap" tabindex="-1" aria-labelledby="contactMap" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-3 text-center w-100" id="contactMapTitle"><strong>Contact map for <?= $id ?></strong></h1>
@@ -233,7 +251,7 @@
             </div>
             <div class="modal-body">
 
-                <div id="controls">
+            <div id="controls">
                     <div class="row px-4">
                         <div class="col">
                             <label for="chainX">X-axis Chain:</label>
@@ -243,9 +261,6 @@
                             <label for="chainY">Y-axis Chain:</label>
                             <select id="chainY" class="form-select" onchange="updateChart()"></select>
                         </div>
-                        <!-- <div class="col">
-                                <button class="btn btn-primary w-100 mt-4" onclick="updateChart()">Update chart</button>
-                            </div> -->
                         <div class="col">
                             <button id="saveButton" class="btn btn-success w-100 mt-4" onclick="saveChart()">Save figure</button>
                         </div>
@@ -253,15 +268,34 @@
                 </div>
 
                 <style>
-                    canvas {
-                        max-width: calc(100vh - 150px) !important;
+                    #pdb_modal canvas {
+                        position: relative !important;
                     }
                 </style>
-                <div class="row">
+                <div class="row mt-3">
 
-                    <div class="col">
-                        <canvas id="scatterChart" class="p-4"></canvas>
-                        <div id="legend" class="pb-3"></div>
+                    <!-- Mapa de contatos (Chart.js) -->
+                    <div class="col-lg-6 col-12">
+                        <div style="position: relative; height: calc(100vh - 220px);">
+                            <!-- Botão Back sobreposto, ao lado da legenda (topo do gráfico) -->
+                            <button id="backButton" class="btn btn-sm btn-outline-secondary"
+                                onclick="resetChartZoom()"
+                                style="position: absolute; top: 0; right: 0; z-index: 5;">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reset Zoom
+                            </button>
+                            <canvas id="scatterChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Visualização 3D do par selecionado -->
+                    <div class="col-lg-6 col-12">
+                        <p class="text-muted small mb-1">Click a point on the map to display the contact pair here.</p>
+                        <div id="pdb_modal" style="height: calc(100vh - 260px); min-height: 400px; width: 100%; position: relative;"></div>
+                        <div class="text-end mt-1">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="resetViewer(modalViewer)">
+                                <i class="bi bi-arrow-counterclockwise"></i> Clear
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -274,7 +308,7 @@
 </div>
 
 <!-- Return to Top -->
-<a href="#" title="Return to top" style="font-size:25px; position:fixed; right:10px; bottom:10px"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+<a href="#" title="Return to top" style="position:fixed; right:10px; bottom:10px; color:#cccccc77"><span class="glyphicon glyphicon-chevron-up small" aria-hidden="true">Return to top</span></a>
 
 <script>
     function copyLink() {
@@ -294,11 +328,46 @@
         alert("Project link copied to clipboard!");
     }
 
+    // loading
     $(() => setTimeout(() => $('#loading').fadeOut(), 1000));
 
     $(document).ready(function() {
         var table = $('#mut').DataTable({
-            "paging": true
+            "paging": true,
+            // Ordenação padrão: Chain1 (col. 1, alfabética) e depois R1 (col. 2, numérica), ascendentes
+            "order": [[1, "asc"], [2, "asc"]],
+            // R1 (col. 2) e R2 (col. 5) guardam "X<número>" (ex.: A128).
+            // Ordena pelo número, ignorando o código de 1 letra do aminoácido.
+            "columnDefs": [
+                {
+                    "targets": [2, 5],
+                    "render": function(data, type) {
+                        if (type === 'sort' || type === 'type') {
+                            var m = String(data).match(/-?\d+/);
+                            return m ? parseInt(m[0], 10) : 0;
+                        }
+                        return data;
+                    }
+                }
+            ]
+        });
+
+        // Contagens INTRA/INTER (a partir da coluna "Local", índice 8)
+        (function() {
+            var nIntra = 0, nInter = 0;
+            table.column(8).data().each(function(v) {
+                var s = String(v);
+                if (s.indexOf('INTRA') > -1) { nIntra++; }
+                else if (s.indexOf('INTER') > -1) { nInter++; }
+            });
+            $('#cnt_intra').text(nIntra.toLocaleString());
+            $('#cnt_inter').text(nInter.toLocaleString());
+        })();
+
+        // Destaca (estado ativo) o botão de filtro clicado
+        $('.btn-filter').on('click', function() {
+            $('.btn-filter').removeClass('active');
+            $(this).addClass('active');
         });
 
         $('#side_chain').click(function() {
@@ -337,10 +406,22 @@
         $('#un').click(function() {
             table.columns(9).search("u", true, false).draw();
         });
-        $('#show_all').click(function() {
-            table.columns(9).search(".*", true, false).draw();
+        // INTRA/INTER filtram a coluna "Local" (índice 8)
+        $('#intra').click(function() {
+            table.columns(8).search("INTRA", true, false).draw();
         });
+        $('#inter').click(function() {
+            table.columns(8).search("INTER", true, false).draw();
+        });
+        $('#show_all').click(function() {
+            // Limpa tanto o filtro de tipo (col. 9) quanto o de Local (col. 8)
+            table.columns(9).search(".*", true, false)
+                .columns(8).search(".*", true, false).draw();
+        });
+
+
     });
+
 
     $('nav').css('position', 'relative');
 
@@ -348,149 +429,254 @@
         $(pos).css("background-color", "#f2dede");
     }
 
-    // 3DMOL **********************************************************************
-    /* Select ID */
-    function selectID(glviewer, residues, type, chain, a1, a2) {
+    // 3DMOL **********************************************************************
+    /* Converte o nome do resíduo de 3 letras (ALA) para 1 letra (A) */
+    function three2one(resn) {
+        var map = {
+            ALA: 'A', ARG: 'R', ASN: 'N', ASP: 'D', CYS: 'C',
+            GLN: 'Q', GLU: 'E', GLY: 'G', HIS: 'H', ILE: 'I',
+            LEU: 'L', LYS: 'K', MET: 'M', PHE: 'F', PRO: 'P',
+            SER: 'S', THR: 'T', TRP: 'W', TYR: 'Y', VAL: 'V'
+        };
+        var code = map[String(resn).toUpperCase().trim()];
+        return code ? code : resn; // desconhecido: mantém o nome original
+    }
 
-        residues = residues.split("/");
+    /* Cor do átomo conforme o elemento (esquema rasmol usado no viewer) */
+    function atomColor(atom) {
+        var colors = ($3Dmol.elementColors && $3Dmol.elementColors.rasmol) ||
+            $3Dmol.rasmolElementColors || {};
+        var c = colors[atom.elem];
+        return (c === undefined) ? 0xcccccc : c; // desconhecido: cinza claro
+    }
 
-        var res1 = residues[0].substr(1);
-        var res2 = residues[1].substr(1);
+    // Estado do checkbox "Show lines": controla se a representação em LINHAS da
+    // estrutura (o estilo `line` do 3Dmol) é exibida. Oculta por padrão, pois
+    // costuma poluir a visualização (cartoon + sticks já bastam).
+    var showLines = false;
 
-        glviewer.setStyle({}, {
-            line: {
-                color: 'grey'
-            },
-            cartoon: {
-                color: 'white'
-            }
-        }); /* Cartoon multi-color */
-        glviewer.setStyle({
-            resi: res1
-        }, {
-            stick: {
-                colorscheme: 'whiteCarbon'
+    // Parte `line` do estilo, conforme o toggle. Quando oculta, usa hidden:true.
+    function lineStylePart(color) {
+        return showLines ? { color: color } : { hidden: true };
+    }
+
+    // Aplica o estilo da estrutura inteira (estado inicial / após Clear):
+    // cartoon branco e, opcionalmente, linhas. Guarda um callback para reaplicar
+    // o mesmo estilo quando o toggle "Show lines" mudar.
+    function styleWhole(viewer) {
+        viewer.setStyle({}, {
+            line: lineStylePart('grey'),
+            cartoon: { color: 'white' }
+        });
+        viewer._reapplyStyle = function() { styleWhole(viewer); };
+    }
+
+    // Aplica o estilo de destaque de um par: estrutura semi-transparente (+ linhas
+    // opcionais) e sticks nos dois resíduos. Também guarda o callback de reaplicação.
+    function styleHighlight(viewer, res1, chain1, res2, chain2) {
+        viewer.setStyle({}, {
+            line: lineStylePart('#cccccc'),
+            cartoon: { color: 'white', opacity: 0.3 }
+        });
+        viewer.setStyle({ resi: res1, chain: chain1 }, {
+            cartoon: { opacity: 0.7 },
+            stick: { colorscheme: 'whiteCarbon' }
+        });
+        viewer.setStyle({ resi: res2, chain: chain2 }, {
+            cartoon: { opacity: 0.7 },
+            stick: { colorscheme: 'whiteCarbon' }
+        });
+        viewer._reapplyStyle = function() { styleHighlight(viewer, res1, chain1, res2, chain2); };
+    }
+
+    // Toggle "Show lines": reaplica o estilo atual de cada viewer respeitando o
+    // novo valor de showLines, preservando o destaque/seleção corrente.
+    function toggleLines(show) {
+        showLines = show;
+        [typeof glviewer !== 'undefined' ? glviewer : null, modalViewer].forEach(function(v) {
+            if (v && v._reapplyStyle) {
+                v._reapplyStyle();
+                v.render();
             }
         });
-        glviewer.setStyle({
-            resi: res2
-        }, {
-            stick: {
-                colorscheme: 'whiteCarbon'
-            }
-        });
+    }
 
-        glviewer.zoomTo({
-            resi: [res1, res2],
-            chain: chain
-        });
+    // Destaca um par de resíduos: estrutura semi-transparente, sticks nos
+    // dois resíduos e zoom. Limpa labels/shapes anteriores do viewer.
+    function highlightPair(viewer, res1, chain1, res2, chain2, type) {
 
-        // linha tracejada
-        let atm1 = glviewer.selectedAtoms({
-            resi: res1,
-            atom: a1
-        }); // Resíduo 10, átomo O
-        let atm2 = glviewer.selectedAtoms({
-            resi: res2,
-            atom: a2
-        }); // Resíduo 20, átomo N
+        // Labels e shapes ficam guardados no próprio viewer, para que cada
+        // viewer (o principal e o do modal) gerencie os seus de forma independente
+        (viewer._contactLabels || []).forEach(function(l) {
+            viewer.removeLabel(l);
+        });
+        (viewer._contactShapes || []).forEach(function(s) {
+            viewer.removeShape(s);
+        });
+        viewer._contactLabels = [];
+        viewer._contactShapes = [];
+
+        // Estilo de destaque (cartoon 0.3 + sticks nos resíduos + linhas opcionais)
+        styleHighlight(viewer, res1, chain1, res2, chain2);
+
+        if(type.includes('INTRA')){
+            viewer.zoomTo({
+                resi: [res1, res2],
+                chain: chain1
+            });
+        }
+        else if(type.includes('INTER')){
+            viewer.zoomTo({
+                resi: res1,
+                chain: chain1
+            });
+        }
+    }
+
+    // Desenha UMA linha de contato (átomo a1 -> átomo a2): linha tracejada,
+    // esferas nos átomos, labels dos resíduos e a distância no centro.
+    // `color` define a cor da linha e do label de distância (padrão laranja).
+    function drawContact(viewer, res1, chain1, a1, res2, chain2, a2, color) {
+
+        color = color || "orange";
+        var contactLabels = viewer._contactLabels || (viewer._contactLabels = []);
+        var contactShapes = viewer._contactShapes || (viewer._contactShapes = []);
+
+        let atm1 = viewer.selectedAtoms({ resi: res1, atom: a1, chain: chain1 });
+        let atm2 = viewer.selectedAtoms({ resi: res2, atom: a2, chain: chain2 });
 
         // Garantir que os átomos foram encontrados antes de desenhar a linha
         if (atm1.length > 0 && atm2.length > 0) {
             var atom1 = atm1[0]; // Primeiro átomo correspondente
             var atom2 = atm2[0]; // Primeiro átomo correspondente
 
-            // Adicionar a linha tracejada entre os átomos
-            glviewer.addLine({
+            // Linha tracejada (grossa) entre os átomos em contato
+            contactShapes.push(viewer.addCylinder({
                 dashed: true,
-                start: {
-                    x: atom1.x,
-                    y: atom1.y,
-                    z: atom1.z
-                },
-                end: {
-                    x: atom2.x,
-                    y: atom2.y,
-                    z: atom2.z
-                },
-                color: "red",
-                dashLength: 0.2, // Comprimento dos traços
-                linewidth: 5, // Define a grossura da linha
-                gapLength: 0.1
-            });
+                start: { x: atom1.x, y: atom1.y, z: atom1.z },
+                end: { x: atom2.x, y: atom2.y, z: atom2.z },
+                radius: 0.12,   // grossura da linha tracejada
+                fromCap: 1,
+                toCap: 1,
+                color: color
+            }));
+
+            // Esferas sobre os átomos em contato, na cor do átomo
+            contactShapes.push(viewer.addSphere({
+                center: { x: atom1.x, y: atom1.y, z: atom1.z },
+                radius: 0.4,
+                color: atomColor(atom1)
+            }));
+            contactShapes.push(viewer.addSphere({
+                center: { x: atom2.x, y: atom2.y, z: atom2.z },
+                radius: 0.4,
+                color: atomColor(atom2)
+            }));
+
+            // Labels dos resíduos em contato (ex.: A128 (OH) = alanina 128, átomo OH)
+            var labelStyle = {
+                fontSize: 12,
+                fontColor: "white",
+                backgroundColor: "black",
+                backgroundOpacity: 0.8,
+                inFront: true,
+                borderThickness: 0.5,
+                borderColor: "white"
+            };
+
+            contactLabels.push(viewer.addLabel(
+                three2one(atom1.resn) + atom1.resi + " (" + atom1.atom + ")",
+                Object.assign({ position: { x: atom1.x, y: atom1.y, z: atom1.z } }, labelStyle)
+            ));
+
+            contactLabels.push(viewer.addLabel(
+                three2one(atom2.resn) + atom2.resi + " (" + atom2.atom + ")",
+                Object.assign({ position: { x: atom2.x, y: atom2.y, z: atom2.z } }, labelStyle)
+            ));
+
+            // Label da distância de contato, no centro da linha
+            var dx = atom1.x - atom2.x;
+            var dy = atom1.y - atom2.y;
+            var dz = atom1.z - atom2.z;
+            var dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+            contactLabels.push(viewer.addLabel(
+                dist.toFixed(2) + " Å",
+                {
+                    position: {
+                        x: (atom1.x + atom2.x) / 2,
+                        y: (atom1.y + atom2.y) / 2,
+                        z: (atom1.z + atom2.z) / 2
+                    },
+                    fontSize: 11,
+                    fontColor: "white",
+                    backgroundColor: color,
+                    backgroundOpacity: 0.85,
+                    inFront: true
+                }
+            ));
         }
-        // fim linha tracejada
-
-        glviewer.render();
-
     }
 
+    /* Select ID (usado pela tabela): destaca o par e desenha um único contato */
+    function selectID(glviewer, residues, type, chain1, chain2, a1, a2) {
 
-    function selectPDB(id) {
+        residues = residues.split("/");
 
-        var ids = id.split("_");
-        var mut = ids[1].replace("/", "_");
+        var res1 = residues[0].substr(1);
+        var res2 = residues[1].substr(1);
 
-        try {
-            var pos = mut.split("_");
-            var pos1 = pos[0].substr(1, pos[0].length - 2);
-            var pos2 = pos[1].substr(1, pos[1].length - 2);
-            var pos1a = Number(pos1) - 1;
-            var pos1d = Number(pos1) + 1;
-            var pos2a = Number(pos2) - 1;
-            var pos2d = Number(pos2) + 1;
-            pos1a = pos1a.toString();
-            pos1d = pos1d.toString();
-            pos2a = pos2a.toString();
-            pos2d = pos2d.toString();
-        } catch (err) {
-            var erro = 1;
+        highlightPair(glviewer, res1, chain1, res2, chain2, type);
+        drawContact(glviewer, res1, chain1, a1, res2, chain2, a2);
+
+        glviewer.render();
+    }
+
+    // Reseta um viewer específico ao estado inicial (estrutura inteira, sem seleção)
+    function resetViewer(viewer) {
+        if (!viewer) {
+            return;
         }
 
+        // Remove shapes do contato selecionado nesse viewer
+        (viewer._contactShapes || []).forEach(function(s) {
+            viewer.removeShape(s);
+        });
+        viewer._contactLabels = [];
+        viewer._contactShapes = [];
 
-        var atomcallback = function(atom, viewer) {
-            if (atom.clickLabel === undefined ||
-                !atom.clickLabel instanceof $3Dmol.Label) {
-                atom.clickLabel = viewer.addLabel(atom.resn + " " + atom.resi + " (" + atom.elem + ")", {
-                    fontSize: 10,
-                    position: {
-                        x: atom.x,
-                        y: atom.y,
-                        z: atom.z
-                    },
-                    backgroundColor: "black"
-                });
-                atom.clicked = true;
-            }
+        // Remove TODOS os labels: tanto os do contato quanto os rótulos criados
+        // ao clicar em átomos (atomcallback guarda em atom.clickLabel)
+        viewer.removeAllLabels();
 
-            //toggle label style
-            else {
+        // Zera o estado de clique dos átomos, para que um novo clique volte a
+        // criar o rótulo corretamente (senão o átomo continuaria "clicado")
+        viewer.selectedAtoms({}).forEach(function(atom) {
+            delete atom.clickLabel;
+            atom.clicked = false;
+        });
 
-                if (atom.clicked) {
-                    var newstyle = atom.clickLabel.getStyle();
-                    newstyle.backgroundColor = 0x66ccff;
+        // Volta ao estilo inicial: estrutura inteira (linhas conforme o toggle)
+        styleWhole(viewer);
 
-                    viewer.setLabelStyle(atom.clickLabel, newstyle);
-                    atom.clicked = !atom.clicked;
-                } else {
-                    viewer.removeLabel(atom.clickLabel);
-                    delete atom.clickLabel;
-                    atom.clicked = false;
-                }
-            }
-        };
+        viewer.zoomTo();
+        viewer.render();
+    }
 
+    // Botão Clear do viewer principal
+    function reset(){
+        if (typeof glviewer !== 'undefined' && glviewer) {
+            resetViewer(glviewer);
+        }
     }
 
     $(document).ready(function() {
 
-        //var title_pdb = $(".title_h2").text();
-        //title_pdb = title_pdb.split(": ")
-
-        //var txt = "https://files.rcsb.org/download/"+title_pdb[1]+".pdb";
+        // Estrutura do projeto (arquivo PDB/CIF enviado ou baixado, servido
+        // localmente a partir da pasta data/projects)
         var txt = "<?= base_url('/data/projects/' . $id . '/data.' . $extensao) ?>";
 
-        $.post(txt, function(d) {
+        $.get(txt, function(d) {
 
             moldata = data = d;
 
@@ -502,19 +688,10 @@
             /* Color background */
             glviewer.setBackgroundColor(0xffffff);
 
-            receptorModel = m = glviewer.addModel(data, '<?= $extensao ?>');
+            receptorModel = m = glviewer.addModel(data, "<?= $extensao ?>");
 
-            /* Type of visualization */
-            glviewer.setStyle({}, {
-                line: {
-                    color: 'grey'
-                },
-                cartoon: {
-                    color: 'white'
-                }
-            }); /* Cartoon multi-color */
-
-            /*glviewer.addSurface($3Dmol.SurfaceType, {opacity:0.3});  Surface */
+            /* Type of visualization: cartoon + linhas (ocultas por padrão) */
+            styleWhole(glviewer);
 
             /* Name of the atoms */
             atoms = m.selectedAtoms({});
@@ -566,10 +743,12 @@
 
 <?= $this->endSection() ?>
 
-
 <?= $this->section('scripts') ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Plugin oficial de zoom/pan do Chart.js (Hammer.js habilita gestos de toque) -->
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
 
 <script>
     // tooltips
@@ -580,8 +759,10 @@
     // MAPA DE CONTATOS
     let allChains = new Set();
     let allDataPoints = [];
+    let datasetsMap = {}; // pontos agrupados por categoria (tipo de contato)
     let scatterChart;
     let colorMap = {};
+    let modalViewer = null; // viewer 3Dmol dentro do modal
     const cat10Colors = [
         '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
         '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
@@ -607,12 +788,14 @@
     function updateChart() {
         const selectedX = document.getElementById('chainX').value;
         const selectedY = document.getElementById('chainY').value;
-        const filteredData = allDataPoints.filter(p => p.c1 === selectedX && p.c2 === selectedY);
 
-        scatterChart.data.datasets[0].data = filteredData;
-        scatterChart.data.datasets[0].pointBackgroundColor = filteredData.map(p => p.backgroundColor);
+        // Cada dataset corresponde a uma categoria; refiltra pela cadeia escolhida
+        scatterChart.data.datasets.forEach(ds => {
+            ds.data = (datasetsMap[ds.label] || []).filter(p => p.c1 === selectedX && p.c2 === selectedY);
+        });
         scatterChart.options.scales.x.title.text = `Chain ${selectedX}`;
         scatterChart.options.scales.y.title.text = `Chain ${selectedY}`;
+        fitAxesToData();
         scatterChart.update();
     }
 
@@ -624,13 +807,122 @@
         link.click();
     }
 
+    // Volta o mapa de contatos ao enquadramento original (desfaz o zoom)
+    function resetChartZoom() {
+        if (scatterChart) {
+            scatterChart.resetZoom();
+        }
+    }
+
+    // Ajusta os eixos ao intervalo real de números de resíduo (auth_seq_id) dos
+    // pontos exibidos. Sem isso o eixo começaria sempre em 1 e mostraria uma
+    // faixa vazia enorme quando a numeração da estrutura não começa em 1
+    // (ex.: 4RH7, cujos resíduos vão de 1256 a 4304).
+    function fitAxesToData() {
+        if (!scatterChart) { return; }
+        const sx = scatterChart.options.scales.x;
+        const sy = scatterChart.options.scales.y;
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity, n = 0;
+        scatterChart.data.datasets.forEach(function(ds) {
+            ds.data.forEach(function(p) {
+                if (p.x < minX) { minX = p.x; }
+                if (p.x > maxX) { maxX = p.x; }
+                if (p.y < minY) { minY = p.y; }
+                if (p.y > maxY) { maxY = p.y; }
+                n++;
+            });
+        });
+        if (!n) { // sem pontos: deixa o Chart.js escalar automaticamente
+            sx.min = sx.max = sy.min = sy.max = undefined;
+            return;
+        }
+        const padX = Math.max(1, Math.round((maxX - minX) * 0.03));
+        const padY = Math.max(1, Math.round((maxY - minY) * 0.03));
+        sx.min = minX - padX; sx.max = maxX + padX;
+        sy.min = minY - padY; sy.max = maxY + padY;
+    }
+
+    // Converte uma cor hexadecimal (#rrggbb) para rgba com a opacidade indicada
+    function hexToRgba(hex, alpha) {
+        const h = hex.replace('#', '');
+        const r = parseInt(h.substring(0, 2), 16);
+        const g = parseInt(h.substring(2, 4), 16);
+        const b = parseInt(h.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    // Exibe, no viewer 3D do modal, o par de contatos do ponto clicado no mapa.
+    // Reutiliza selectID (mesmos padrões visuais do viewer principal).
+    function showContactInModal(p) {
+        if (!modalViewer) {
+            return;
+        }
+
+        const res1 = String(p.x);
+        const res2 = String(p.y);
+        const type = (p.c1 === p.c2) ? 'INTRA' : 'INTER';
+
+        // Destaca o par de resíduos uma única vez (limpa contatos anteriores)
+        highlightPair(modalViewer, res1, p.c1, res2, p.c2, type);
+
+        // Um ponto do mapa pode sobrepor vários contatos (átomos/tipos diferentes)
+        // entre o mesmo par de resíduos: desenha uma linha para cada um deles,
+        // colorida conforme o tipo de contato (mesmas cores da legenda do mapa).
+        const pairContacts = allDataPoints.filter(function(q) {
+            return q.c1 === p.c1 && q.c2 === p.c2 && q.x === p.x && q.y === p.y;
+        });
+
+        pairContacts.forEach(function(q) {
+            drawContact(
+                modalViewer,
+                String(q.x), q.c1, q.at1,
+                String(q.y), q.c2, q.at2,
+                colorMap[q.category] || 'orange'
+            );
+        });
+
+        modalViewer.render();
+    }
+
+    // Checkbox "Show lines": mostra/oculta as linhas de contato nos dois viewers
+    $('#show_lines').on('change', function() {
+        toggleLines(this.checked);
+    });
+
+    // Cria o viewer 3D dentro do modal na primeira vez que ele é aberto.
+    // (Precisa ser criado com o modal visível para o canvas ter dimensões corretas.)
+    document.getElementById('contactMap').addEventListener('shown.bs.modal', function() {
+        if (!modalViewer) {
+            modalViewer = $3Dmol.createViewer('pdb_modal', {
+                defaultcolors: $3Dmol.rasmolElementColors
+            });
+            modalViewer.setBackgroundColor(0xffffff);
+        }
+
+        // Carrega o modelo assim que o PDB estiver disponível (lazy: pode ainda
+        // estar baixando na primeira abertura do modal)
+        if (!modalViewer._modelLoaded && typeof moldata !== 'undefined' && moldata) {
+            modalViewer.addModel(moldata, '<?= $extensao ?>');
+            styleWhole(modalViewer);
+            modalViewer.zoomTo();
+            modalViewer.render();
+            modalViewer._modelLoaded = true;
+        }
+
+        // Ajusta o tamanho do canvas do 3Dmol e do gráfico agora que estão visíveis
+        modalViewer.resize();
+        modalViewer.render();
+        if (scatterChart) {
+            scatterChart.resize();
+        }
+    });
+
     fetch('<?php echo base_url("/data/projects/$id/contacts.csv"); ?>')
         .then(response => response.text())
         .then(text => {
             const lines = text.split('\n').map(line => line.trim()).filter(line => line);
             lines.shift(); // Ignorar a primeira linha
             let colorIndex = 0;
-            let legendHTML = "<strong>Caption:</strong>";
 
             lines.forEach(line => {
                 const values = line.split(',');
@@ -651,39 +943,68 @@
 
                     if (!colorMap[category]) {
                         colorMap[category] = cat10Colors[colorIndex % cat10Colors.length];
-                        legendHTML += `<div style='display: flex; align-items: center; gap: 5px;'>
-                    <div style='width: 20px; height: 20px; background-color: ${colorMap[category]};'></div>${category}</div>`;
                         colorIndex++;
                     }
 
-                    allDataPoints.push({
+                    const point = {
                         x,
                         y,
                         c1,
                         c2,
+                        aa1,
+                        aa2,
+                        at1,
+                        at2,
+                        category,
                         backgroundColor: colorMap[category],
                         label
-                    });
+                    };
+
+                    allDataPoints.push(point);
+
+                    // Agrupa por categoria para gerar um dataset por tipo de contato
+                    if (!datasetsMap[category]) {
+                        datasetsMap[category] = [];
+                    }
+                    datasetsMap[category].push(point);
                 }
             });
 
-            document.getElementById('legend').innerHTML = legendHTML;
             populateChainSelectors();
+
+            // Um dataset por categoria: assim a legenda nativa do Chart.js
+            // permite ocultar/mostrar os pontos de cada tipo ao clicar nela
+            const datasets = Object.keys(datasetsMap).map(category => ({
+                label: category,
+                data: datasetsMap[category].filter(p => p.c1 === 'A' && p.c2 === 'A'),
+                backgroundColor: colorMap[category],
+                borderWidth: 0,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+            }));
 
             const ctx = document.getElementById('scatterChart').getContext('2d');
             scatterChart = new Chart(ctx, {
                 type: 'scatter',
                 data: {
-                    datasets: [{
-                        label: 'Dispersão CSV',
-                        data: allDataPoints.filter(p => p.c1 === 'A' && p.c2 === 'A'),
-                        pointBackgroundColor: allDataPoints.map(p => p.backgroundColor),
-                        borderWidth: 0,
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
-                    }]
+                    datasets: datasets
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // Clique em um ponto: exibe o par de contatos no viewer 3D do modal
+                    onClick: function(event, elements) {
+                        if (elements.length > 0) {
+                            const el = elements[0];
+                            const point = scatterChart.data.datasets[el.datasetIndex].data[el.index];
+                            showContactInModal(point);
+                        }
+                    },
+                    onHover: function(event, elements) {
+                        if (event.native && event.native.target) {
+                            event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+                        }
+                    },
                     plugins: {
                         tooltip: {
                             callbacks: {
@@ -693,7 +1014,44 @@
                             }
                         },
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'top',
+                            // onClick padrão do Chart.js: oculta os pontos da categoria
+                            // no gráfico e risca o texto correspondente na legenda
+                            labels: {
+                                usePointStyle: true,
+                                // Quando a categoria está oculta, deixa apenas a
+                                // bolinha da legenda semi-transparente
+                                generateLabels: function(chart) {
+                                    const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                                    labels.forEach(function(label) {
+                                        if (label.hidden) {
+                                            const c = hexToRgba(colorMap[label.text], 0.3);
+                                            label.fillStyle = c;
+                                            label.strokeStyle = c;
+                                        }
+                                    });
+                                    return labels;
+                                }
+                            }
+                        },
+                        // Zoom por seleção de região (arrastar), roda do mouse e pinça
+                        zoom: {
+                            zoom: {
+                                drag: {
+                                    enabled: true,
+                                    backgroundColor: 'rgba(0, 123, 255, 0.15)',
+                                    borderColor: 'rgba(0, 123, 255, 0.6)',
+                                    borderWidth: 1
+                                },
+                                wheel: {
+                                    enabled: true
+                                },
+                                pinch: {
+                                    enabled: true
+                                },
+                                mode: 'xy'
+                            }
                         }
                     },
                     scales: {
@@ -703,7 +1061,9 @@
                                 text: 'Chain A'
                             },
                             beginAtZero: false,
-                            min: 1,
+                            ticks: {
+                                precision: 0 // apenas números inteiros (nº de resíduo)
+                            }
                         },
                         y: {
                             title: {
@@ -711,11 +1071,17 @@
                                 text: 'Chain A'
                             },
                             beginAtZero: false,
-                            min: 1,
+                            ticks: {
+                                precision: 0 // apenas números inteiros (nº de resíduo)
+                            }
                         }
                     }
                 }
             });
+
+            // Ajusta os eixos ao intervalo real de resíduos exibidos (chain A x A)
+            fitAxesToData();
+            scatterChart.update();
 
 
         })

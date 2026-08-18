@@ -306,9 +306,11 @@
                     <div class="col-lg-6 col-12">
                         <p class="text-muted small mb-1">Click a point on the map to display the contact pair here.</p>
                         <div id="pdb_modal" style="height: calc(100vh - 260px); min-height: 400px; width: 100%; position: relative;"></div>
-                        <p style="color:#ccc; text-align: right" class="small">
-                            <button class="btn btn-link btn-sm pt-0" onclick="resetViewer(modalViewer)">Clear</button>
-                        </p>
+                        <div class="text-end mt-1">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="resetViewer(modalViewer)">
+                                <i class="bi bi-arrow-counterclockwise"></i> Clear
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -851,6 +853,7 @@
         });
         scatterChart.options.scales.x.title.text = `Chain ${selectedX}`;
         scatterChart.options.scales.y.title.text = `Chain ${selectedY}`;
+        fitAxesToData();
         scatterChart.update();
     }
 
@@ -867,6 +870,34 @@
         if (scatterChart) {
             scatterChart.resetZoom();
         }
+    }
+
+    // Ajusta os eixos ao intervalo real de números de resíduo (auth_seq_id) dos
+    // pontos exibidos. Sem isso o eixo começaria sempre em 1 e mostraria uma
+    // faixa vazia enorme quando a numeração da estrutura não começa em 1
+    // (ex.: 4RH7, cujos resíduos vão de 1256 a 4304).
+    function fitAxesToData() {
+        if (!scatterChart) { return; }
+        const sx = scatterChart.options.scales.x;
+        const sy = scatterChart.options.scales.y;
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity, n = 0;
+        scatterChart.data.datasets.forEach(function(ds) {
+            ds.data.forEach(function(p) {
+                if (p.x < minX) { minX = p.x; }
+                if (p.x > maxX) { maxX = p.x; }
+                if (p.y < minY) { minY = p.y; }
+                if (p.y > maxY) { maxY = p.y; }
+                n++;
+            });
+        });
+        if (!n) { // sem pontos: deixa o Chart.js escalar automaticamente
+            sx.min = sx.max = sy.min = sy.max = undefined;
+            return;
+        }
+        const padX = Math.max(1, Math.round((maxX - minX) * 0.03));
+        const padY = Math.max(1, Math.round((maxY - minY) * 0.03));
+        sx.min = minX - padX; sx.max = maxX + padX;
+        sy.min = minY - padY; sy.max = maxY + padY;
     }
 
     // Converte uma cor hexadecimal (#rrggbb) para rgba com a opacidade indicada
@@ -1088,7 +1119,6 @@
                                 text: 'Chain A'
                             },
                             beginAtZero: false,
-                            min: 1,
                             ticks: {
                                 precision: 0 // apenas números inteiros (nº de resíduo)
                             }
@@ -1099,7 +1129,6 @@
                                 text: 'Chain A'
                             },
                             beginAtZero: false,
-                            min: 1,
                             ticks: {
                                 precision: 0 // apenas números inteiros (nº de resíduo)
                             }
@@ -1107,6 +1136,10 @@
                     }
                 }
             });
+
+            // Ajusta os eixos ao intervalo real de resíduos exibidos (chain A x A)
+            fitAxesToData();
+            scatterChart.update();
 
 
         })
