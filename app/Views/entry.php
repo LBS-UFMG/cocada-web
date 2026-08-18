@@ -43,7 +43,7 @@
                     $biological_assembly = isset($info) && is_array($info) ? trim(end($info)) : 'no';
                     if (strtolower($biological_assembly) === 'yes'): ?>
                         <a href="<?= base_url("/assembly/$id") ?>" class="btn btn-danger">
-                            View biological assembly <i class="bi bi-diagram-3-fill"></i>
+                            View Biological Assembly 1 <i class="bi bi-diagram-3-fill"></i>
                         </a>
                     <?php endif; ?>
                 </h2>
