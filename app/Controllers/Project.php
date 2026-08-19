@@ -104,7 +104,7 @@ class Project extends BaseController
 		}
 
 		// origem: via arquivo ou api
-		$pdb_via_api = trim($this->request->getPost('pdb_via_api')); 
+		$pdb_via_api = strtoupper(trim($this->request->getPost('pdb_via_api'))); 
 		$file = $this->request->getFile('pdbfile');
 
 		// se a api estiver vazia, retorna a página de erro
