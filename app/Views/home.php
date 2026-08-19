@@ -309,59 +309,6 @@
  
   </form>
 
-  <!-- Modal: código PDB de 4 caracteres digitado no campo de API -->
-  <div class="modal fade" id="pdbCodeModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">PDB code detected</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          You entered a 4-character PDB code (<strong id="pdbCodeModalCode"></strong>). Do you want to load the
-          pre-computed COCaDA-db data for this structure, or generate a new project using the parameters you configured?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="pdbCodeModalNewProject">Generate new project</button>
-          <button type="button" class="btn btn-primary" id="pdbCodeModalPrecomputed">Load pre-computed data</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var apiInput = document.getElementById('pdb_via_api');
-        if (!apiInput || !apiInput.form) { return; }
-        var form = apiInput.form;
-        var modalEl = document.getElementById('pdbCodeModal');
-
-        // Ao submeter: se o campo de API tem exatamente 4 caracteres (código PDB),
-        // pergunta se deve carregar os dados pré-computados ou gerar um novo projeto.
-        form.addEventListener('submit', function(e) {
-            var code = apiInput.value.trim();
-            if (code.length === 4) {
-                e.preventDefault();
-                document.getElementById('pdbCodeModalCode').textContent = code.toUpperCase();
-                bootstrap.Modal.getOrCreateInstance(modalEl).show();
-            }
-        });
-
-        // Dados pré-computados: vai direto para a página da entrada no COCaDA-db.
-        document.getElementById('pdbCodeModalPrecomputed').addEventListener('click', function() {
-            var code = apiInput.value.trim().toUpperCase();
-            window.location.href = '<?= base_url('entry') ?>/' + code;
-        });
-
-        // Novo projeto: submete o formulário normalmente, com os parâmetros do usuário.
-        // (HTMLFormElement.submit() não re-dispara o evento 'submit', evitando o modal.)
-        document.getElementById('pdbCodeModalNewProject').addEventListener('click', function() {
-            bootstrap.Modal.getOrCreateInstance(modalEl).hide();
-            form.submit();
-        });
-    });
-  </script>
-
 </div>
 
 <!-- ************************ EXAMPLES ************************ -->

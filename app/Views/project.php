@@ -40,7 +40,7 @@
                 </h2>
                 <div class="col">
                     <p class="mb-2">
-                        <strong>Description: </strong><?= $info[1] ?>
+                        <strong>Description: </strong><?= $info[0] ?> - <?= $info[1] ?>
                         <span class="mx-2 text-muted">|</span>
                         <strong>Residues: </strong><?= number_format((int) $info[2]) ?>
                         <span class="mx-2 text-muted">|</span>
