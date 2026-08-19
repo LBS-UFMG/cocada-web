@@ -300,13 +300,13 @@
 
                     <!-- Visualização 3D do par selecionado -->
                     <div class="col-lg-6 col-12">
-                        <p class="text-muted small mb-1">Click a point on the map to display the contact pair here.</p>
-                        <div id="pdb_modal" style="height: calc(100vh - 260px); min-height: 400px; width: 100%; position: relative;"></div>
-                        <div class="text-end mt-1">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <p class="text-muted small mb-0">Click a point on the map to display the contact pair here.</p>
                             <button class="btn btn-sm btn-outline-secondary" onclick="resetViewer(modalViewer)">
                                 <i class="bi bi-arrow-counterclockwise"></i> Clear
                             </button>
                         </div>
+                        <div id="pdb_modal" style="height: calc(100vh - 260px); min-height: 400px; width: 100%; position: relative;"></div>
                     </div>
                 </div>
             </div>
