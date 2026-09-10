@@ -527,7 +527,7 @@ class Home extends BaseController
         $url = "https://files.rcsb.org/download/" . strtoupper($id) . "-assembly1.cif.gz";
 
         $gz = false;
-        dd('aqui');
+        
         if (function_exists('curl_init')) {
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -552,7 +552,7 @@ class Home extends BaseController
         if ($plain === false) {
             return false;
         }
-
+        dd('pare');
         return file_put_contents($cif, $plain) !== false;
     }
 
