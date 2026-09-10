@@ -552,7 +552,7 @@ class Home extends BaseController
         if ($plain === false) {
             return false;
         }
-        dd('pare');
+        
         return file_put_contents($cif, $plain) !== false;
     }
 
