@@ -104,7 +104,7 @@ class Project extends BaseController
 		}
 
 		// origem: via arquivo ou api
-		$pdb_via_api = strtoupper(trim($this->request->getPost('pdb_via_api'))); 
+		$pdb_via_api = strtoupper(trim((string) $this->request->getPost('pdb_via_api'))); 
 		$file = $this->request->getFile('pdbfile');
 
 		// se a api estiver vazia, retorna a página de erro
@@ -113,8 +113,8 @@ class Project extends BaseController
 			return view('error', $data);
 		}
 
-		$filter_chains = trim($this->request->getPost('filter_chains'));
-		$chains = trim($this->request->getPost('chains'));
+		$filter_chains = trim((string) $this->request->getPost('filter_chains'));
+		$chains = trim((string) $this->request->getPost('chains'));
 		if(empty($chains)and($filter_chains!='chains')){
 			$region = '';
 		}

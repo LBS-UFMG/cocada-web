@@ -12,6 +12,8 @@ namespace PHPUnit\Framework;
 use const PHP_EOL;
 use function array_keys;
 use function array_map;
+use function array_pop;
+use function array_reverse;
 use function assert;
 use function call_user_func;
 use function class_exists;
@@ -50,6 +52,8 @@ use Throwable;
 
 /**
  * @template-implements IteratorAggregate<int, Test>
+ *
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -109,7 +113,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
         $constructor = $class->getConstructor();
 
         if ($constructor !== null && !$constructor->isPublic()) {
-            Event\Facade::emitter()->testRunnerTriggeredWarning(
+            Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
                     'Class "%s" has no public constructor.',
                     $class->getName(),
@@ -135,8 +139,8 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             $testSuite->addTestMethod($class, $method);
         }
 
-        if (count($testSuite) === 0) {
-            Event\Facade::emitter()->testRunnerTriggeredWarning(
+        if ($testSuite->isEmpty()) {
+            Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
                     'No tests found in class "%s".',
                     $class->getName(),
@@ -170,29 +174,31 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     {
         $class = new ReflectionClass($test);
 
-        if (!$class->isAbstract()) {
-            $this->tests[] = $test;
-            $this->clearCaches();
+        if ($class->isAbstract()) {
+            return;
+        }
 
-            if ($test instanceof self && empty($groups)) {
-                $groups = $test->groups();
-            }
+        $this->tests[] = $test;
+        $this->clearCaches();
 
-            if ($this->containsOnlyVirtualGroups($groups)) {
-                $groups[] = 'default';
-            }
+        if ($test instanceof self && empty($groups)) {
+            $groups = $test->groups();
+        }
 
-            foreach ($groups as $group) {
-                if (!isset($this->groups[$group])) {
-                    $this->groups[$group] = [$test];
-                } else {
-                    $this->groups[$group][] = $test;
-                }
-            }
+        if ($this->containsOnlyVirtualGroups($groups)) {
+            $groups[] = 'default';
+        }
 
-            if ($test instanceof TestCase) {
-                $test->setGroups($groups);
+        foreach ($groups as $group) {
+            if (!isset($this->groups[$group])) {
+                $this->groups[$group] = [$test];
+            } else {
+                $this->groups[$group][] = $test;
             }
+        }
+
+        if ($test instanceof TestCase) {
+            $test->setGroups($groups);
         }
     }
 
@@ -237,24 +243,16 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
      */
     public function addTestFile(string $filename): void
     {
-        if (str_ends_with($filename, '.phpt') && is_file($filename)) {
-            try {
+        try {
+            if (str_ends_with($filename, '.phpt') && is_file($filename)) {
                 $this->addTest(new PhptTestCase($filename));
-            } catch (RunnerException $e) {
-                Event\Facade::emitter()->testRunnerTriggeredWarning(
-                    $e->getMessage(),
+            } else {
+                $this->addTestSuite(
+                    (new TestSuiteLoader)->load($filename),
                 );
             }
-
-            return;
-        }
-
-        try {
-            $this->addTestSuite(
-                (new TestSuiteLoader)->load($filename),
-            );
         } catch (RunnerException $e) {
-            Event\Facade::emitter()->testRunnerTriggeredWarning(
+            Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
                 $e->getMessage(),
             );
         }
@@ -288,7 +286,13 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
 
     public function isEmpty(): bool
     {
-        return empty($this->tests);
+        foreach ($this as $test) {
+            if (count($test) !== 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -335,7 +339,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
 
         $this->wasRun = true;
 
-        if (count($this) === 0) {
+        if ($this->isEmpty()) {
             return;
         }
 
@@ -348,7 +352,19 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             return;
         }
 
+        /** @psalm-var list<Test> $tests */
+        $tests = [];
+
         foreach ($this as $test) {
+            $tests[] = $test;
+        }
+
+        $tests = array_reverse($tests);
+
+        $this->tests  = [];
+        $this->groups = [];
+
+        while (($test = array_pop($tests)) !== null) {
             if (TestResultFacade::shouldStop()) {
                 $emitter->testRunnerExecutionAborted();
 
@@ -356,30 +372,6 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             }
 
             $test->run();
-
-            foreach (array_keys($this->tests) as $key) {
-                if ($test === $this->tests[$key]) {
-                    unset($this->tests[$key]);
-
-                    break;
-                }
-            }
-
-            if ($test instanceof TestCase || $test instanceof self) {
-                foreach ($test->groups() as $group) {
-                    if (!isset($this->groups[$group])) {
-                        continue;
-                    }
-
-                    foreach (array_keys($this->groups[$group]) as $key) {
-                        if ($test === $this->groups[$group][$key]) {
-                            unset($this->groups[$group][$key]);
-
-                            break;
-                        }
-                    }
-                }
-            }
         }
 
         $this->invokeMethodsAfterLastTest($emitter);
@@ -616,68 +608,72 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             return true;
         }
 
-        $methodsCalledBeforeFirstTest = [];
+        $methods         = (new HookMethods)->hookMethods($this->name)['beforeClass'];
+        $calledMethods   = [];
+        $emitCalledEvent = true;
+        $result          = true;
 
-        $beforeClassMethods = (new HookMethods)->hookMethods($this->name)['beforeClass'];
+        foreach ($methods as $method) {
+            if ($this->methodDoesNotExistOrIsDeclaredInTestCase($method)) {
+                continue;
+            }
 
-        try {
-            foreach ($beforeClassMethods as $beforeClassMethod) {
-                if ($this->methodDoesNotExistOrIsDeclaredInTestCase($beforeClassMethod)) {
-                    continue;
-                }
+            $calledMethod = new Event\Code\ClassMethod(
+                $this->name,
+                $method,
+            );
 
-                if ($missingRequirements = (new Requirements)->requirementsNotSatisfiedFor($this->name, $beforeClassMethod)) {
+            try {
+                $missingRequirements = (new Requirements)->requirementsNotSatisfiedFor($this->name, $method);
+
+                if ($missingRequirements !== []) {
+                    $emitCalledEvent = false;
+
                     $this->markTestSuiteSkipped(implode(PHP_EOL, $missingRequirements));
                 }
 
-                $methodCalledBeforeFirstTest = new Event\Code\ClassMethod(
-                    $this->name,
-                    $beforeClassMethod,
-                );
-
-                $emitter->testBeforeFirstTestMethodCalled(
-                    $this->name,
-                    $methodCalledBeforeFirstTest,
-                );
-
-                $methodsCalledBeforeFirstTest[] = $methodCalledBeforeFirstTest;
-
-                call_user_func([$this->name, $beforeClassMethod]);
-            }
-        } catch (SkippedTest|SkippedTestSuiteError $e) {
-            $emitter->testSuiteSkipped(
-                $testSuiteValueObjectForEvents,
-                $e->getMessage(),
-            );
-
-            return false;
-        } catch (Throwable $t) {
-            assert(isset($methodCalledBeforeFirstTest));
-
-            $emitter->testBeforeFirstTestMethodErrored(
-                $this->name,
-                $methodCalledBeforeFirstTest,
-                Event\Code\ThrowableBuilder::from($t),
-            );
-
-            if (!empty($methodsCalledBeforeFirstTest)) {
-                $emitter->testBeforeFirstTestMethodFinished(
-                    $this->name,
-                    ...$methodsCalledBeforeFirstTest,
-                );
+                call_user_func([$this->name, $method]);
+            } catch (Throwable $t) {
             }
 
-            return false;
+            /** @psalm-suppress RedundantCondition */
+            if ($emitCalledEvent) {
+                $emitter->beforeFirstTestMethodCalled(
+                    $this->name,
+                    $calledMethod,
+                );
+
+                $calledMethods[] = $calledMethod;
+            }
+
+            if (isset($t) && $t instanceof SkippedTest) {
+                $emitter->testSuiteSkipped(
+                    $testSuiteValueObjectForEvents,
+                    $t->getMessage(),
+                );
+
+                return false;
+            }
+
+            if (isset($t)) {
+                $emitter->beforeFirstTestMethodErrored(
+                    $this->name,
+                    $calledMethod,
+                    Event\Code\ThrowableBuilder::from($t),
+                );
+
+                $result = false;
+            }
         }
 
-        if (!empty($methodsCalledBeforeFirstTest)) {
-            $emitter->testBeforeFirstTestMethodFinished(
+        if (!empty($calledMethods)) {
+            $emitter->beforeFirstTestMethodFinished(
                 $this->name,
-                ...$methodsCalledBeforeFirstTest,
+                ...$calledMethods,
             );
         }
 
-        return true;
+        return $result;
     }
 
     private function invokeMethodsAfterLastTest(Event\Emitter $emitter): void
@@ -686,38 +682,44 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             return;
         }
 
-        $methodsCalledAfterLastTest = [];
+        $methods       = (new HookMethods)->hookMethods($this->name)['afterClass'];
+        $calledMethods = [];
 
-        $afterClassMethods = (new HookMethods)->hookMethods($this->name)['afterClass'];
-
-        foreach ($afterClassMethods as $afterClassMethod) {
-            if ($this->methodDoesNotExistOrIsDeclaredInTestCase($afterClassMethod)) {
+        foreach ($methods as $method) {
+            if ($this->methodDoesNotExistOrIsDeclaredInTestCase($method)) {
                 continue;
             }
 
+            $calledMethod = new Event\Code\ClassMethod(
+                $this->name,
+                $method,
+            );
+
             try {
-                call_user_func([$this->name, $afterClassMethod]);
+                call_user_func([$this->name, $method]);
+            } catch (Throwable $t) {
+            }
 
-                $methodCalledAfterLastTest = new Event\Code\ClassMethod(
+            $emitter->afterLastTestMethodCalled(
+                $this->name,
+                $calledMethod,
+            );
+
+            $calledMethods[] = $calledMethod;
+
+            if (isset($t)) {
+                $emitter->afterLastTestMethodErrored(
                     $this->name,
-                    $afterClassMethod,
+                    $calledMethod,
+                    Event\Code\ThrowableBuilder::from($t),
                 );
-
-                $emitter->testAfterLastTestMethodCalled(
-                    $this->name,
-                    $methodCalledAfterLastTest,
-                );
-
-                $methodsCalledAfterLastTest[] = $methodCalledAfterLastTest;
-            } catch (Throwable) {
-                // @todo
             }
         }
 
-        if (!empty($methodsCalledAfterLastTest)) {
-            $emitter->testAfterLastTestMethodFinished(
+        if (!empty($calledMethods)) {
+            $emitter->afterLastTestMethodFinished(
                 $this->name,
-                ...$methodsCalledAfterLastTest,
+                ...$calledMethods,
             );
         }
     }

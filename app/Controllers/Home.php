@@ -535,7 +535,7 @@ class Home extends BaseController
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             $gz = curl_exec($ch);
             $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
+            unset($ch); // curl_close() é obsoleta no PHP 8.5; o handle é liberado ao sair de escopo
             if ($code !== 200) {
                 $gz = false;
             }
